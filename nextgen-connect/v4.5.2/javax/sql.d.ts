@@ -30,6 +30,48 @@ declare namespace javax {
       constructor(source: RowSet);
     }
 
+    /**
+     * An object that contains information about the columns in a RowSet object.
+     * This interface is an extension of the ResultSetMetaData interface with methods
+     * for setting the values in a RowSetMetaData object.
+     */
+    interface RowSetMetaData extends java.sql.ResultSetMetaData {
+      /** Sets the number of columns in the RowSet object to the given number. */
+      setColumnCount(columnCount: int): void;
+      /** Sets whether the designated column is automatically numbered. */
+      setAutoIncrement(columnIndex: int, property: boolean): void;
+      /** Sets whether the designated column is case sensitive. */
+      setCaseSensitive(columnIndex: int, property: boolean): void;
+      /** Sets whether the designated column can be used in a WHERE clause. */
+      setSearchable(columnIndex: int, property: boolean): void;
+      /** Sets whether the designated column is a cash value. */
+      setCurrency(columnIndex: int, property: boolean): void;
+      /** Sets whether the designated column's value can be set to NULL. */
+      setNullable(columnIndex: int, property: int): void;
+      /** Sets whether the designated column is a signed number. */
+      setSigned(columnIndex: int, property: boolean): void;
+      /** Sets the designated column's normal maximum width in chars to the given number. */
+      setColumnDisplaySize(columnIndex: int, size: int): void;
+      /** Sets the suggested column title for use in printouts and displays, if any, to the given String. */
+      setColumnLabel(columnIndex: int, label: java.lang.String): void;
+      /** Sets the column name of the designated column to the given String. */
+      setColumnName(columnIndex: int, columnName: java.lang.String): void;
+      /** Sets the designated column's table's schema name, if any, to the given String. */
+      setSchemaName(columnIndex: int, schemaName: java.lang.String): void;
+      /** Sets the designated column's number of decimal digits to the given number. */
+      setPrecision(columnIndex: int, precision: int): void;
+      /** Sets the designated column's number of digits to the right of the decimal point to the given number. */
+      setScale(columnIndex: int, scale: int): void;
+      /** Sets the designated column's table name, if any, to the given String. */
+      setTableName(columnIndex: int, tableName: java.lang.String): void;
+      /** Sets the designated column's table's catalog name, if any, to the given String. */
+      setCatalogName(columnIndex: int, catalogName: java.lang.String): void;
+      /** Sets the designated column's SQL type to the one given. */
+      setColumnType(columnIndex: int, SQLType: int): void;
+      /** Sets the designated column's type name, if any, to the given String. */
+      setColumnTypeName(columnIndex: int, typeName: java.lang.String): void;
+    }
+
     namespace rowset {
       /**
        * A CachedRowSet object is a container for rows of data that caches its rows in memory.

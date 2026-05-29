@@ -40,6 +40,7 @@
 /// <reference path="./java/io.d.ts" />
 /// <reference path="./java/net.d.ts" />
 /// <reference path="./java/util.d.ts" />
+/// <reference path="./java/math.d.ts" />
 /// <reference path="./java/nio.d.ts" />
 /// <reference path="./java/sql.d.ts" />
 /// <reference path="./javax/sql.d.ts" />

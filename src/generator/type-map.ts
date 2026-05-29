@@ -59,6 +59,9 @@ const KNOWN_FQNS = new Set<string>([
   'java.net.URI',
   'java.net.URL',
   'java.net.URLConnection',
+  // java.math
+  'java.math.BigDecimal',
+  'java.math.BigInteger',
   // java.nio
   'java.nio.charset.Charset',
   // java.util
@@ -89,6 +92,7 @@ const KNOWN_FQNS = new Set<string>([
   'java.sql.SQLWarning',
   'java.sql.SQLXML',
   'java.sql.Savepoint',
+  'java.sql.Date',
   'java.sql.Time',
   'java.sql.Timestamp',
   'java.sql.Blob',
@@ -102,6 +106,7 @@ const KNOWN_FQNS = new Set<string>([
   'javax.sql.RowSet',
   'javax.sql.RowSetListener',
   'javax.sql.RowSetEvent',
+  'javax.sql.RowSetMetaData',
   'javax.sql.rowset.CachedRowSet',
   'javax.sql.rowset.RowSetWarning',
   'javax.sql.rowset.RowSetMetaData',

@@ -406,8 +406,14 @@ export function parseClassHtml(html: string): ClassModel {
   };
 
   // --- detail sections ---
-  const details = root.querySelector('div.details');
-  if (!details) return model;
+  // The detail members are scoped to the `div.details` container, but in very
+  // large pages (e.g. MirthCachedRowSet, ~200 methods) node-html-parser's class
+  // selector fails to match the deeply-nested `div.details` even though the
+  // member subtree itself parses fine (the unique `a[name="*.detail"]` anchors
+  // are still found from the root). The detail parsers only use this scope to
+  // locate those unique anchors, so falling back to `root` is safe and keeps the
+  // members for such pages instead of silently emitting an empty class.
+  const details = root.querySelector('div.details') ?? root;
 
   // Enum constant detail.
   parseEnumConstants(details, model);
@@ -421,7 +427,33 @@ export function parseClassHtml(html: string): ClassModel {
   return model;
 }
 
-/** Returns the member `<li class="blockList">` elements under a detail anchor. */
+/** The four Javadoc detail-section anchor names, in document order. */
+const DETAIL_SECTIONS = [
+  'enum.constant.detail',
+  'field.detail',
+  'constructor.detail',
+  'method.detail',
+] as const;
+
+/** Source position of a node (node-html-parser exposes `range` by default). */
+function nodePos(el: HTMLElement): number {
+  const r = (el as unknown as { range?: [number, number] }).range;
+  return r ? r[0] : 0;
+}
+
+/**
+ * Returns the member `<li class="blockList">` elements under a detail anchor.
+ *
+ * Normally each section's members live inside the `<ul class="blockList">` that
+ * also holds the section's `<a name="*.detail">` anchor, so we walk up to that
+ * `<ul>` and read its member `<li>`s. On very large pages (e.g.
+ * MirthCachedRowSet, ~200 methods) node-html-parser mis-nests the deep subtree
+ * and hoists the section anchor up to the document root, which breaks the
+ * walk-up and would silently drop every member. In that case we fall back to
+ * partitioning ALL member `<li>`s by source position against the detail-section
+ * anchors, which stays correct because the individual member `<li>`s (with their
+ * `<h4>`/`<pre>`) are still parsed intact.
+ */
 function detailMembers(details: HTMLElement, anchorName: string): HTMLElement[] {
   const anchor = details.querySelectorAll(`a[name="${anchorName}"]`)[0];
   if (!anchor) return [];
@@ -432,14 +464,47 @@ function detailMembers(details: HTMLElement, anchorName: string): HTMLElement[] 
   while (container && container.rawTagName?.toLowerCase() !== 'ul') {
     container = container.parentNode as HTMLElement | null;
   }
-  if (!container) return [];
-  // Each member is `<ul class="blockList|blockListLast"><li class="blockList">...`.
-  const lis: HTMLElement[] = [];
-  for (const ul of container.querySelectorAll('ul.blockList, ul.blockListLast')) {
-    const li = ul.querySelector(':scope > li.blockList');
-    if (li && li.querySelector(':scope > h4')) lis.push(li);
+  if (container) {
+    // Each member is `<ul class="blockList|blockListLast"><li class="blockList">...`.
+    const lis: HTMLElement[] = [];
+    for (const ul of container.querySelectorAll('ul.blockList, ul.blockListLast')) {
+      const li = ul.querySelector(':scope > li.blockList');
+      if (li && li.querySelector(':scope > h4')) lis.push(li);
+    }
+    if (lis.length) return lis;
   }
-  return lis;
+  return detailMembersByPosition(details, anchorName);
+}
+
+/**
+ * Fallback for the mis-nested case: collect every member `<li class="blockList">`
+ * (one with a direct `<h4>`) and assign it to the detail section whose anchor
+ * most recently precedes it in source order.
+ */
+function detailMembersByPosition(details: HTMLElement, anchorName: string): HTMLElement[] {
+  // Section anchors that actually exist on this page, sorted by source position.
+  const sectionStarts: { name: string; pos: number }[] = [];
+  for (const name of DETAIL_SECTIONS) {
+    const a = details.querySelectorAll(`a[name="${name}"]`)[0];
+    if (a) sectionStarts.push({ name, pos: nodePos(a) });
+  }
+  if (!sectionStarts.length) return [];
+  sectionStarts.sort((a, b) => a.pos - b.pos);
+
+  const out: HTMLElement[] = [];
+  for (const li of details.querySelectorAll('li.blockList')) {
+    const h4 = li.querySelector(':scope > h4');
+    if (!h4) continue;
+    const pos = nodePos(li);
+    // The owning section is the last anchor at or before this member.
+    let owner: string | undefined;
+    for (const s of sectionStarts) {
+      if (s.pos <= pos) owner = s.name;
+      else break;
+    }
+    if (owner === anchorName) out.push(li);
+  }
+  return out;
 }
 
 function parseEnumConstants(details: HTMLElement, model: ClassModel): void {
