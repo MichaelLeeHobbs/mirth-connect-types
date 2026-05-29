@@ -10,13 +10,18 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const OUT_DIR = join(__dirname, '..', '..', 'nextgen-connect', 'v4.5.2', 'com', 'mirth');
+const VERSION_DIR = join(__dirname, '..', '..', 'nextgen-connect', 'v4.5.2');
 
-const FILES = ['connect-server-userutil.d.ts', 'connect-userutil.d.ts', 'plugins.d.ts'];
+const FILES = [
+  join('com', 'mirth', 'connect-server-userutil.d.ts'),
+  join('com', 'mirth', 'connect-userutil.d.ts'),
+  join('com', 'mirth', 'plugins.d.ts'),
+  join('globals', 'userapi.d.ts'),
+];
 
 for (const file of FILES) {
   const hash = createHash('sha256')
-    .update(readFileSync(join(OUT_DIR, file)))
+    .update(readFileSync(join(VERSION_DIR, file)))
     .digest('hex');
   console.log(`${hash}  ${file}`);
 }

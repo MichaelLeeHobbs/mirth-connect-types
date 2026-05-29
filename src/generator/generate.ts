@@ -16,7 +16,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import * as prettier from 'prettier';
 import { parseClassHtml, type ClassModel } from './parse-javadoc.ts';
-import { emitPackageBody } from './emit-dts.ts';
+import { emitPackageBody, emitGlobalAliases, type AliasPackage } from './emit-dts.ts';
 
 const VERSION = 'v4.5.2';
 const PRODUCT = 'nextgen-connect';
@@ -25,6 +25,32 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(__dirname, '..', '..');
 const JAVADOC_ROOT = join(REPO_ROOT, 'javadoc', PRODUCT, VERSION, 'com', 'mirth', 'connect');
 const OUT_DIR = join(REPO_ROOT, PRODUCT, VERSION, 'com', 'mirth');
+const GLOBALS_DIR = join(REPO_ROOT, PRODUCT, VERSION, 'globals');
+
+/**
+ * Simple names declared by hand in `globals/index.d.ts` that must NOT also be
+ * emitted as generated `typeof` aliases (TS errors on duplicate identifiers).
+ * `DatabaseConnectionFactory` is injected by Mirth as an INSTANCE (so its
+ * `createDatabaseConnection(...)` is an instance method) and is declared as an
+ * instance global there — keep it out of the `typeof` aliases.
+ */
+const HANDWRITTEN_GLOBAL_NAMES = new Set<string>(['DatabaseConnectionFactory']);
+
+/**
+ * Simple names that collide with built-in TypeScript lib globals (DOM / ES) a
+ * consumer is likely to have in their `lib`. Emitting a `declare var <Name>`
+ * for these would redeclare a standard global with an incompatible type (e.g.
+ * the Fetch `Response`), producing TS2403/TS2451 in consumer projects. They
+ * remain usable via their `com.mirth.connect.*` FQN; we just skip the
+ * unqualified alias. Mirth exposes these as return/parameter types, not as
+ * injected script globals, so omitting the alias loses nothing in practice.
+ */
+const LIB_GLOBAL_COLLISIONS = new Set<string>([
+  'Response', // lib.dom.d.ts — Fetch API Response
+]);
+
+/** Enums whose constants Mirth injects into scope as individual globals. */
+const ENUM_CONSTANT_GLOBALS = [{ pkg: 'com.mirth.connect.userutil', enumName: 'Status' }];
 
 /** Files in a package dir that are navigation, not classes. */
 const SKIP = new Set(['package-frame.html', 'package-summary.html', 'package-tree.html']);
@@ -149,6 +175,9 @@ async function main(): Promise<void> {
   // the tree and `prettier --check` stays green after generation.
   const prettierConfig = (await prettier.resolveConfig(OUT_DIR)) ?? {};
 
+  // Models per package, kept so the global-alias file can be emitted afterward.
+  const aliasPackages: AliasPackage[] = [];
+
   for (const spec of PACKAGES) {
     const files = listClassFiles(spec.dir);
     const models: ClassModel[] = [];
@@ -161,6 +190,7 @@ async function main(): Promise<void> {
       }
       models.push(model);
     }
+    aliasPackages.push({ pkg: spec.pkg, models });
 
     const { body, unresolved, methodCount, classCount } = emitPackageBody(
       spec.pkg,
@@ -181,6 +211,20 @@ async function main(): Promise<void> {
     });
     console.log(`Wrote ${spec.outFile}: ${classCount} types, ${methodCount} methods.`);
   }
+
+  // Emit the generated global aliases (User API classes by simple name).
+  const excludeNames = new Set<string>([...HANDWRITTEN_GLOBAL_NAMES, ...LIB_GLOBAL_COLLISIONS]);
+  const aliasResult = emitGlobalAliases(aliasPackages, excludeNames, ENUM_CONSTANT_GLOBALS);
+  const aliasOut = await prettier.format(aliasResult.text, {
+    ...prettierConfig,
+    parser: 'typescript',
+  });
+  writeFileSync(join(GLOBALS_DIR, 'userapi.d.ts'), aliasOut, 'utf8');
+  console.log(
+    `Wrote globals/userapi.d.ts: ${aliasResult.count} globals ` +
+      `(${aliasResult.classAliases.length} typeof aliases, ` +
+      `${aliasResult.enumConstAliases.length} enum constants).`,
+  );
 
   console.log('\n=== Generation report ===');
   const allUnresolved = new Set<string>();

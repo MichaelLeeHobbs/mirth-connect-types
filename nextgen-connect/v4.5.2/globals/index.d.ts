@@ -77,12 +77,17 @@ declare function $r(key: string | number, value?: unknown): unknown;
 /** Get the key from the first map that contains it */
 declare function $(key: string | number, value?: unknown): unknown;
 
-/** Factory for opening JDBC database connections. */
+/** Factory for opening JDBC database connections (lowercase instance global). */
 declare var databaseConnectionFactory: com.mirth.connect.server.userutil.DatabaseConnectionFactory;
-/** Factory for opening SMTP connections (static `createSMTPConnection()`). */
-declare var SMTPConnectionFactory: typeof com.mirth.connect.server.userutil.SMTPConnectionFactory;
-/** Serializer factory for converting between data types (HL7 v2, XML, JSON, …). */
-declare var SerializerFactory: typeof com.mirth.connect.server.userutil.SerializerFactory;
+
+/**
+ * Factory for opening JDBC database connections. Mirth injects this as an
+ * INSTANCE (not the class), so `createDatabaseConnection(...)` is an instance
+ * method. The `typeof`-aliased utility classes are emitted by the generator in
+ * `./userapi.d.ts`; this one stays hand-written as an instance global.
+ */
+declare var DatabaseConnectionFactory: com.mirth.connect.server.userutil.DatabaseConnectionFactory;
+
 /** Sends the alerts configured for the channel. */
 declare var alerts: com.mirth.connect.server.userutil.AlertSender;
 
@@ -127,12 +132,6 @@ declare var channelName: string;
 declare var replacer: TemplateValueReplacer;
 
 declare var contextFactory: com.mirth.connect.server.userutil.ContextFactory;
-
-/** Provides file utility methods. */
-declare var FileUtil: typeof com.mirth.connect.server.userutil.FileUtil;
-
-/** Provides date/time utility methods. */
-declare var DateUtil: typeof com.mirth.connect.server.userutil.DateUtil;
 
 /**
  * Utility object used in the preprocessor or source filter/transformer to prevent the message from being sent to specific destinations.
@@ -224,13 +223,15 @@ declare function newBooleanOrUndefined(value: unknown): boolean | undefined | nu
 /** Returns `new Number(value)`, but leaves `undefined`/`null` untouched. */
 declare function newNumberOrUndefined(value: unknown): number | undefined | null;
 
-declare var router: VMRouter;
+/**
+ * Sends messages to other channels. Mirth injects this as an INSTANCE of
+ * VMRouter; the `VMRouter` class itself is generated in `server.userutil` and
+ * aliased globally via `./userapi.d.ts`.
+ */
+declare var router: com.mirth.connect.server.userutil.VMRouter;
 
 /** The current immutable connector message (see ImmutableConnectorMessage for the full API). */
 declare var connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage;
-
-/** XML/JSON conversion utility methods (static). */
-declare var XmlUtil: typeof com.mirth.connect.userutil.XmlUtil;
 
 /**
  * The channel's Apache Log4j logger (org.apache.log4j.Logger). Output goes to the
@@ -374,20 +375,6 @@ declare class XML {
 
   /** Returns this XML object. */
   valueOf(): string;
-}
-
-declare class VMRouter {
-  /** Dispatches a message to a channel, specified by the deployed channel name. If the dispatch fails for any reason (for example, if the target channel is not started), a Response object with the ERROR status and the error message will be returned. */
-  routeMessage(
-    channelName: java.lang.String,
-    rawMessage: com.mirth.connect.server.userutil.RawMessage | java.lang.String,
-  ): com.mirth.connect.userutil.Response;
-
-  /** Dispatches a message to a channel, specified by the deployed channel ID. If the dispatch fails for any reason (for example, if the target channel is not started), a Response object with the ERROR status and the error message will be returned. */
-  routeMessageByChannelId(
-    channelId: java.lang.String | string,
-    rawMessage: com.mirth.connect.server.userutil.RawMessage | java.lang.String,
-  ): com.mirth.connect.userutil.Response;
 }
 
 /** Replaces `${...}` template tokens (map values, message variables, system fields) in a string. */

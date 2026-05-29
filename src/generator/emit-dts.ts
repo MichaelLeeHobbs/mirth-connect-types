@@ -10,7 +10,7 @@
  */
 
 import type { ClassModel, MethodModel, ConstructorModel, ParamModel } from './parse-javadoc.ts';
-import { mapType, type ResolveContext } from './type-map.ts';
+import { mapType, mapParamType, type ResolveContext } from './type-map.ts';
 import { OVERLAYS, type Overlay } from './overlays.ts';
 
 const INDENT = '  ';
@@ -88,7 +88,7 @@ function buildContext(pkg: string, localNames: Set<string>, typeVars: string[]):
 }
 
 function emitParams(params: ParamModel[], ctx: ResolveContext): string {
-  return params.map((p) => `${p.name}: ${mapType(p.type, ctx)}`).join(', ');
+  return params.map((p) => `${p.name}: ${mapParamType(p.type, ctx)}`).join(', ');
 }
 
 function emitConstructor(c: ConstructorModel, ctx: ResolveContext): string {
@@ -240,7 +240,7 @@ function emitEnum(model: ClassModel, ctx: ResolveContext): string {
       });
       helperLines.push(
         indent(
-          `${doc ? doc + '\n' : ''}function valueOf(name: ${mapType('java.lang.String', ctx)}): ${model.name};`,
+          `${doc ? doc + '\n' : ''}function valueOf(name: ${mapParamType('java.lang.String', ctx)}): ${model.name};`,
           1,
         ),
       );
@@ -322,5 +322,104 @@ export function emitPackageBody(
     unresolved,
     methodCount,
     classCount: sorted.length,
+  };
+}
+
+/** One userutil package's models plus the namespace they are declared in. */
+export interface AliasPackage {
+  pkg: string;
+  models: ClassModel[];
+}
+
+export interface GlobalAliasResult {
+  text: string;
+  /** Total `declare var`/`declare const` global statements emitted. */
+  count: number;
+  /** Class/enum names emitted as `typeof` aliases. */
+  classAliases: string[];
+  /** Enum-constant names emitted as instance constants. */
+  enumConstAliases: string[];
+}
+
+/**
+ * Emits the generated `globals/userapi.d.ts`: a flat list of ambient global
+ * aliases that make the User API classes Mirth injects by simple name usable
+ * unqualified (`ChannelUtil.getChannelName(...)`, `new RawMessage(...)`,
+ * `Status.SENT`, …).
+ *
+ * For every class/enum in the userutil packages a `declare var <Name>: typeof
+ * com.mirth.connect.<pkg>.<Name>;` is emitted — `typeof` carries both the static
+ * side and the construct signature. `excludeNames` lists simple names that are
+ * declared by hand in `globals/index.d.ts` (e.g. instance globals like
+ * `DatabaseConnectionFactory`) and must NOT be re-declared here, so no
+ * duplicate-identifier error occurs.
+ *
+ * Enum constants of the named enums are additionally emitted as individual
+ * instance globals (`declare const SENT: com.mirth.connect.userutil.Status;`)
+ * because Mirth injects them into scope.
+ */
+export function emitGlobalAliases(
+  packages: AliasPackage[],
+  excludeNames: Set<string>,
+  enumConstantGlobals: { pkg: string; enumName: string }[],
+): GlobalAliasResult {
+  const classAliases: string[] = [];
+  const enumConstAliases: string[] = [];
+  const blocks: string[] = [];
+
+  // Collect (name, fqn) for every class/enum, deterministically sorted.
+  const entries: { name: string; fqn: string }[] = [];
+  for (const { pkg, models } of packages) {
+    for (const m of models) {
+      if (!m.name) continue;
+      if (excludeNames.has(m.name)) continue;
+      entries.push({ name: m.name, fqn: `${pkg}.${m.name}` });
+    }
+  }
+  entries.sort((a, b) => a.name.localeCompare(b.name));
+
+  for (const { name, fqn } of entries) {
+    blocks.push(`declare var ${name}: typeof ${fqn};`);
+    classAliases.push(name);
+  }
+
+  // Enum-constant instance globals.
+  const constLines: string[] = [];
+  for (const { pkg, enumName } of enumConstantGlobals) {
+    const enumPkg = packages.find((p) => p.pkg === pkg);
+    const model = enumPkg?.models.find((m) => m.name === enumName && m.kind === 'enum');
+    if (!model) continue;
+    const fqn = `${pkg}.${enumName}`;
+    for (const c of model.enumConstants) {
+      if (excludeNames.has(c.name)) continue;
+      constLines.push(`declare const ${c.name}: ${fqn};`);
+      enumConstAliases.push(c.name);
+    }
+  }
+
+  const header =
+    '// Global aliases for the Mirth User API classes injected by simple name.\n' +
+    '//\n' +
+    '// Mirth runs channel scripts in a Rhino scope where the server.userutil and\n' +
+    '// userutil classes (ChannelUtil, AttachmentUtil, RawMessage, Status, …) are\n' +
+    '// available unqualified. These ambient aliases mirror that so scripts can use\n' +
+    '// them without the com.mirth.connect.* prefix.\n' +
+    '//\n' +
+    '// AUTO-GENERATED from Javadoc by src/generator/generate.ts. Do not edit by hand;\n' +
+    '// re-run `pnpm run generate` to regenerate.';
+
+  const sections: string[] = [blocks.join('\n')];
+  if (constLines.length) {
+    sections.push(
+      '// Status enum constants — Mirth injects these so e.g. `responseStatus = ERROR` works.\n' +
+        constLines.join('\n'),
+    );
+  }
+
+  return {
+    text: `${header}\n\n${sections.join('\n\n')}\n`,
+    count: classAliases.length + enumConstAliases.length,
+    classAliases,
+    enumConstAliases,
   };
 }

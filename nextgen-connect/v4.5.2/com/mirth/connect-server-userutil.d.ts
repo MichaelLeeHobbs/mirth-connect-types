@@ -45,9 +45,9 @@ declare namespace com {
              * @throws Exception - If the acknowledgement could not be generated.
              */
             static generateAckResponse(
-              message: java.lang.String,
-              acknowledgementCode: java.lang.String,
-              textMessage: java.lang.String,
+              message: java.lang.String | string,
+              acknowledgementCode: java.lang.String | string,
+              textMessage: java.lang.String | string,
             ): java.lang.String;
 
             /**
@@ -66,12 +66,12 @@ declare namespace com {
              * errorMessage) instead.
              */
             static generateAckResponse(
-              message: java.lang.String,
-              dataType: java.lang.String,
-              acknowledgementCode: java.lang.String,
-              textMessage: java.lang.String,
-              dateFormat: java.lang.String,
-              errorMessage: java.lang.String,
+              message: java.lang.String | string,
+              dataType: java.lang.String | string,
+              acknowledgementCode: java.lang.String | string,
+              textMessage: java.lang.String | string,
+              dateFormat: java.lang.String | string,
+              errorMessage: java.lang.String | string,
             ): java.lang.String;
 
             /**
@@ -87,12 +87,12 @@ declare namespace com {
              * @throws Exception - If the acknowledgement could not be generated.
              */
             static generateAckResponse(
-              message: java.lang.String,
+              message: java.lang.String | string,
               isXML: boolean,
-              acknowledgementCode: java.lang.String,
-              textMessage: java.lang.String,
-              dateFormat: java.lang.String,
-              errorMessage: java.lang.String,
+              acknowledgementCode: java.lang.String | string,
+              textMessage: java.lang.String | string,
+              dateFormat: java.lang.String | string,
+              errorMessage: java.lang.String | string,
             ): java.lang.String;
           }
 
@@ -105,7 +105,7 @@ declare namespace com {
              *
              * @param channelId - The ID of the channel to associate dispatched alert events with.
              */
-            constructor(channelId: java.lang.String);
+            constructor(channelId: java.lang.String | string);
 
             /**
              * Instantiates a new AlertSender.
@@ -119,7 +119,7 @@ declare namespace com {
              *
              * @param errorMessage - A custom error message to include with the error event.
              */
-            sendAlert(errorMessage: java.lang.String): void;
+            sendAlert(errorMessage: java.lang.String | string): void;
           }
 
           /**
@@ -139,7 +139,11 @@ declare namespace com {
              * @param content - The content (byte array) to store for the attachment.
              * @param type - The MIME type of the attachment.
              */
-            constructor(id: java.lang.String, content: byte[], type: java.lang.String);
+            constructor(
+              id: java.lang.String | string,
+              content: byte[],
+              type: java.lang.String | string,
+            );
 
             /**
              * Instantiates a new Attachment with String data using UTF-8 charset encoding.
@@ -149,7 +153,11 @@ declare namespace com {
              * @param type - The MIME type of the attachment.
              * @throws UnsupportedEncodingException - If the named charset is not supported.
              */
-            constructor(id: java.lang.String, content: java.lang.String, type: java.lang.String);
+            constructor(
+              id: java.lang.String | string,
+              content: java.lang.String | string,
+              type: java.lang.String | string,
+            );
 
             /**
              * Instantiates a new Attachment with String data and a given charset encoding.
@@ -161,10 +169,10 @@ declare namespace com {
              * @throws UnsupportedEncodingException - If the named charset is not supported.
              */
             constructor(
-              id: java.lang.String,
-              content: java.lang.String,
-              charset: java.lang.String,
-              type: java.lang.String,
+              id: java.lang.String | string,
+              content: java.lang.String | string,
+              charset: java.lang.String | string,
+              type: java.lang.String | string,
             );
 
             /**
@@ -188,7 +196,7 @@ declare namespace com {
              *
              * @param id - The unique ID to use for the attachment.
              */
-            setId(id: java.lang.String): void;
+            setId(id: java.lang.String | string): void;
 
             /**
              * Returns the content of the attachment as a byte array.
@@ -212,7 +220,7 @@ declare namespace com {
              * @returns The content of the attachment as a string, using the specified charset encoding.
              * @throws UnsupportedEncodingException - If the named charset is not supported.
              */
-            getContentString(charset: java.lang.String): java.lang.String;
+            getContentString(charset: java.lang.String | string): java.lang.String;
 
             /**
              * Sets the content of the attachment.
@@ -227,7 +235,7 @@ declare namespace com {
              * @param content - The string representation of the attachment content.
              * @throws UnsupportedEncodingException - If the named charset is not supported.
              */
-            setContentString(content: java.lang.String): void;
+            setContentString(content: java.lang.String | string): void;
 
             /**
              * Sets the content of the attachment, using the specified charset encoding.
@@ -236,7 +244,10 @@ declare namespace com {
              * @param charset - The charset encoding to convert the string to bytes with.
              * @throws UnsupportedEncodingException - If the named charset is not supported.
              */
-            setContentString(content: java.lang.String, charset: java.lang.String): void;
+            setContentString(
+              content: java.lang.String | string,
+              charset: java.lang.String | string,
+            ): void;
 
             /**
              * Returns the MIME type of the attachment.
@@ -250,7 +261,7 @@ declare namespace com {
              *
              * @param type - The MIME type to set for the attachment.
              */
-            setType(type: java.lang.String): void;
+            setType(type: java.lang.String | string): void;
           }
 
           /**
@@ -282,9 +293,9 @@ declare namespace com {
              * ```
              */
             static reAttachMessage(
-              raw: java.lang.String,
+              raw: java.lang.String | string,
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
-              charsetEncoding: java.lang.String,
+              charsetEncoding: java.lang.String | string,
               binary: boolean,
             ): byte[];
 
@@ -301,9 +312,9 @@ declare namespace com {
              * @returns The resulting message as a byte array, with all applicable attachment content re-inserted.
              */
             static reAttachMessage(
-              raw: java.lang.String,
+              raw: java.lang.String | string,
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
-              charsetEncoding: java.lang.String,
+              charsetEncoding: java.lang.String | string,
               binary: boolean,
               reattach: boolean,
               localOnly: boolean,
@@ -329,7 +340,7 @@ declare namespace com {
              * @returns The resulting message with all applicable attachment content re-inserted.
              */
             static reAttachMessage(
-              raw: java.lang.String,
+              raw: java.lang.String | string,
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
             ): java.lang.String;
 
@@ -353,7 +364,7 @@ declare namespace com {
              * @throws com.mirth.connect.donkey.model.message.MessageSerializerException - If the attachment IDs could be retrieved.
              */
             static getMessageAttachmentIds(
-              channelId: java.lang.String,
+              channelId: java.lang.String | string,
               messageId: java.lang.Long,
             ): java.util.List<java.lang.String>;
 
@@ -390,7 +401,7 @@ declare namespace com {
              * @throws com.mirth.connect.donkey.model.message.MessageSerializerException - If the attachments could not be retrieved.
              */
             static getMessageAttachments(
-              channelId: java.lang.String,
+              channelId: java.lang.String | string,
               messageId: java.lang.Long,
             ): java.util.List<com.mirth.connect.server.userutil.Attachment>;
 
@@ -404,7 +415,7 @@ declare namespace com {
              * @throws com.mirth.connect.donkey.model.message.MessageSerializerException - If the attachments could not be retrieved.
              */
             static getMessageAttachments(
-              channelId: java.lang.String,
+              channelId: java.lang.String | string,
               messageId: java.lang.Long,
               base64Decode: boolean,
             ): java.util.List<com.mirth.connect.server.userutil.Attachment>;
@@ -419,7 +430,7 @@ declare namespace com {
              */
             static getMessageAttachment(
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
-              attachmentId: java.lang.String,
+              attachmentId: java.lang.String | string,
             ): com.mirth.connect.server.userutil.Attachment;
 
             /**
@@ -433,7 +444,7 @@ declare namespace com {
              */
             static getMessageAttachment(
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
-              attachmentId: java.lang.String,
+              attachmentId: java.lang.String | string,
               base64Decode: boolean,
             ): com.mirth.connect.server.userutil.Attachment;
 
@@ -447,9 +458,9 @@ declare namespace com {
              * @throws com.mirth.connect.donkey.model.message.MessageSerializerException - If the attachment could not be retrieved.
              */
             static getMessageAttachment(
-              channelId: java.lang.String,
+              channelId: java.lang.String | string,
               messageId: java.lang.Long,
-              attachmentId: java.lang.String,
+              attachmentId: java.lang.String | string,
             ): com.mirth.connect.server.userutil.Attachment;
 
             /**
@@ -463,9 +474,9 @@ declare namespace com {
              * @throws com.mirth.connect.donkey.model.message.MessageSerializerException - If the attachment could not be retrieved.
              */
             static getMessageAttachment(
-              channelId: java.lang.String,
+              channelId: java.lang.String | string,
               messageId: java.lang.Long,
-              attachmentId: java.lang.String,
+              attachmentId: java.lang.String | string,
               base64Decode: boolean,
             ): com.mirth.connect.server.userutil.Attachment;
 
@@ -514,7 +525,7 @@ declare namespace com {
             static addAttachment(
               attachments: java.util.List<com.mirth.connect.server.userutil.Attachment>,
               content: java.lang.Object,
-              type: java.lang.String,
+              type: java.lang.String | string,
             ): com.mirth.connect.server.userutil.Attachment;
 
             /**
@@ -530,7 +541,7 @@ declare namespace com {
             static addAttachment(
               attachments: java.util.List<com.mirth.connect.server.userutil.Attachment>,
               content: java.lang.Object,
-              type: java.lang.String,
+              type: java.lang.String | string,
               base64Encode: boolean,
             ): com.mirth.connect.server.userutil.Attachment;
 
@@ -547,7 +558,7 @@ declare namespace com {
             static createAttachment(
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
               content: java.lang.Object,
-              type: java.lang.String,
+              type: java.lang.String | string,
             ): com.mirth.connect.server.userutil.Attachment;
 
             /**
@@ -564,7 +575,7 @@ declare namespace com {
             static createAttachment(
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
               content: java.lang.Object,
-              type: java.lang.String,
+              type: java.lang.String | string,
               base64Encode: boolean,
             ): com.mirth.connect.server.userutil.Attachment;
 
@@ -580,9 +591,9 @@ declare namespace com {
              */
             static updateAttachment(
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
-              attachmentId: java.lang.String,
+              attachmentId: java.lang.String | string,
               content: java.lang.Object,
-              type: java.lang.String,
+              type: java.lang.String | string,
             ): com.mirth.connect.server.userutil.Attachment;
 
             /**
@@ -598,9 +609,9 @@ declare namespace com {
              */
             static updateAttachment(
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
-              attachmentId: java.lang.String,
+              attachmentId: java.lang.String | string,
               content: java.lang.Object,
-              type: java.lang.String,
+              type: java.lang.String | string,
               base64Encode: boolean,
             ): com.mirth.connect.server.userutil.Attachment;
 
@@ -642,7 +653,7 @@ declare namespace com {
              * @throws com.mirth.connect.donkey.server.controllers.UnsupportedDataTypeException - If the attachment content is not a String or byte array.
              */
             static updateAttachment(
-              channelId: java.lang.String,
+              channelId: java.lang.String | string,
               messageId: java.lang.Long,
               attachment: com.mirth.connect.server.userutil.Attachment,
             ): com.mirth.connect.server.userutil.Attachment;
@@ -658,7 +669,7 @@ declare namespace com {
              * @throws com.mirth.connect.donkey.server.controllers.UnsupportedDataTypeException - If the attachment content is not a String or byte array.
              */
             static updateAttachment(
-              channelId: java.lang.String,
+              channelId: java.lang.String | string,
               messageId: java.lang.Long,
               attachment: com.mirth.connect.server.userutil.Attachment,
               base64Encode: boolean,
@@ -676,11 +687,11 @@ declare namespace com {
              * @throws com.mirth.connect.donkey.server.controllers.UnsupportedDataTypeException - If the attachment content is not a String or byte array.
              */
             static updateAttachment(
-              channelId: java.lang.String,
+              channelId: java.lang.String | string,
               messageId: java.lang.Long,
-              attachmentId: java.lang.String,
+              attachmentId: java.lang.String | string,
               content: java.lang.Object,
-              type: java.lang.String,
+              type: java.lang.String | string,
             ): com.mirth.connect.server.userutil.Attachment;
 
             /**
@@ -696,11 +707,11 @@ declare namespace com {
              * @throws com.mirth.connect.donkey.server.controllers.UnsupportedDataTypeException - If the attachment content is not a String or byte array.
              */
             static updateAttachment(
-              channelId: java.lang.String,
+              channelId: java.lang.String | string,
               messageId: java.lang.Long,
-              attachmentId: java.lang.String,
+              attachmentId: java.lang.String | string,
               content: java.lang.Object,
-              type: java.lang.String,
+              type: java.lang.String | string,
               base64Encode: boolean,
             ): com.mirth.connect.server.userutil.Attachment;
           }
@@ -920,7 +931,7 @@ declare namespace com {
              * @param value - value to be associated with the specified key
              * @returns the previous value associated with key, or null if there was no mapping for key. (A null return can also indicate that the map previously associated null with key, if the implementation supports null values.)
              */
-            put(key: java.lang.String, value: java.lang.Object): java.lang.Object;
+            put(key: java.lang.String | string, value: java.lang.Object): java.lang.Object;
 
             /**
              * Description copied from interface: java.util.Map
@@ -1030,7 +1041,7 @@ declare namespace com {
              * logger.info('processing for channel: ' + name);
              * ```
              */
-            static getChannelName(channelId: java.lang.String): java.lang.String;
+            static getChannelName(channelId: java.lang.String | string): java.lang.String;
 
             /**
              * Get all deployed channel Ids.
@@ -1045,7 +1056,7 @@ declare namespace com {
              * @param channelId - The channel id of the deployed channel.
              * @returns The channel name of the specified channel.
              */
-            static getDeployedChannelName(channelId: java.lang.String): java.lang.String;
+            static getDeployedChannelName(channelId: java.lang.String | string): java.lang.String;
 
             /**
              * Get the id for a deployed channel.
@@ -1053,7 +1064,7 @@ declare namespace com {
              * @param channelName - The channel name of the deployed channel.
              * @returns The channel Id of the specified channel.
              */
-            static getDeployedChannelId(channelName: java.lang.String): java.lang.String;
+            static getDeployedChannelId(channelName: java.lang.String | string): java.lang.String;
 
             /**
              * Start a deployed channel.
@@ -1070,7 +1081,7 @@ declare namespace com {
              * ```
              */
             static startChannel(
-              channelIdOrName: java.lang.String,
+              channelIdOrName: java.lang.String | string,
             ): com.mirth.connect.server.userutil.Future<void>;
 
             /**
@@ -1086,7 +1097,7 @@ declare namespace com {
              * ```
              */
             static stopChannel(
-              channelIdOrName: java.lang.String,
+              channelIdOrName: java.lang.String | string,
             ): com.mirth.connect.server.userutil.Future<void>;
 
             /**
@@ -1097,7 +1108,7 @@ declare namespace com {
              * @throws Exception - If the task cannot be scheduled for execution.
              */
             static pauseChannel(
-              channelIdOrName: java.lang.String,
+              channelIdOrName: java.lang.String | string,
             ): com.mirth.connect.server.userutil.Future<void>;
 
             /**
@@ -1108,7 +1119,7 @@ declare namespace com {
              * @throws Exception - If the task cannot be scheduled for execution.
              */
             static resumeChannel(
-              channelIdOrName: java.lang.String,
+              channelIdOrName: java.lang.String | string,
             ): com.mirth.connect.server.userutil.Future<void>;
 
             /**
@@ -1119,7 +1130,7 @@ declare namespace com {
              * @throws Exception - If the task cannot be scheduled for execution.
              */
             static haltChannel(
-              channelIdOrName: java.lang.String,
+              channelIdOrName: java.lang.String | string,
             ): com.mirth.connect.server.userutil.Future<void>;
 
             /**
@@ -1137,7 +1148,7 @@ declare namespace com {
              * ```
              */
             static getChannelState(
-              channelIdOrName: java.lang.String,
+              channelIdOrName: java.lang.String | string,
             ): com.mirth.connect.server.userutil.DeployedState;
 
             /**
@@ -1147,7 +1158,7 @@ declare namespace com {
              * @returns A Future object representing the result of the asynchronous operation. You can call get() or get(timeoutInMillis) to wait for the operation to finish.
              */
             static deployChannel(
-              channelIdOrName: java.lang.String,
+              channelIdOrName: java.lang.String | string,
             ): com.mirth.connect.server.userutil.Future<void>;
 
             /**
@@ -1157,7 +1168,7 @@ declare namespace com {
              * @returns A Future object representing the result of the asynchronous operation. You can call get() or get(timeoutInMillis) to wait for the operation to finish.
              */
             static undeployChannel(
-              channelIdOrName: java.lang.String,
+              channelIdOrName: java.lang.String | string,
             ): com.mirth.connect.server.userutil.Future<void>;
 
             /**
@@ -1166,7 +1177,7 @@ declare namespace com {
              * @param channelIdOrName - The channel id or current name of the channel.
              * @returns True if the channel is deployed, false if it is not.
              */
-            static isChannelDeployed(channelIdOrName: java.lang.String): boolean;
+            static isChannelDeployed(channelIdOrName: java.lang.String | string): boolean;
 
             /**
              * Start a connector on a given channel.
@@ -1177,7 +1188,7 @@ declare namespace com {
              * @throws Exception - If the task cannot be scheduled for execution.
              */
             static startConnector(
-              channelIdOrName: java.lang.String,
+              channelIdOrName: java.lang.String | string,
               metaDataId: java.lang.Integer,
             ): com.mirth.connect.server.userutil.Future<void>;
 
@@ -1190,7 +1201,7 @@ declare namespace com {
              * @throws Exception - If the task cannot be scheduled for execution.
              */
             static stopConnector(
-              channelIdOrName: java.lang.String,
+              channelIdOrName: java.lang.String | string,
               metaDataId: java.lang.Integer,
             ): com.mirth.connect.server.userutil.Future<void>;
 
@@ -1202,7 +1213,7 @@ declare namespace com {
              * @returns The current connector state returned as the DeployedState enumerator.
              */
             static getConnectorState(
-              channelIdOrName: java.lang.String,
+              channelIdOrName: java.lang.String | string,
               metaDataId: number,
             ): com.mirth.connect.server.userutil.DeployedState;
 
@@ -1212,7 +1223,7 @@ declare namespace com {
              * @param channelIdOrName - The channel id or current name of the deployed channel.
              * @returns The received count statistic as a Long for the specified channel.
              */
-            static getReceivedCount(channelIdOrName: java.lang.String): java.lang.Long;
+            static getReceivedCount(channelIdOrName: java.lang.String | string): java.lang.Long;
 
             /**
              * Get the received count statistic for a specific connector.
@@ -1222,7 +1233,7 @@ declare namespace com {
              * @returns The received count statistic as a Long for the specified connector.
              */
             static getReceivedCount(
-              channelIdOrName: java.lang.String,
+              channelIdOrName: java.lang.String | string,
               metaDataId: number,
             ): java.lang.Long;
 
@@ -1232,7 +1243,7 @@ declare namespace com {
              * @param channelIdOrName - The channel id or current name of the deployed channel.
              * @returns The filtered count statistic as a Long for the specified channel.
              */
-            static getFilteredCount(channelIdOrName: java.lang.String): java.lang.Long;
+            static getFilteredCount(channelIdOrName: java.lang.String | string): java.lang.Long;
 
             /**
              * Get the filtered count statistic for a specific connector.
@@ -1242,7 +1253,7 @@ declare namespace com {
              * @returns The filtered count statistic as a Long for the specified connector.
              */
             static getFilteredCount(
-              channelIdOrName: java.lang.String,
+              channelIdOrName: java.lang.String | string,
               metaDataId: number,
             ): java.lang.Long;
 
@@ -1252,7 +1263,7 @@ declare namespace com {
              * @param channelIdOrName - The channel id or current name of the deployed channel.
              * @returns The queued count statistic as a Long for the specified channel.
              */
-            static getQueuedCount(channelIdOrName: java.lang.String): java.lang.Long;
+            static getQueuedCount(channelIdOrName: java.lang.String | string): java.lang.Long;
 
             /**
              * Get the queued count statistic for a specific connector.
@@ -1262,7 +1273,7 @@ declare namespace com {
              * @returns The queued count statistic as a Long for the specified connector.
              */
             static getQueuedCount(
-              channelIdOrName: java.lang.String,
+              channelIdOrName: java.lang.String | string,
               metaDataId: number,
             ): java.lang.Long;
 
@@ -1272,7 +1283,7 @@ declare namespace com {
              * @param channelIdOrName - The channel id or current name of the deployed channel.
              * @returns The sent count statistic as a Long for the specified channel.
              */
-            static getSentCount(channelIdOrName: java.lang.String): java.lang.Long;
+            static getSentCount(channelIdOrName: java.lang.String | string): java.lang.Long;
 
             /**
              * Get the sent count statistic for a specific connector.
@@ -1282,7 +1293,7 @@ declare namespace com {
              * @returns The sent count statistic as a Long for the specified connector.
              */
             static getSentCount(
-              channelIdOrName: java.lang.String,
+              channelIdOrName: java.lang.String | string,
               metaDataId: number,
             ): java.lang.Long;
 
@@ -1292,7 +1303,7 @@ declare namespace com {
              * @param channelIdOrName - The channel id or current name of the deployed channel.
              * @returns The error count statistic as a Long for the specified channel.
              */
-            static getErrorCount(channelIdOrName: java.lang.String): java.lang.Long;
+            static getErrorCount(channelIdOrName: java.lang.String | string): java.lang.Long;
 
             /**
              * Get the error count statistic for a specific connector.
@@ -1302,7 +1313,7 @@ declare namespace com {
              * @returns The error count statistic as a Long for the specified connector.
              */
             static getErrorCount(
-              channelIdOrName: java.lang.String,
+              channelIdOrName: java.lang.String | string,
               metaDataId: number,
             ): java.lang.Long;
 
@@ -1314,7 +1325,7 @@ declare namespace com {
              * @throws Exception - If the task cannot be scheduled for execution.
              */
             static resetStatistics(
-              channelIdOrName: java.lang.String,
+              channelIdOrName: java.lang.String | string,
             ): com.mirth.connect.server.userutil.Future<void>;
 
             /**
@@ -1326,7 +1337,7 @@ declare namespace com {
              * @throws Exception - If the task cannot be scheduled for execution.
              */
             static resetStatistics(
-              channelIdOrName: java.lang.String,
+              channelIdOrName: java.lang.String | string,
               metaDataId: java.lang.Integer,
             ): com.mirth.connect.server.userutil.Future<void>;
 
@@ -1340,7 +1351,7 @@ declare namespace com {
              * @throws Exception - If the task cannot be scheduled for execution.
              */
             static resetStatistics(
-              channelIdOrName: java.lang.String,
+              channelIdOrName: java.lang.String | string,
               metaDataId: java.lang.Integer,
               statuses: java.util.Collection<com.mirth.connect.userutil.Status>,
             ): com.mirth.connect.server.userutil.Future<void>;
@@ -1394,7 +1405,7 @@ declare namespace com {
              * @param address - The server address to connect to.
              * @throws SQLException - If a database access error occurs.
              */
-            constructor(address: java.lang.String);
+            constructor(address: java.lang.String | string);
 
             /**
              * Instantiates a new database connection with the given server address and connection
@@ -1404,7 +1415,7 @@ declare namespace com {
              * @param info - A Properties object containing all applicable connection arguments.
              * @throws SQLException - If a database access error occurs.
              */
-            constructor(address: java.lang.String, info: java.util.Properties);
+            constructor(address: java.lang.String | string, info: java.util.Properties);
 
             /**
              * Instantiates a new database connection with the given driver instance and server address.
@@ -1413,7 +1424,7 @@ declare namespace com {
              * @param address - The server address to connect to.
              * @throws SQLException - If a database access error occurs.
              */
-            constructor(driver: java.sql.Driver, address: java.lang.String);
+            constructor(driver: java.sql.Driver, address: java.lang.String | string);
 
             /**
              * Instantiates a new database connection with the given driver instance, server address, and
@@ -1426,7 +1437,7 @@ declare namespace com {
              */
             constructor(
               driver: java.sql.Driver,
-              address: java.lang.String,
+              address: java.lang.String | string,
               info: java.util.Properties,
             );
 
@@ -1454,7 +1465,9 @@ declare namespace com {
              * }
              * ```
              */
-            executeCachedQuery(expression: java.lang.String): javax.sql.rowset.CachedRowSet;
+            executeCachedQuery(
+              expression: java.lang.String | string,
+            ): javax.sql.rowset.CachedRowSet;
 
             /**
              * Executes an INSERT/UPDATE on the database and returns the row count.
@@ -1471,7 +1484,7 @@ declare namespace com {
              * );
              * ```
              */
-            executeUpdate(expression: java.lang.String): int;
+            executeUpdate(expression: java.lang.String | string): int;
 
             /**
              * Executes a prepared INSERT/UPDATE statement on the database and returns the row count.
@@ -1482,7 +1495,7 @@ declare namespace com {
              * @throws SQLException - If a database access error occurs.
              */
             executeUpdate(
-              expression: java.lang.String,
+              expression: java.lang.String | string,
               parameters: java.util.List<java.lang.Object>,
             ): int;
 
@@ -1495,7 +1508,7 @@ declare namespace com {
              * @throws SQLException - If a database access error occurs.
              */
             executeCachedQuery(
-              expression: java.lang.String,
+              expression: java.lang.String | string,
               parameters: java.util.List<java.lang.Object>,
             ): javax.sql.rowset.CachedRowSet;
 
@@ -1537,7 +1550,7 @@ declare namespace com {
              * @throws SQLException - If a database access error occurs.
              */
             executeUpdateAndGetGeneratedKeys(
-              expression: java.lang.String,
+              expression: java.lang.String | string,
             ): javax.sql.rowset.CachedRowSet;
 
             /**
@@ -1550,7 +1563,7 @@ declare namespace com {
              * @throws SQLException - If a database access error occurs.
              */
             executeUpdateAndGetGeneratedKeys(
-              expression: java.lang.String,
+              expression: java.lang.String | string,
               parameters: java.util.List<java.lang.Object>,
             ): javax.sql.rowset.CachedRowSet;
 
@@ -1605,10 +1618,10 @@ declare namespace com {
              * ```
              */
             createDatabaseConnection(
-              driver: java.lang.String,
-              address: java.lang.String,
-              username: java.lang.String,
-              password: java.lang.String,
+              driver: java.lang.String | string,
+              address: java.lang.String | string,
+              username: java.lang.String | string,
+              password: java.lang.String | string,
             ): com.mirth.connect.server.userutil.DatabaseConnection;
 
             /**
@@ -1621,8 +1634,8 @@ declare namespace com {
              * @throws SQLException - If a database access error occurs.
              */
             createDatabaseConnection(
-              driver: java.lang.String,
-              address: java.lang.String,
+              driver: java.lang.String | string,
+              address: java.lang.String | string,
             ): com.mirth.connect.server.userutil.DatabaseConnection;
 
             /**
@@ -1637,10 +1650,10 @@ declare namespace com {
              * @throws SQLException - If a database access error occurs.
              */
             createConnection(
-              driver: java.lang.String,
-              address: java.lang.String,
-              username: java.lang.String,
-              password: java.lang.String,
+              driver: java.lang.String | string,
+              address: java.lang.String | string,
+              username: java.lang.String | string,
+              password: java.lang.String | string,
             ): java.sql.Connection;
 
             /**
@@ -1650,7 +1663,7 @@ declare namespace com {
              * @param driver - The JDBC driver class (as a string) to initialize.
              * @throws Exception - If the driver could not be initialized.
              */
-            initializeDriver(driver: java.lang.String): void;
+            initializeDriver(driver: java.lang.String | string): void;
           }
 
           /**
@@ -1670,7 +1683,10 @@ declare namespace com {
              * var d = DateUtil.getDate('yyyyMMddHHmmss', msg['MSH']['MSH.7']['MSH.7.1'].toString());
              * ```
              */
-            static getDate(pattern: java.lang.String, date: java.lang.String): java.util.Date;
+            static getDate(
+              pattern: java.lang.String | string,
+              date: java.lang.String | string,
+            ): java.util.Date;
 
             /**
              * Formats a java.util.Date object into a string according to a specified pattern.
@@ -1685,7 +1701,10 @@ declare namespace com {
              * var iso = DateUtil.formatDate("yyyy-MM-dd'T'HH:mm:ss", d);
              * ```
              */
-            static formatDate(pattern: java.lang.String, date: java.util.Date): java.lang.String;
+            static formatDate(
+              pattern: java.lang.String | string,
+              date: java.util.Date,
+            ): java.lang.String;
 
             /**
              * Formats the current date into a string according to a specified pattern.
@@ -1698,7 +1717,7 @@ declare namespace com {
              * var now = DateUtil.getCurrentDate('yyyyMMddHHmmss');
              * ```
              */
-            static getCurrentDate(pattern: java.lang.String): java.lang.String;
+            static getCurrentDate(pattern: java.lang.String | string): java.lang.String;
 
             /**
              * Parses a date string according to a specified input pattern, and formats the date back to a
@@ -1711,9 +1730,9 @@ declare namespace com {
              * @throws Exception - If the pattern could not be parsed.
              */
             static convertDate(
-              inPattern: java.lang.String,
-              outPattern: java.lang.String,
-              date: java.lang.String,
+              inPattern: java.lang.String | string,
+              outPattern: java.lang.String | string,
+              date: java.lang.String | string,
             ): java.lang.String;
           }
 
@@ -1868,7 +1887,7 @@ declare namespace com {
              * @returns The converted image, as a Base64-encoded string.
              */
             static convertDICOM(
-              imageType: java.lang.String,
+              imageType: java.lang.String | string,
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
               autoThreshold: boolean,
             ): java.lang.String;
@@ -1881,7 +1900,7 @@ declare namespace com {
              * @returns The converted image, as a Base64-encoded string.
              */
             static convertDICOM(
-              imageType: java.lang.String,
+              imageType: java.lang.String | string,
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
             ): java.lang.String;
 
@@ -1894,7 +1913,7 @@ declare namespace com {
              * @returns The converted image, as a Base64-encoded string.
              */
             static convertDICOM(
-              imageType: java.lang.String,
+              imageType: java.lang.String | string,
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
               sliceIndex: int,
             ): java.lang.String;
@@ -1909,7 +1928,7 @@ declare namespace com {
              * @returns The converted image, as a Base64-encoded string.
              */
             static convertDICOM(
-              imageType: java.lang.String,
+              imageType: java.lang.String | string,
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
               sliceIndex: int,
               autoThreshold: boolean,
@@ -1923,7 +1942,7 @@ declare namespace com {
              * @returns The converted image, as a byte array.
              */
             static convertDICOMToByteArray(
-              imageType: java.lang.String,
+              imageType: java.lang.String | string,
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
             ): byte[];
 
@@ -1936,7 +1955,7 @@ declare namespace com {
              * @returns The converted image, as a byte array.
              */
             static convertDICOMToByteArray(
-              imageType: java.lang.String,
+              imageType: java.lang.String | string,
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
               sliceIndex: int,
             ): byte[];
@@ -1951,7 +1970,7 @@ declare namespace com {
              * @returns The converted image, as a byte array.
              */
             static convertDICOMToByteArray(
-              imageType: java.lang.String,
+              imageType: java.lang.String | string,
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
               sliceIndex: int,
               autoThreshold: boolean,
@@ -1988,7 +2007,7 @@ declare namespace com {
              * @param header
              * @param encryptedData
              */
-            constructor(header: java.lang.String, encryptedData: byte[]);
+            constructor(header: java.lang.String | string, encryptedData: byte[]);
 
             /**
              * Returns the meta-information about the encrypted data. Includes the algorithm and
@@ -2015,7 +2034,7 @@ declare namespace com {
              * @returns The encrypted data.
              * @throws com.mirth.commons.encryption.EncryptionException - If the data cannot be encrypted for any reason.
              */
-            static encrypt(data: java.lang.String): java.lang.String;
+            static encrypt(data: java.lang.String | string): java.lang.String;
 
             /**
              * Convenience method for encrypting data. Uses the currently configured encryption settings.
@@ -2034,7 +2053,7 @@ declare namespace com {
              * @returns The decrypted data.
              * @throws com.mirth.commons.encryption.EncryptionException - If the data cannot be decrypted for any reason.
              */
-            static decrypt(data: java.lang.String): java.lang.String;
+            static decrypt(data: java.lang.String | string): java.lang.String;
 
             /**
              * Convenience method for decrypting data. Uses the currently configured encryption and fallback
@@ -2045,7 +2064,7 @@ declare namespace com {
              * @returns The decrypted data.
              * @throws com.mirth.commons.encryption.EncryptionException - If the data cannot be decrypted for any reason.
              */
-            static decrypt(header: java.lang.String, data: byte[]): byte[];
+            static decrypt(header: java.lang.String | string, data: byte[]): byte[];
           }
 
           /**
@@ -2067,7 +2086,11 @@ declare namespace com {
              * FileUtil.write('/data/out/audit.log', true, message + '\n');
              * ```
              */
-            static write(fileName: java.lang.String, append: boolean, data: java.lang.String): void;
+            static write(
+              fileName: java.lang.String | string,
+              append: boolean,
+              data: java.lang.String | string,
+            ): void;
 
             /**
              * Decodes a Base64 string into octets.
@@ -2075,7 +2098,7 @@ declare namespace com {
              * @param data - The Base64 string to decode.
              * @returns The decoded data, as a byte array.s
              */
-            static decode(data: java.lang.String): byte[];
+            static decode(data: java.lang.String | string): byte[];
 
             /**
              * Encoded binary data into a Base64 string.
@@ -2093,7 +2116,7 @@ declare namespace com {
              * @param bytes - The binary content to write to the file.
              * @throws IOException - If an I/O error occurred.
              */
-            static write(fileName: java.lang.String, append: boolean, bytes: byte[]): void;
+            static write(fileName: java.lang.String | string, append: boolean, bytes: byte[]): void;
 
             /**
              * Returns the contents of the file as a byte array.
@@ -2108,7 +2131,7 @@ declare namespace com {
              * var b64 = FileUtil.encode(bytes);
              * ```
              */
-            static readBytes(fileName: java.lang.String): byte[];
+            static readBytes(fileName: java.lang.String | string): byte[];
 
             /**
              * Returns the contents of the file as a string, using the system default charset encoding.
@@ -2122,7 +2145,7 @@ declare namespace com {
              * var contents = FileUtil.read('/data/in/patient.txt');
              * ```
              */
-            static read(fileName: java.lang.String): java.lang.String;
+            static read(fileName: java.lang.String | string): java.lang.String;
 
             /**
              * Deletes a specified File. In Rhino and E4X 'delete' is a keyword, so File.delete() can't be
@@ -2144,8 +2167,8 @@ declare namespace com {
              * @throws BadLocationException - If an invalid location within the document is used.
              */
             static rtfToPlainText(
-              message: java.lang.String,
-              replaceLinebreaksWith: java.lang.String,
+              message: java.lang.String | string,
+              replaceLinebreaksWith: java.lang.String | string,
             ): java.lang.String;
           }
 
@@ -2256,9 +2279,9 @@ declare namespace com {
              * @throws Exception - If generating a hex hash of the string fails.
              */
             static generate(
-              str: java.lang.String,
-              encoding: java.lang.String,
-              algorithm: java.lang.String,
+              str: java.lang.String | string,
+              encoding: java.lang.String | string,
+              algorithm: java.lang.String | string,
             ): java.lang.String;
 
             /**
@@ -2269,7 +2292,7 @@ declare namespace com {
              * @returns hash The generated hex hash of the byte[].
              * @throws Exception - If generating a hex hash of the byte[] fails.
              */
-            static generate(bytes: byte[], algorithm: java.lang.String): java.lang.String;
+            static generate(bytes: byte[], algorithm: java.lang.String | string): java.lang.String;
           }
 
           /**
@@ -2290,7 +2313,7 @@ declare namespace com {
              * ```
              */
             static parseHeaders(
-              str: java.lang.String,
+              str: java.lang.String | string,
             ): java.util.Map<java.lang.String, java.lang.String>;
 
             /**
@@ -2312,7 +2335,7 @@ declare namespace com {
              */
             static httpBodyToXml(
               httpBody: java.io.InputStream,
-              contentType: java.lang.String,
+              contentType: java.lang.String | string,
             ): java.lang.String;
 
             /**
@@ -2328,8 +2351,8 @@ declare namespace com {
              * @throws ParserConfigurationException - If an XML or multipart parsing error occurs.
              */
             static httpBodyToXml(
-              httpBody: java.lang.String,
-              contentType: java.lang.String,
+              httpBody: java.lang.String | string,
+              contentType: java.lang.String | string,
             ): java.lang.String;
           }
 
@@ -2397,7 +2420,7 @@ declare namespace com {
              * @returns The string representation of the converted decimal value.
              */
             static formatNCPDPNumber(
-              origNumber: java.lang.String,
+              origNumber: java.lang.String | string,
               decimalPoints: int,
             ): java.lang.String;
           }
@@ -2412,7 +2435,7 @@ declare namespace com {
              *
              * @param rawData - The textual data to dispatch to the channel.
              */
-            constructor(rawData: java.lang.String);
+            constructor(rawData: java.lang.String | string);
 
             /**
              * Instantiates a RawMessage object to dispatch to a channel.
@@ -2421,7 +2444,7 @@ declare namespace com {
              * @param destinationMetaDataIds - A collection of integers (metadata IDs) representing which destinations to dispatch the message to. JavaScript arrays can be used.
              */
             constructor(
-              rawData: java.lang.String,
+              rawData: java.lang.String | string,
               destinationMetaDataIds: java.util.Collection<number>,
             );
 
@@ -2433,7 +2456,7 @@ declare namespace com {
              * @param sourceMap - Any values placed in this map will be populated in the source map at the beginning of the message's lifecycle.
              */
             constructor(
-              rawData: java.lang.String,
+              rawData: java.lang.String | string,
               destinationMetaDataIds: java.util.Collection<number>,
               sourceMap: java.util.Map<java.lang.String, java.lang.Object>,
             );
@@ -2550,7 +2573,9 @@ declare namespace com {
              * @param message - The response data to store.
              * @returns The instantiated Response object.
              */
-            static getSentResponse(message: java.lang.String): com.mirth.connect.userutil.Response;
+            static getSentResponse(
+              message: java.lang.String | string,
+            ): com.mirth.connect.userutil.Response;
 
             /**
              * Returns a Response representing a erred message.
@@ -2558,7 +2583,9 @@ declare namespace com {
              * @param message - The response data to store.
              * @returns The instantiated Response object.
              */
-            static getErrorResponse(message: java.lang.String): com.mirth.connect.userutil.Response;
+            static getErrorResponse(
+              message: java.lang.String | string,
+            ): com.mirth.connect.userutil.Response;
 
             /**
              * Returns a Response representing a filtered message.
@@ -2567,7 +2594,7 @@ declare namespace com {
              * @returns The instantiated Response object.
              */
             static getFilteredResponse(
-              message: java.lang.String,
+              message: java.lang.String | string,
             ): com.mirth.connect.userutil.Response;
 
             /**
@@ -2577,7 +2604,7 @@ declare namespace com {
              * @returns The instantiated Response object.
              */
             static getQueuedResponse(
-              message: java.lang.String,
+              message: java.lang.String | string,
             ): com.mirth.connect.userutil.Response;
           }
 
@@ -2600,7 +2627,7 @@ declare namespace com {
              * ```
              */
             static getSerializer(
-              dataType: java.lang.String,
+              dataType: java.lang.String | string,
             ): com.mirth.connect.model.converters.IMessageSerializer;
 
             /**
@@ -2612,7 +2639,7 @@ declare namespace com {
              * @returns The instantiated IXMLSerializer object.
              */
             static getSerializer(
-              dataType: java.lang.String,
+              dataType: java.lang.String | string,
               serializationPropertiesMap: java.util.Map<java.lang.String, java.lang.Object>,
               deserializationPropertiesMap: java.util.Map<java.lang.String, java.lang.Object>,
             ): com.mirth.connect.model.converters.IMessageSerializer;
@@ -2625,7 +2652,7 @@ declare namespace com {
              * @returns The map of default serialization properties.
              */
             static getDefaultSerializationProperties(
-              dataType: java.lang.String,
+              dataType: java.lang.String | string,
             ): java.util.Map<java.lang.String, java.lang.Object>;
 
             /**
@@ -2636,7 +2663,7 @@ declare namespace com {
              * @returns The map of default deserialization properties.
              */
             static getDefaultDeserializationProperties(
-              dataType: java.lang.String,
+              dataType: java.lang.String | string,
             ): java.util.Map<java.lang.String, java.lang.Object>;
 
             /**
@@ -2751,9 +2778,9 @@ declare namespace com {
              * instead.
              */
             static getEDISerializer(
-              segmentDelim: java.lang.String,
-              elementDelim: java.lang.String,
-              subelementDelim: java.lang.String,
+              segmentDelim: java.lang.String | string,
+              elementDelim: java.lang.String | string,
+              subelementDelim: java.lang.String | string,
             ): com.mirth.connect.model.converters.IMessageSerializer;
 
             /**
@@ -2769,9 +2796,9 @@ declare namespace com {
              * instead.
              */
             static getNCPDPSerializer(
-              segmentDelim: java.lang.String,
-              groupDelim: java.lang.String,
-              fieldDelim: java.lang.String,
+              segmentDelim: java.lang.String | string,
+              groupDelim: java.lang.String | string,
+              fieldDelim: java.lang.String | string,
               useStrictValidation: boolean,
             ): com.mirth.connect.model.converters.IMessageSerializer;
 
@@ -2787,9 +2814,9 @@ declare namespace com {
              * instead.
              */
             static getNCPDPSerializer(
-              segmentDelim: java.lang.String,
-              groupDelim: java.lang.String,
-              fieldDelim: java.lang.String,
+              segmentDelim: java.lang.String | string,
+              groupDelim: java.lang.String | string,
+              fieldDelim: java.lang.String | string,
             ): com.mirth.connect.model.converters.IMessageSerializer;
           }
 
@@ -2810,14 +2837,14 @@ declare namespace com {
              * @param from - The FROM field to use for dispatched e-mail messages.
              */
             constructor(
-              host: java.lang.String,
-              port: java.lang.String,
+              host: java.lang.String | string,
+              port: java.lang.String | string,
               socketTimeout: int,
               useAuthentication: boolean,
-              secure: java.lang.String,
-              username: java.lang.String,
-              password: java.lang.String,
-              from: java.lang.String,
+              secure: java.lang.String | string,
+              username: java.lang.String | string,
+              password: java.lang.String | string,
+              from: java.lang.String | string,
             );
 
             /**
@@ -2832,13 +2859,13 @@ declare namespace com {
              * @param from - The FROM field to use for the e-mail.
              */
             constructor(
-              host: java.lang.String,
-              port: java.lang.String,
+              host: java.lang.String | string,
+              port: java.lang.String | string,
               useAuthentication: boolean,
-              secure: java.lang.String,
-              username: java.lang.String,
-              password: java.lang.String,
-              from: java.lang.String,
+              secure: java.lang.String | string,
+              username: java.lang.String | string,
+              password: java.lang.String | string,
+              from: java.lang.String | string,
             );
 
             /**
@@ -2853,7 +2880,7 @@ declare namespace com {
              *
              * @param host - The SMTP server address to use.
              */
-            setHost(host: java.lang.String): void;
+            setHost(host: java.lang.String | string): void;
 
             /**
              * Returns the SMTP server port.
@@ -2867,7 +2894,7 @@ declare namespace com {
              *
              * @param port - The SMTP server port to use (e.g. 25, 587, 465).
              */
-            setPort(port: java.lang.String): void;
+            setPort(port: java.lang.String | string): void;
 
             /**
              * Returns true if authentication is needed for the SMTP server, otherwise returns false.
@@ -2896,7 +2923,7 @@ declare namespace com {
              *
              * @param secure - The encryption security layer to use for the SMTP connection ("TLS" or "SSL"). If left blank, no encryption layer will be used.
              */
-            setSecure(secure: java.lang.String): void;
+            setSecure(secure: java.lang.String | string): void;
 
             /**
              * Returns the username being used to authenticate to the SMTP server.
@@ -2910,7 +2937,7 @@ declare namespace com {
              *
              * @param username - The username to authenticate with.
              */
-            setUsername(username: java.lang.String): void;
+            setUsername(username: java.lang.String | string): void;
 
             /**
              * Returns the password being used to authenticate to the SMTP server.
@@ -2924,7 +2951,7 @@ declare namespace com {
              *
              * @param password - The password to authenticate with.
              */
-            setPassword(password: java.lang.String): void;
+            setPassword(password: java.lang.String | string): void;
 
             /**
              * Returns the FROM field being used for dispatched e-mail messages.
@@ -2938,7 +2965,7 @@ declare namespace com {
              *
              * @param from - The FROM field to use for dispatched e-mail messages.
              */
-            setFrom(from: java.lang.String): void;
+            setFrom(from: java.lang.String | string): void;
 
             /**
              * Returns the socket connection timeout value in milliseconds.
@@ -2966,12 +2993,12 @@ declare namespace com {
              * @throws org.apache.commons.mail.EmailException - If an error occurred while sending the e-mail message.
              */
             send(
-              toList: java.lang.String,
-              ccList: java.lang.String,
-              from: java.lang.String,
-              subject: java.lang.String,
-              body: java.lang.String,
-              charset: java.lang.String,
+              toList: java.lang.String | string,
+              ccList: java.lang.String | string,
+              from: java.lang.String | string,
+              subject: java.lang.String | string,
+              body: java.lang.String | string,
+              charset: java.lang.String | string,
             ): void;
 
             /**
@@ -2985,11 +3012,11 @@ declare namespace com {
              * @throws org.apache.commons.mail.EmailException - If an error occurred while sending the e-mail message.
              */
             send(
-              toList: java.lang.String,
-              ccList: java.lang.String,
-              from: java.lang.String,
-              subject: java.lang.String,
-              body: java.lang.String,
+              toList: java.lang.String | string,
+              ccList: java.lang.String | string,
+              from: java.lang.String | string,
+              subject: java.lang.String | string,
+              body: java.lang.String | string,
             ): void;
 
             /**
@@ -3002,10 +3029,10 @@ declare namespace com {
              * @throws org.apache.commons.mail.EmailException - If an error occurred while sending the e-mail message.
              */
             send(
-              toList: java.lang.String,
-              ccList: java.lang.String,
-              subject: java.lang.String,
-              body: java.lang.String,
+              toList: java.lang.String | string,
+              ccList: java.lang.String | string,
+              subject: java.lang.String | string,
+              body: java.lang.String | string,
             ): void;
           }
 
@@ -3241,7 +3268,7 @@ declare namespace com {
              * @param value - value to be associated with the specified key
              * @returns the previous value associated with key, or null if there was no mapping for key. (A null return can also indicate that the map previously associated null with key, if the implementation supports null values.)
              */
-            put(key: java.lang.String, value: java.lang.Object): java.lang.Object;
+            put(key: java.lang.String | string, value: java.lang.Object): java.lang.Object;
 
             /**
              * Description copied from interface: java.util.Map
@@ -3355,8 +3382,8 @@ declare namespace com {
              * ```
              */
             routeMessage(
-              channelName: java.lang.String,
-              message: java.lang.String,
+              channelName: java.lang.String | string,
+              message: java.lang.String | string,
             ): com.mirth.connect.userutil.Response;
 
             /**
@@ -3369,7 +3396,7 @@ declare namespace com {
              * @returns The Response object returned by the channel, if its source connector is configured to return one.
              */
             routeMessage(
-              channelName: java.lang.String,
+              channelName: java.lang.String | string,
               rawMessage: com.mirth.connect.server.userutil.RawMessage,
             ): com.mirth.connect.userutil.Response;
 
@@ -3388,8 +3415,8 @@ declare namespace com {
              * ```
              */
             routeMessageByChannelId(
-              channelId: java.lang.String,
-              message: java.lang.String,
+              channelId: java.lang.String | string,
+              message: java.lang.String | string,
             ): com.mirth.connect.userutil.Response;
 
             /**
@@ -3402,7 +3429,7 @@ declare namespace com {
              * @returns The Response object returned by the channel, if its source connector is configured to return one.
              */
             routeMessageByChannelId(
-              channelId: java.lang.String,
+              channelId: java.lang.String | string,
               rawMessage: com.mirth.connect.server.userutil.RawMessage,
             ): com.mirth.connect.userutil.Response;
           }

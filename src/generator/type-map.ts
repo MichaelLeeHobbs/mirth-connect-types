@@ -347,3 +347,21 @@ function resolveBase(base: string, ctx: ResolveContext): string {
 function unresolvedAny(original: string): string {
   return `any /* TODO: unresolved type ${original} */`;
 }
+
+/**
+ * Maps a method/constructor PARAMETER type, widening a bare `java.lang.String`
+ * to `java.lang.String | string` so JS string literals are accepted (Rhino
+ * auto-converts JS strings to Java strings at call time). A `java.lang.String[]`
+ * parameter becomes `(java.lang.String | string)[]` for the same reason.
+ *
+ * Only the parameter's own top-level `java.lang.String` is widened. Generic
+ * type arguments (e.g. `java.util.List<java.lang.String>`) and any other type
+ * are mapped exactly as {@link mapType} does, so accuracy is preserved there.
+ * Return types are NOT routed through this function.
+ */
+export function mapParamType(javaType: string, ctx: ResolveContext): string {
+  const mapped = mapType(javaType, ctx);
+  if (mapped === 'java.lang.String') return 'java.lang.String | string';
+  if (mapped === 'java.lang.String[]') return '(java.lang.String | string)[]';
+  return mapped;
+}

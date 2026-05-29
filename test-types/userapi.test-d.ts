@@ -90,3 +90,39 @@ void allStatuses;
 const auth: com.mirth.connect.plugins.httpauth.userutil.AuthenticationResult =
   com.mirth.connect.plugins.httpauth.userutil.AuthenticationResult.Success();
 void auth;
+
+// --- Global aliases for the User API classes (injected by simple name) -------
+// Static utility call with a JS string LITERAL (param widened to accept it).
+const gName: java.lang.String = ChannelUtil.getChannelName('some-channel-id');
+void gName;
+
+// channelId is a JS string global; a static method must also accept it.
+const gName2: java.lang.String = ChannelUtil.getChannelName(channelId);
+void gName2;
+
+// DateUtil static call with a JS string literal pattern.
+const gNow: java.lang.String = DateUtil.getCurrentDate('yyyyMMddHHmmss');
+void gNow;
+
+// Status enum constant available as a bare global (Mirth injects them).
+const gStatus: com.mirth.connect.userutil.Status = SENT;
+void gStatus;
+responseStatus = ERROR;
+
+// Status accessed via the global typeof-alias.
+const gStatusMember: com.mirth.connect.userutil.Status = Status.QUEUED;
+void gStatusMember;
+
+// Construct via the global alias with a JS string literal.
+const gRaw: com.mirth.connect.server.userutil.RawMessage = new RawMessage('HL7|data');
+void gRaw;
+
+// DatabaseConnectionFactory is injected as an INSTANCE: createDatabaseConnection
+// is an instance method (not static) and accepts JS string literals.
+const gConn: com.mirth.connect.server.userutil.DatabaseConnection =
+  DatabaseConnectionFactory.createDatabaseConnection('driver', 'url', 'user', 'pass');
+void gConn;
+
+// router is an INSTANCE of VMRouter; routeMessage takes a JS string literal.
+const gRouted: com.mirth.connect.userutil.Response = router.routeMessage('Some Channel', 'payload');
+void gRouted;

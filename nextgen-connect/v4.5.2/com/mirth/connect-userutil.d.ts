@@ -35,9 +35,9 @@ declare namespace com {
            * @param mimeType - The MIME type of the attachment entry.
            */
           constructor(
-            name: java.lang.String,
-            content: java.lang.String,
-            mimeType: java.lang.String,
+            name: java.lang.String | string,
+            content: java.lang.String | string,
+            mimeType: java.lang.String | string,
           );
 
           /**
@@ -52,7 +52,7 @@ declare namespace com {
            *
            * @param name - The name of the attachment entry.
            */
-          setName(name: java.lang.String): void;
+          setName(name: java.lang.String | string): void;
 
           /**
            * Returns the content of the attachment entry.
@@ -66,7 +66,7 @@ declare namespace com {
            *
            * @param content - The content of the attachment entry.
            */
-          setContent(content: java.lang.String): void;
+          setContent(content: java.lang.String | string): void;
 
           /**
            * Returns the MIME type of the attachment entry.
@@ -80,7 +80,7 @@ declare namespace com {
            *
            * @param mimeType - The MIME type of the attachment entry.
            */
-          setMimeType(mimeType: java.lang.String): void;
+          setMimeType(mimeType: java.lang.String | string): void;
 
           /**
            * Description copied from class: java.lang.Object
@@ -182,7 +182,7 @@ declare namespace com {
            * @throws IllegalArgumentException - if this enum type has no constant with the specified name
            * @throws NullPointerException - if the argument is null
            */
-          function valueOf(name: java.lang.String): ContentType;
+          function valueOf(name: java.lang.String | string): ContentType;
         }
 
         /**
@@ -773,7 +773,7 @@ declare namespace com {
            * @param input - The JSON string to format.
            * @returns The formatted JSON string.
            */
-          static prettyPrint(input: java.lang.String): java.lang.String;
+          static prettyPrint(input: java.lang.String | string): java.lang.String;
 
           /**
            * Escapes any special JSON characters in the input.
@@ -781,7 +781,7 @@ declare namespace com {
            * @param input - The string to escape.
            * @returns The escaped string.
            */
-          static escape(input: java.lang.String): java.lang.String;
+          static escape(input: java.lang.String | string): java.lang.String;
 
           /**
            * Converts a JSON string to XML. This is the same as calling toXml(String jsonString, boolean
@@ -791,7 +791,7 @@ declare namespace com {
            * @returns The converted XML string.
            * @throws Exception - If the conversion failed.
            */
-          static toXml(jsonString: java.lang.String): java.lang.String;
+          static toXml(jsonString: java.lang.String | string): java.lang.String;
 
           /**
            * Converts a JSON string to XML.
@@ -803,7 +803,7 @@ declare namespace com {
            * @throws Exception - If the conversion failed.
            */
           static toXml(
-            jsonString: java.lang.String,
+            jsonString: java.lang.String | string,
             multiplePI: boolean,
             prettyPrint: boolean,
           ): java.lang.String;
@@ -1606,7 +1606,7 @@ declare namespace com {
            * @deprecated This method is deprecated and will soon be removed. Please use getHeader(key) or
            * getHeaderList(key) instead.
            */
-          get(key: java.lang.String): java.lang.String;
+          get(key: java.lang.String | string): java.lang.String;
 
           /**
            * Get the first header value for the given key.
@@ -1614,7 +1614,7 @@ declare namespace com {
            * @param key - The name of the header key.
            * @returns The associated value or null if no value exists.
            */
-          getHeader(key: java.lang.String): java.lang.String;
+          getHeader(key: java.lang.String | string): java.lang.String;
 
           /**
            * Get all header values for the given key.
@@ -1622,7 +1622,7 @@ declare namespace com {
            * @param key - The name of header key.
            * @returns A list of all header values for the given key or null if no values exist.
            */
-          getHeaderList(key: java.lang.String): java.util.List<java.lang.String>;
+          getHeaderList(key: java.lang.String | string): java.util.List<java.lang.String>;
 
           /**
            * Get all header keys.
@@ -1637,7 +1637,7 @@ declare namespace com {
            * @param key - The name of the header key.
            * @returns true if headers exist for the given key, false otherwise.
            */
-          contains(key: java.lang.String): boolean;
+          contains(key: java.lang.String | string): boolean;
 
           /**
            * Description copied from class: java.lang.Object
@@ -1677,7 +1677,7 @@ declare namespace com {
            * @deprecated This method is deprecated and will soon be removed. Please use getParameter(key)
            * or getParameterList(key) instead.
            */
-          get(key: java.lang.String): java.lang.String;
+          get(key: java.lang.String | string): java.lang.String;
 
           /**
            * Get the first parameter value for the given key.
@@ -1685,7 +1685,7 @@ declare namespace com {
            * @param key - The name of the parameter key.
            * @returns The associated value or null if no value exists.
            */
-          getParameter(key: java.lang.String): java.lang.String;
+          getParameter(key: java.lang.String | string): java.lang.String;
 
           /**
            * Get all parameter values for the given key.
@@ -1693,7 +1693,7 @@ declare namespace com {
            * @param key - The name of parameter key.
            * @returns A list of all parameter values for the given key or null if no values exist.
            */
-          getParameterList(key: java.lang.String): java.util.List<java.lang.String>;
+          getParameterList(key: java.lang.String | string): java.util.List<java.lang.String>;
 
           /**
            * Get all parameter keys.
@@ -1708,7 +1708,7 @@ declare namespace com {
            * @param key - The name of the parameter key.
            * @returns true if parameters exist for the given key, false otherwise.
            */
-          contains(key: java.lang.String): boolean;
+          contains(key: java.lang.String | string): boolean;
 
           /**
            * Description copied from class: java.lang.Object
@@ -1749,7 +1749,7 @@ declare namespace com {
            *
            * @param message - The actual response data.
            */
-          constructor(message: java.lang.String);
+          constructor(message: java.lang.String | string);
 
           /**
            * Instantiates a new Response object.
@@ -1757,7 +1757,10 @@ declare namespace com {
            * @param status - The status (e.g. SENT, ERROR) of the response.
            * @param message - The actual response data.
            */
-          constructor(status: com.mirth.connect.userutil.Status, message: java.lang.String);
+          constructor(
+            status: com.mirth.connect.userutil.Status,
+            message: java.lang.String | string,
+          );
 
           /**
            * Instantiates a new Response object.
@@ -1768,8 +1771,8 @@ declare namespace com {
            */
           constructor(
             status: com.mirth.connect.userutil.Status,
-            message: java.lang.String,
-            statusMessage: java.lang.String,
+            message: java.lang.String | string,
+            statusMessage: java.lang.String | string,
           );
 
           /**
@@ -1782,9 +1785,9 @@ declare namespace com {
            */
           constructor(
             status: com.mirth.connect.userutil.Status,
-            message: java.lang.String,
-            statusMessage: java.lang.String,
-            error: java.lang.String,
+            message: java.lang.String | string,
+            statusMessage: java.lang.String | string,
+            error: java.lang.String | string,
           );
 
           /**
@@ -1808,7 +1811,7 @@ declare namespace com {
            *
            * @param message - The response data (String) to use.
            */
-          setMessage(message: java.lang.String): void;
+          setMessage(message: java.lang.String | string): void;
 
           /**
            * Returns the Status (e.g. SENT, QUEUED) of this response.
@@ -1836,7 +1839,7 @@ declare namespace com {
            *
            * @param error - The error string to use.
            */
-          setError(error: java.lang.String): void;
+          setError(error: java.lang.String | string): void;
 
           /**
            * Returns a brief message explaining the reason for the current status.
@@ -1850,7 +1853,7 @@ declare namespace com {
            *
            * @param statusMessage - A brief message explaining the reason for the current status.
            */
-          setStatusMessage(statusMessage: java.lang.String): void;
+          setStatusMessage(statusMessage: java.lang.String | string): void;
 
           /**
            * Indicates whether some other object is "equal to" this one.
@@ -2139,7 +2142,7 @@ declare namespace com {
            * @param value - value to be associated with the specified key
            * @returns the previous value associated with key, or null if there was no mapping for key. (A null return can also indicate that the map previously associated null with key, if the implementation supports null values.)
            */
-          put(key: java.lang.String, value: java.lang.Object): java.lang.Object;
+          put(key: java.lang.String | string, value: java.lang.Object): java.lang.Object;
 
           /**
            * Description copied from interface: java.util.Map
@@ -2250,7 +2253,7 @@ declare namespace com {
            * @throws IllegalArgumentException - if this enum type has no constant with the specified name
            * @throws NullPointerException - if the argument is null
            */
-          function valueOf(name: java.lang.String): Status;
+          function valueOf(name: java.lang.String | string): Status;
         }
 
         /**
@@ -2263,7 +2266,7 @@ declare namespace com {
            * @param input - The XML string to format.
            * @returns The formatted XML string.
            */
-          static prettyPrint(input: java.lang.String): java.lang.String;
+          static prettyPrint(input: java.lang.String | string): java.lang.String;
 
           /**
            * Converts an XML/HTML entity reference into a string with the literal character.
@@ -2271,7 +2274,7 @@ declare namespace com {
            * @param entity - The XML/HTML entity to decode.
            * @returns A string containing the decoded character.
            */
-          static decode(entity: java.lang.String): java.lang.String;
+          static decode(entity: java.lang.String | string): java.lang.String;
 
           /**
            * Encodes a character into the corresponding XML/HTML entity.
@@ -2287,7 +2290,7 @@ declare namespace com {
            * @param s - The string to encode.
            * @returns The encoded string with replaced XML/HTML entities.
            */
-          static encode(s: java.lang.String): java.lang.String;
+          static encode(s: java.lang.String | string): java.lang.String;
 
           /**
            * Converts a character array, encoding characters into the corresponding XML/HTML entities as
@@ -2307,7 +2310,7 @@ declare namespace com {
            * @returns The converted JSON string.
            * @throws Exception - If conversion failed.
            */
-          static toJson(xmlString: java.lang.String): java.lang.String;
+          static toJson(xmlString: java.lang.String | string): java.lang.String;
 
           /**
            * Converts an XML string to JSON.
@@ -2318,7 +2321,7 @@ declare namespace com {
            * @throws Exception - If conversion failed.
            */
           static toJson(
-            xmlString: java.lang.String,
+            xmlString: java.lang.String | string,
             normalizeNamespaces: boolean,
           ): java.lang.String;
 
@@ -2334,7 +2337,7 @@ declare namespace com {
            * @throws Exception - If conversion failed.
            */
           static toJson(
-            xmlString: java.lang.String,
+            xmlString: java.lang.String | string,
             autoArray: boolean,
             autoPrimitive: boolean,
             prettyPrint: boolean,
@@ -2355,7 +2358,7 @@ declare namespace com {
            * @throws Exception - If conversion failed.
            */
           static toJson(
-            xmlString: java.lang.String,
+            xmlString: java.lang.String | string,
             autoArray: boolean,
             autoPrimitive: boolean,
             prettyPrint: boolean,

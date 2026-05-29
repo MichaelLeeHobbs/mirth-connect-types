@@ -2,6 +2,9 @@ node_modules/
 *.log
 .DS_Store
 
+# Packed tarballs produced by `pnpm pack` / the consumer smoke test.
+*.tgz
+
 # Editor
 .idea/
 *.iml

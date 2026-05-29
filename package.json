@@ -17,6 +17,7 @@
     "userapi"
   ],
   "license": "MIT",
+  "type": "commonjs",
   "author": "Michael Hobbs <michael.lee.hobbs@gmail.com>",
   "homepage": "https://github.com/MichaelLeeHobbs/mirth-connect-types#readme",
   "repository": {
@@ -48,6 +49,7 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "test:types": "tsc --project test-types/tsconfig.json --noEmit",
+    "test:consumer": "node scripts/consumer-smoke.mjs",
     "lint": "eslint . --max-warnings=0",
     "lint:fix": "eslint . --fix",
     "format": "prettier . --check",
@@ -55,7 +57,7 @@
     "fetch-javadoc": "tsx src/generator/fetch-javadoc.ts",
     "generate": "tsx src/generator/generate.ts",
     "generate:hash": "tsx src/generator/sha256.ts",
-    "check": "pnpm run lint && pnpm run typecheck && pnpm run test:types && pnpm run format",
+    "check": "pnpm run lint && pnpm run typecheck && pnpm run test:types && pnpm run format && pnpm run test:consumer",
     "prepare": "husky",
     "prepublishOnly": "pnpm run typecheck && pnpm run test:types",
     "version:major": "pnpm version major",

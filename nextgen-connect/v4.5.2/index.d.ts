@@ -51,3 +51,4 @@
 /// <reference path="./com/mirth/connect-server-userutil.d.ts" />
 /// <reference path="./com/mirth/connect-userutil.d.ts" />
 /// <reference path="./globals/index.d.ts" />
+/// <reference path="./globals/userapi.d.ts" />
