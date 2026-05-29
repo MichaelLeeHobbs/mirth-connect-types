@@ -1,0 +1,15 @@
+node_modules/
+*.log
+.DS_Store
+
+# Editor
+.idea/
+*.iml
+
+# Build / coverage (this is a types-only package; .d.ts are the published sources)
+dist/
+coverage/
+
+# Local-only: the raw Javadoc HTML pulled from a Mirth container.
+# Tracked specs make generation reproducible; flip this if the dumps are large.
+# javadoc/

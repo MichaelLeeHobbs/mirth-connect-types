@@ -1,0 +1,93 @@
+{
+  "name": "@ubercode/mirth-connect-types",
+  "version": "0.1.0",
+  "description": "TypeScript type definitions for the Mirth Connect / NextGen Connect server-side JavaScript (Rhino) User API.",
+  "keywords": [
+    "mirth",
+    "mirth-connect",
+    "nextgen-connect",
+    "open-integration-engine",
+    "bridgelink",
+    "rhino",
+    "hl7",
+    "healthcare",
+    "types",
+    "typescript",
+    "typedefs",
+    "userapi"
+  ],
+  "license": "MIT",
+  "author": "Michael Hobbs <michael.lee.hobbs@gmail.com>",
+  "homepage": "https://github.com/MichaelLeeHobbs/mirth-connect-types#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichaelLeeHobbs/mirth-connect-types.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MichaelLeeHobbs/mirth-connect-types/issues"
+  },
+  "types": "./nextgen-connect/v4.5.2/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./nextgen-connect/v4.5.2/index.d.ts"
+    },
+    "./nextgen-connect/v4.5.2": {
+      "types": "./nextgen-connect/v4.5.2/index.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "nextgen-connect",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20.18.0"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test:types": "tsc --project test-types/tsconfig.json --noEmit",
+    "lint": "eslint . --max-warnings=0",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier . --check",
+    "format:fix": "prettier . --write",
+    "fetch-javadoc": "tsx src/generator/fetch-javadoc.ts",
+    "generate": "tsx src/generator/generate.ts",
+    "generate:hash": "tsx src/generator/sha256.ts",
+    "check": "pnpm run lint && pnpm run typecheck && pnpm run test:types && pnpm run format",
+    "prepare": "husky",
+    "prepublishOnly": "pnpm run typecheck && pnpm run test:types",
+    "version:major": "pnpm version major",
+    "version:minor": "pnpm version minor",
+    "version:patch": "pnpm version patch"
+  },
+  "lint-staged": {
+    "*.{ts,mjs}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml,d.ts}": [
+      "prettier --write"
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "@types/node": "^22.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^10.0.0",
+    "globals": "^15.0.0",
+    "husky": "^9.0.0",
+    "lint-staged": "^16.0.0",
+    "node-html-parser": "^7.0.0",
+    "prettier": "^3.0.0",
+    "rimraf": "^6.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0",
+    "typescript-eslint": "^8.0.0"
+  },
+  "packageManager": "pnpm@10.0.0"
+}
