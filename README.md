@@ -41,6 +41,15 @@ $c('patientId', msg['PID']['PID.3']['PID.3.1'].toString());
 const name = ChannelUtil.getChannelName(channelId);
 ```
 
+The Mirth User API utility classes are exposed as **unqualified globals** — `ChannelUtil`,
+`AttachmentUtil`, `DateUtil`, `FileUtil`, `HTTPUtil`, `SerializerFactory`, `Lists`/`Maps`, … —
+and the `Status` constants (`SENT`, `QUEUED`, `ERROR`, …) are global too, exactly as Mirth
+injects them. Methods accept JS string literals (Rhino auto-converts them to `java.lang.String`).
+
+Real-world consumption (subpath `exports`, ambient globals, `skipLibCheck: false` with the DOM
+`lib`) is verified on every `check` by a pack → install → type-check smoke test
+(`pnpm run test:consumer`).
+
 ## Versioning
 
 Definitions are organized **per product + per Mirth version**, matching `integration-engine-api`:
@@ -48,7 +57,8 @@ Definitions are organized **per product + per Mirth version**, matching `integra
 ```
 nextgen-connect/v4.5.2/   ← current target
   index.d.ts              ← entry; triple-slash references the split files
-  globals/                ← msg, tmp, $c/$co/$s/$gc/$g/$r/$cfg, getAttachmentIds, ...
+  globals/                ← index.d.ts: msg, tmp, $c/$co/..., maps, helpers; and
+                          ←   userapi.d.ts (generated: ChannelUtil/AttachmentUtil/Status/... globals)
   java/                   ← java.lang / java.util / java.io / ... primitive aliases
   com/mirth/              ← com.mirth.connect.* (userutil, donkey, plugins, ...)
 ```
@@ -83,9 +93,12 @@ Javadoc documents. **Do not hand-edit them**; they are overwritten by
    `docker-compose` in the companion repo) into `javadoc/<product>/<version>/` —
    the reproducible source of truth. The HTML is committed, so regeneration does
    not require a container.
-2. **Generate** the three `.d.ts` from the Javadoc via `src/generator/`. The
-   generator is deterministic: members are sorted and output is run through
-   Prettier, so re-running produces **byte-identical** files.
+2. **Generate** the three userutil `.d.ts` (plus `globals/userapi.d.ts`, which
+   exposes every User API class/enum as an unqualified global alias) from the
+   Javadoc via `src/generator/`. The generator is deterministic: members are
+   sorted and output is run through Prettier, so re-running produces
+   **byte-identical** files. String parameters are widened to
+   `java.lang.String | string` so the API is callable with JS literals.
 3. **Curate via overlays.** Hand-written `@example` snippets and extra prose for
    the hot-path classes/methods (`ChannelUtil`, `AttachmentUtil`, `DateUtil`,
    `FileUtil`, `HTTPUtil`, `VMRouter`, `DatabaseConnection*`, `Lists`/`Maps`, …)
@@ -102,14 +115,15 @@ pnpm run check           # lint + typecheck + type tests + format check
 
 ## Scripts
 
-| Script                       | Purpose                                                               |
-| ---------------------------- | --------------------------------------------------------------------- |
-| `check`                      | `lint` + `typecheck` + `test:types` + `format` (the gate for CI).     |
-| `typecheck`                  | `tsc --noEmit` over the published `.d.ts`.                            |
-| `test:types`                 | Compile the `test-types/` assertions against the definitions.         |
-| `lint` / `format`            | ESLint (generator code) / Prettier (everything).                      |
-| `fetch-javadoc` / `generate` | Regenerate the three userutil files from a Mirth container's Javadoc. |
-| `generate:hash`              | Print the sha256 of each generated file (byte-idempotency check).     |
+| Script                       | Purpose                                                                                                                                                                      |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `check`                      | `lint` + `typecheck` + `test:types` + `format` + `test:consumer` (CI gate).                                                                                                  |
+| `typecheck`                  | `tsc --noEmit` over the published `.d.ts`.                                                                                                                                   |
+| `test:types`                 | Compile the `test-types/` assertions against the definitions.                                                                                                                |
+| `test:consumer`              | Pack the tarball, install it in a temp project, and type-check a real Mirth script — proves the published package resolves and the ambient globals work under the DOM `lib`. |
+| `lint` / `format`            | ESLint (generator code) / Prettier (everything).                                                                                                                             |
+| `fetch-javadoc` / `generate` | Regenerate the three userutil files from a Mirth container's Javadoc.                                                                                                        |
+| `generate:hash`              | Print the sha256 of each generated file (byte-idempotency check).                                                                                                            |
 
 ## License
 

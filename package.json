@@ -40,6 +40,7 @@
   "files": [
     "nextgen-connect",
     "README.md",
+    "CHANGELOG.md",
     "LICENSE"
   ],
   "sideEffects": false,
