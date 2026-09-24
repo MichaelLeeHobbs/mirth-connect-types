@@ -37,9 +37,10 @@ Before opening a PR:
 
 ## Type conventions
 
-- Java method **returns** use `java.lang.String` (and other Java types) for accuracy; string
-  **parameters** are widened to `java.lang.String | string` so JS string literals type-check
-  (Rhino auto-converts).
+- Java method **returns** use `java.lang.String` (and other Java types) for accuracy.
+  **Parameters** use the Rhino coercion aliases in `java/coercion.d.ts` (`JString`, `JInteger`,
+  `JObject`, …). In a hand-written file, write the exact Java type and run
+  `pnpm run check:coercion --fix`.
 - Numeric Java primitives map to the aliases in `java/primitives.d.ts` (`int`, `long`, `byte`, …).
 - No TypeScript `enum` in hand-written files (it is lint-banned); the generated enums are the
   documented exception.

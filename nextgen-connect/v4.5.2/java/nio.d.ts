@@ -7,7 +7,7 @@ declare namespace java {
       class Charset extends java.lang.Object {
         static defaultCharset(): Charset;
 
-        static forName(charsetName: java.lang.String): Charset;
+        static forName(charsetName: JString): Charset;
 
         name(): java.lang.String;
 

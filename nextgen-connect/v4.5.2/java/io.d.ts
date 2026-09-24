@@ -20,24 +20,24 @@ declare namespace java {
     /** Exception thrown when an encoding is not supported. */
     class UnsupportedEncodingException extends java.lang.Exception {
       constructor();
-      constructor(message: java.lang.String);
+      constructor(message: JString);
     }
 
     /** Signals that an I/O exception of some sort has occurred. */
     class IOException extends java.lang.Exception {
       constructor();
-      constructor(message: java.lang.String);
+      constructor(message: JString);
       constructor(cause: java.lang.Throwable);
-      constructor(message: java.lang.String, cause: java.lang.Throwable);
+      constructor(message: JString, cause: java.lang.Throwable);
     }
 
     /**
      * An abstract representation of file and directory pathnames.
      */
     class File extends java.lang.Object implements java.io.Serializable {
-      constructor(pathname: java.lang.String);
-      constructor(parent: java.lang.String, child: java.lang.String);
-      constructor(parent: File, child: java.lang.String);
+      constructor(pathname: JString);
+      constructor(parent: JString, child: JString);
+      constructor(parent: File, child: JString);
 
       /** Tests whether the file or directory denoted by this abstract pathname exists. */
       exists(): boolean;
@@ -127,10 +127,10 @@ declare namespace java {
       read(): int;
 
       /** Reads characters into an array. */
-      read(cbuf: java.lang.Character[]): int;
+      read(cbuf: JCharacter[]): int;
 
       /** Reads characters into a portion of an array. */
-      read(cbuf: java.lang.Character[], off: int, len: int): int;
+      read(cbuf: JCharacter[], off: int, len: int): int;
 
       /** Tells whether this stream is ready to be read. */
       ready(): boolean;
@@ -147,16 +147,16 @@ declare namespace java {
       write(c: int): void;
 
       /** Writes an array of characters. */
-      write(cbuf: java.lang.Character[]): void;
+      write(cbuf: JCharacter[]): void;
 
       /** Writes a portion of an array of characters. */
-      write(cbuf: java.lang.Character[], off: int, len: int): void;
+      write(cbuf: JCharacter[], off: int, len: int): void;
 
       /** Writes a string. */
-      write(str: java.lang.String): void;
+      write(str: JString): void;
 
       /** Writes a portion of a string. */
-      write(str: java.lang.String, off: int, len: int): void;
+      write(str: JString, off: int, len: int): void;
 
       /** Flushes the stream. */
       flush(): void;

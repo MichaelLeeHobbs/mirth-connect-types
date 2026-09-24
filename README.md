@@ -169,9 +169,13 @@ Javadoc documents. **Do not hand-edit them**; they are overwritten by
    exposes every User API class/enum as an unqualified global alias) from the
    Javadoc via `src/generator/`. The generator is deterministic: members are
    sorted and output is run through Prettier, so re-running produces
-   **byte-identical** files. String parameters are widened to
-   `java.lang.String | string` so the API is callable with JS literals.
-3. **Curate via overlays.** Hand-written `@example` snippets and extra prose for
+   **byte-identical** files.
+3. **Apply the Rhino coercion rule.** Parameters accept the JS values Rhino converts for
+   them: a JS string for `String`, a JS number for `Integer`/`Long`/…, anything for `Object`,
+   a JS array for `List`/`Collection`, a JS object for `Map`. The aliases live in
+   `java/coercion.d.ts`; return types stay the exact Java type. `pnpm run check:coercion`
+   enforces the rule on the hand-written files too.
+4. **Curate via overlays.** Hand-written `@example` snippets and extra prose for
    the hot-path classes/methods (`ChannelUtil`, `AttachmentUtil`, `DateUtil`,
    `FileUtil`, `HTTPUtil`, `VMRouter`, `DatabaseConnection*`, `Lists`/`Maps`, …)
    live in `src/generator/overlays.ts`, keyed by `ClassName` /
@@ -182,7 +186,7 @@ Javadoc documents. **Do not hand-edit them**; they are overwritten by
 pnpm run fetch-javadoc   # pull Javadoc HTML from the container (only when refreshing a version)
 pnpm run generate        # Javadoc HTML + overlays -> the three userutil .d.ts
 pnpm run generate:hash   # sha256 of the generated files (idempotency check)
-pnpm run check           # lint + typecheck + type tests + format check
+pnpm run check           # lint + typecheck + coercion rule + type tests + format + consumer smoke
 ```
 
 ## Scripts

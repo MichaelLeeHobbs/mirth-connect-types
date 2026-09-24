@@ -58,12 +58,13 @@
     "fetch-javadoc": "tsx src/generator/fetch-javadoc.ts",
     "generate": "tsx src/generator/generate.ts",
     "generate:hash": "tsx src/generator/sha256.ts",
-    "check": "pnpm run lint && pnpm run typecheck && pnpm run test:types && pnpm run format && pnpm run test:consumer",
+    "check": "pnpm run lint && pnpm run typecheck && pnpm run check:coercion && pnpm run test:types && pnpm run format && pnpm run test:consumer",
     "prepare": "husky",
     "prepublishOnly": "pnpm run typecheck && pnpm run test:types",
     "version:major": "pnpm version major",
     "version:minor": "pnpm version minor",
-    "version:patch": "pnpm version patch"
+    "version:patch": "pnpm version patch",
+    "check:coercion": "tsx src/generator/check-coercion.ts"
   },
   "lint-staged": {
     "*.{ts,mjs}": [

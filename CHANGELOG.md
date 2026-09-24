@@ -7,6 +7,25 @@ All notable changes to `@ubercode/mirth-connect-types` are documented here. The 
 > The npm package version is independent of the Mirth version a type set targets — the Mirth
 > version is encoded in the subpath export (e.g. `@ubercode/mirth-connect-types/nextgen-connect/v4.5.2`).
 
+## [Unreleased]
+
+### Changed
+
+- **Parameters accept the JS values Rhino converts for them**, across the generated User API and
+  the hand-written `java.*`/`javax.*`/internal files: JS strings (and E4X `XML`) for `String`,
+  JS numbers for boxed numerics, any value for `Object`, JS arrays for `List`/`Collection`/
+  `Iterable`, and JS objects for `Map`. Aliases (`JString`, `JInteger`, `JObject`, …) are in
+  `java/coercion.d.ts`. Return types are unchanged. Fixes `destinationSet.remove([...])`,
+  `removeAllExcept('name')`, `globalMap.put('k', 'v')`, `new java.lang.String(s)`,
+  `ChannelUtil.startConnector(id, 1)`, and similar calls that run on Mirth but failed to type-check.
+- The script maps (`globalMap`, `channelMap`, `sourceMap`, …) are `java.util.Map<JString, any>`,
+  so reads of live objects need no cast.
+
+### Added
+
+- `new XML(value)` constructor.
+- `pnpm run check:coercion`, which fails the build when a declaration breaks the coercion rule.
+
 ## [0.1.1] — 2026-09-24
 
 ### Changed

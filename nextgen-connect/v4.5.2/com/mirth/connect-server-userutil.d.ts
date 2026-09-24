@@ -45,9 +45,9 @@ declare namespace com {
              * @throws Exception - If the acknowledgement could not be generated.
              */
             static generateAckResponse(
-              message: java.lang.String | string,
-              acknowledgementCode: java.lang.String | string,
-              textMessage: java.lang.String | string,
+              message: JString,
+              acknowledgementCode: JString,
+              textMessage: JString,
             ): java.lang.String;
 
             /**
@@ -66,12 +66,12 @@ declare namespace com {
              * errorMessage) instead.
              */
             static generateAckResponse(
-              message: java.lang.String | string,
-              dataType: java.lang.String | string,
-              acknowledgementCode: java.lang.String | string,
-              textMessage: java.lang.String | string,
-              dateFormat: java.lang.String | string,
-              errorMessage: java.lang.String | string,
+              message: JString,
+              dataType: JString,
+              acknowledgementCode: JString,
+              textMessage: JString,
+              dateFormat: JString,
+              errorMessage: JString,
             ): java.lang.String;
 
             /**
@@ -87,12 +87,12 @@ declare namespace com {
              * @throws Exception - If the acknowledgement could not be generated.
              */
             static generateAckResponse(
-              message: java.lang.String | string,
+              message: JString,
               isXML: boolean,
-              acknowledgementCode: java.lang.String | string,
-              textMessage: java.lang.String | string,
-              dateFormat: java.lang.String | string,
-              errorMessage: java.lang.String | string,
+              acknowledgementCode: JString,
+              textMessage: JString,
+              dateFormat: JString,
+              errorMessage: JString,
             ): java.lang.String;
           }
 
@@ -105,7 +105,7 @@ declare namespace com {
              *
              * @param channelId - The ID of the channel to associate dispatched alert events with.
              */
-            constructor(channelId: java.lang.String | string);
+            constructor(channelId: JString);
 
             /**
              * Instantiates a new AlertSender.
@@ -119,7 +119,7 @@ declare namespace com {
              *
              * @param errorMessage - A custom error message to include with the error event.
              */
-            sendAlert(errorMessage: java.lang.String | string): void;
+            sendAlert(errorMessage: JString): void;
           }
 
           /**
@@ -139,11 +139,7 @@ declare namespace com {
              * @param content - The content (byte array) to store for the attachment.
              * @param type - The MIME type of the attachment.
              */
-            constructor(
-              id: java.lang.String | string,
-              content: byte[],
-              type: java.lang.String | string,
-            );
+            constructor(id: JString, content: byte[], type: JString);
 
             /**
              * Instantiates a new Attachment with String data using UTF-8 charset encoding.
@@ -153,11 +149,7 @@ declare namespace com {
              * @param type - The MIME type of the attachment.
              * @throws UnsupportedEncodingException - If the named charset is not supported.
              */
-            constructor(
-              id: java.lang.String | string,
-              content: java.lang.String | string,
-              type: java.lang.String | string,
-            );
+            constructor(id: JString, content: JString, type: JString);
 
             /**
              * Instantiates a new Attachment with String data and a given charset encoding.
@@ -168,12 +160,7 @@ declare namespace com {
              * @param type - The MIME type of the attachment.
              * @throws UnsupportedEncodingException - If the named charset is not supported.
              */
-            constructor(
-              id: java.lang.String | string,
-              content: java.lang.String | string,
-              charset: java.lang.String | string,
-              type: java.lang.String | string,
-            );
+            constructor(id: JString, content: JString, charset: JString, type: JString);
 
             /**
              * Returns the unique replacement token for the attachment. This token should replace the
@@ -196,7 +183,7 @@ declare namespace com {
              *
              * @param id - The unique ID to use for the attachment.
              */
-            setId(id: java.lang.String | string): void;
+            setId(id: JString): void;
 
             /**
              * Returns the content of the attachment as a byte array.
@@ -220,7 +207,7 @@ declare namespace com {
              * @returns The content of the attachment as a string, using the specified charset encoding.
              * @throws UnsupportedEncodingException - If the named charset is not supported.
              */
-            getContentString(charset: java.lang.String | string): java.lang.String;
+            getContentString(charset: JString): java.lang.String;
 
             /**
              * Sets the content of the attachment.
@@ -235,7 +222,7 @@ declare namespace com {
              * @param content - The string representation of the attachment content.
              * @throws UnsupportedEncodingException - If the named charset is not supported.
              */
-            setContentString(content: java.lang.String | string): void;
+            setContentString(content: JString): void;
 
             /**
              * Sets the content of the attachment, using the specified charset encoding.
@@ -244,10 +231,7 @@ declare namespace com {
              * @param charset - The charset encoding to convert the string to bytes with.
              * @throws UnsupportedEncodingException - If the named charset is not supported.
              */
-            setContentString(
-              content: java.lang.String | string,
-              charset: java.lang.String | string,
-            ): void;
+            setContentString(content: JString, charset: JString): void;
 
             /**
              * Returns the MIME type of the attachment.
@@ -261,7 +245,7 @@ declare namespace com {
              *
              * @param type - The MIME type to set for the attachment.
              */
-            setType(type: java.lang.String | string): void;
+            setType(type: JString): void;
           }
 
           /**
@@ -293,9 +277,9 @@ declare namespace com {
              * ```
              */
             static reAttachMessage(
-              raw: java.lang.String | string,
+              raw: JString,
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
-              charsetEncoding: java.lang.String | string,
+              charsetEncoding: JString,
               binary: boolean,
             ): byte[];
 
@@ -312,9 +296,9 @@ declare namespace com {
              * @returns The resulting message as a byte array, with all applicable attachment content re-inserted.
              */
             static reAttachMessage(
-              raw: java.lang.String | string,
+              raw: JString,
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
-              charsetEncoding: java.lang.String | string,
+              charsetEncoding: JString,
               binary: boolean,
               reattach: boolean,
               localOnly: boolean,
@@ -340,7 +324,7 @@ declare namespace com {
              * @returns The resulting message with all applicable attachment content re-inserted.
              */
             static reAttachMessage(
-              raw: java.lang.String | string,
+              raw: JString,
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
             ): java.lang.String;
 
@@ -364,8 +348,8 @@ declare namespace com {
              * @throws com.mirth.connect.donkey.model.message.MessageSerializerException - If the attachment IDs could be retrieved.
              */
             static getMessageAttachmentIds(
-              channelId: java.lang.String | string,
-              messageId: java.lang.Long,
+              channelId: JString,
+              messageId: JLong,
             ): java.util.List<java.lang.String>;
 
             /**
@@ -401,8 +385,8 @@ declare namespace com {
              * @throws com.mirth.connect.donkey.model.message.MessageSerializerException - If the attachments could not be retrieved.
              */
             static getMessageAttachments(
-              channelId: java.lang.String | string,
-              messageId: java.lang.Long,
+              channelId: JString,
+              messageId: JLong,
             ): java.util.List<com.mirth.connect.server.userutil.Attachment>;
 
             /**
@@ -415,8 +399,8 @@ declare namespace com {
              * @throws com.mirth.connect.donkey.model.message.MessageSerializerException - If the attachments could not be retrieved.
              */
             static getMessageAttachments(
-              channelId: java.lang.String | string,
-              messageId: java.lang.Long,
+              channelId: JString,
+              messageId: JLong,
               base64Decode: boolean,
             ): java.util.List<com.mirth.connect.server.userutil.Attachment>;
 
@@ -430,7 +414,7 @@ declare namespace com {
              */
             static getMessageAttachment(
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
-              attachmentId: java.lang.String | string,
+              attachmentId: JString,
             ): com.mirth.connect.server.userutil.Attachment;
 
             /**
@@ -444,7 +428,7 @@ declare namespace com {
              */
             static getMessageAttachment(
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
-              attachmentId: java.lang.String | string,
+              attachmentId: JString,
               base64Decode: boolean,
             ): com.mirth.connect.server.userutil.Attachment;
 
@@ -458,9 +442,9 @@ declare namespace com {
              * @throws com.mirth.connect.donkey.model.message.MessageSerializerException - If the attachment could not be retrieved.
              */
             static getMessageAttachment(
-              channelId: java.lang.String | string,
-              messageId: java.lang.Long,
-              attachmentId: java.lang.String | string,
+              channelId: JString,
+              messageId: JLong,
+              attachmentId: JString,
             ): com.mirth.connect.server.userutil.Attachment;
 
             /**
@@ -474,9 +458,9 @@ declare namespace com {
              * @throws com.mirth.connect.donkey.model.message.MessageSerializerException - If the attachment could not be retrieved.
              */
             static getMessageAttachment(
-              channelId: java.lang.String | string,
-              messageId: java.lang.Long,
-              attachmentId: java.lang.String | string,
+              channelId: JString,
+              messageId: JLong,
+              attachmentId: JString,
               base64Decode: boolean,
             ): com.mirth.connect.server.userutil.Attachment;
 
@@ -523,9 +507,11 @@ declare namespace com {
              * ```
              */
             static addAttachment(
-              attachments: java.util.List<com.mirth.connect.server.userutil.Attachment>,
-              content: java.lang.Object,
-              type: java.lang.String | string,
+              attachments:
+                | java.util.List<com.mirth.connect.server.userutil.Attachment>
+                | com.mirth.connect.server.userutil.Attachment[],
+              content: JObject,
+              type: JString,
             ): com.mirth.connect.server.userutil.Attachment;
 
             /**
@@ -539,9 +525,11 @@ declare namespace com {
              * @throws com.mirth.connect.donkey.server.controllers.UnsupportedDataTypeException - If the attachment content is not a String or byte array.
              */
             static addAttachment(
-              attachments: java.util.List<com.mirth.connect.server.userutil.Attachment>,
-              content: java.lang.Object,
-              type: java.lang.String | string,
+              attachments:
+                | java.util.List<com.mirth.connect.server.userutil.Attachment>
+                | com.mirth.connect.server.userutil.Attachment[],
+              content: JObject,
+              type: JString,
               base64Encode: boolean,
             ): com.mirth.connect.server.userutil.Attachment;
 
@@ -557,8 +545,8 @@ declare namespace com {
              */
             static createAttachment(
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
-              content: java.lang.Object,
-              type: java.lang.String | string,
+              content: JObject,
+              type: JString,
             ): com.mirth.connect.server.userutil.Attachment;
 
             /**
@@ -574,8 +562,8 @@ declare namespace com {
              */
             static createAttachment(
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
-              content: java.lang.Object,
-              type: java.lang.String | string,
+              content: JObject,
+              type: JString,
               base64Encode: boolean,
             ): com.mirth.connect.server.userutil.Attachment;
 
@@ -591,9 +579,9 @@ declare namespace com {
              */
             static updateAttachment(
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
-              attachmentId: java.lang.String | string,
-              content: java.lang.Object,
-              type: java.lang.String | string,
+              attachmentId: JString,
+              content: JObject,
+              type: JString,
             ): com.mirth.connect.server.userutil.Attachment;
 
             /**
@@ -609,9 +597,9 @@ declare namespace com {
              */
             static updateAttachment(
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
-              attachmentId: java.lang.String | string,
-              content: java.lang.Object,
-              type: java.lang.String | string,
+              attachmentId: JString,
+              content: JObject,
+              type: JString,
               base64Encode: boolean,
             ): com.mirth.connect.server.userutil.Attachment;
 
@@ -653,8 +641,8 @@ declare namespace com {
              * @throws com.mirth.connect.donkey.server.controllers.UnsupportedDataTypeException - If the attachment content is not a String or byte array.
              */
             static updateAttachment(
-              channelId: java.lang.String | string,
-              messageId: java.lang.Long,
+              channelId: JString,
+              messageId: JLong,
               attachment: com.mirth.connect.server.userutil.Attachment,
             ): com.mirth.connect.server.userutil.Attachment;
 
@@ -669,8 +657,8 @@ declare namespace com {
              * @throws com.mirth.connect.donkey.server.controllers.UnsupportedDataTypeException - If the attachment content is not a String or byte array.
              */
             static updateAttachment(
-              channelId: java.lang.String | string,
-              messageId: java.lang.Long,
+              channelId: JString,
+              messageId: JLong,
               attachment: com.mirth.connect.server.userutil.Attachment,
               base64Encode: boolean,
             ): com.mirth.connect.server.userutil.Attachment;
@@ -687,11 +675,11 @@ declare namespace com {
              * @throws com.mirth.connect.donkey.server.controllers.UnsupportedDataTypeException - If the attachment content is not a String or byte array.
              */
             static updateAttachment(
-              channelId: java.lang.String | string,
-              messageId: java.lang.Long,
-              attachmentId: java.lang.String | string,
-              content: java.lang.Object,
-              type: java.lang.String | string,
+              channelId: JString,
+              messageId: JLong,
+              attachmentId: JString,
+              content: JObject,
+              type: JString,
             ): com.mirth.connect.server.userutil.Attachment;
 
             /**
@@ -707,11 +695,11 @@ declare namespace com {
              * @throws com.mirth.connect.donkey.server.controllers.UnsupportedDataTypeException - If the attachment content is not a String or byte array.
              */
             static updateAttachment(
-              channelId: java.lang.String | string,
-              messageId: java.lang.Long,
-              attachmentId: java.lang.String | string,
-              content: java.lang.Object,
-              type: java.lang.String | string,
+              channelId: JString,
+              messageId: JLong,
+              attachmentId: JString,
+              content: JObject,
+              type: JString,
               base64Encode: boolean,
             ): com.mirth.connect.server.userutil.Attachment;
           }
@@ -730,8 +718,10 @@ declare namespace com {
              * @param sourceMap - The source map associated with the current connector message. This is used to check against in the get(key) method for legacy support.
              */
             constructor(
-              delegate: java.util.Map<java.lang.String, java.lang.Object>,
-              sourceMap: java.util.Map<java.lang.String, java.lang.Object>,
+              delegate: java.util.Map<java.lang.String, java.lang.Object> | Record<string, JObject>,
+              sourceMap:
+                | java.util.Map<java.lang.String, java.lang.Object>
+                | Record<string, JObject>,
             );
 
             /**
@@ -754,7 +744,7 @@ declare namespace com {
              * @param key - key whose presence in this map is to be tested
              * @returns true if this map contains a mapping for the specified key
              */
-            containsKey(key: java.lang.Object): boolean;
+            containsKey(key: JObject): boolean;
 
             /**
              * Description copied from interface: java.util.Map
@@ -769,7 +759,7 @@ declare namespace com {
              * @param value - value whose presence in this map is to be tested
              * @returns true if this map maps one or more keys to the specified value
              */
-            containsValue(value: java.lang.Object): boolean;
+            containsValue(value: JObject): boolean;
 
             /**
              * Description copied from interface: java.util.Map
@@ -839,7 +829,7 @@ declare namespace com {
              * @param o - the reference object with which to compare.
              * @returns true if this object is the same as the obj argument; false otherwise.
              */
-            equals(o: java.lang.Object): boolean;
+            equals(o: JObject): boolean;
 
             /**
              * Returns the value to which the specified key is mapped, or null if this map contains no
@@ -849,7 +839,7 @@ declare namespace com {
              * @param key - the key whose associated value is to be returned
              * @returns the value to which the specified key is mapped, or null if this map contains no mapping for the key
              */
-            get(key: java.lang.Object): java.lang.Object;
+            get(key: JObject): java.lang.Object;
 
             /**
              * Description copied from class: java.lang.Object
@@ -931,7 +921,7 @@ declare namespace com {
              * @param value - value to be associated with the specified key
              * @returns the previous value associated with key, or null if there was no mapping for key. (A null return can also indicate that the map previously associated null with key, if the implementation supports null values.)
              */
-            put(key: java.lang.String | string, value: java.lang.Object): java.lang.Object;
+            put(key: JString, value: JObject): java.lang.Object;
 
             /**
              * Description copied from interface: java.util.Map
@@ -945,7 +935,9 @@ declare namespace com {
              *
              * @param m - mappings to be stored in this map
              */
-            putAll(m: java.util.Map<java.lang.String, java.lang.Object>): void;
+            putAll(
+              m: java.util.Map<java.lang.String, java.lang.Object> | Record<string, JObject>,
+            ): void;
 
             /**
              * Description copied from interface: java.util.Map
@@ -970,7 +962,7 @@ declare namespace com {
              * @param key - key whose mapping is to be removed from the map
              * @returns the previous value associated with key, or null if there was no mapping for key.
              */
-            remove(key: java.lang.Object): java.lang.Object;
+            remove(key: JObject): java.lang.Object;
 
             /**
              * Description copied from interface: java.util.Map
@@ -1041,7 +1033,7 @@ declare namespace com {
              * logger.info('processing for channel: ' + name);
              * ```
              */
-            static getChannelName(channelId: java.lang.String | string): java.lang.String;
+            static getChannelName(channelId: JString): java.lang.String;
 
             /**
              * Get all deployed channel Ids.
@@ -1056,7 +1048,7 @@ declare namespace com {
              * @param channelId - The channel id of the deployed channel.
              * @returns The channel name of the specified channel.
              */
-            static getDeployedChannelName(channelId: java.lang.String | string): java.lang.String;
+            static getDeployedChannelName(channelId: JString): java.lang.String;
 
             /**
              * Get the id for a deployed channel.
@@ -1064,7 +1056,7 @@ declare namespace com {
              * @param channelName - The channel name of the deployed channel.
              * @returns The channel Id of the specified channel.
              */
-            static getDeployedChannelId(channelName: java.lang.String | string): java.lang.String;
+            static getDeployedChannelId(channelName: JString): java.lang.String;
 
             /**
              * Start a deployed channel.
@@ -1081,7 +1073,7 @@ declare namespace com {
              * ```
              */
             static startChannel(
-              channelIdOrName: java.lang.String | string,
+              channelIdOrName: JString,
             ): com.mirth.connect.server.userutil.Future<void>;
 
             /**
@@ -1097,7 +1089,7 @@ declare namespace com {
              * ```
              */
             static stopChannel(
-              channelIdOrName: java.lang.String | string,
+              channelIdOrName: JString,
             ): com.mirth.connect.server.userutil.Future<void>;
 
             /**
@@ -1108,7 +1100,7 @@ declare namespace com {
              * @throws Exception - If the task cannot be scheduled for execution.
              */
             static pauseChannel(
-              channelIdOrName: java.lang.String | string,
+              channelIdOrName: JString,
             ): com.mirth.connect.server.userutil.Future<void>;
 
             /**
@@ -1119,7 +1111,7 @@ declare namespace com {
              * @throws Exception - If the task cannot be scheduled for execution.
              */
             static resumeChannel(
-              channelIdOrName: java.lang.String | string,
+              channelIdOrName: JString,
             ): com.mirth.connect.server.userutil.Future<void>;
 
             /**
@@ -1130,7 +1122,7 @@ declare namespace com {
              * @throws Exception - If the task cannot be scheduled for execution.
              */
             static haltChannel(
-              channelIdOrName: java.lang.String | string,
+              channelIdOrName: JString,
             ): com.mirth.connect.server.userutil.Future<void>;
 
             /**
@@ -1148,7 +1140,7 @@ declare namespace com {
              * ```
              */
             static getChannelState(
-              channelIdOrName: java.lang.String | string,
+              channelIdOrName: JString,
             ): com.mirth.connect.server.userutil.DeployedState;
 
             /**
@@ -1158,7 +1150,7 @@ declare namespace com {
              * @returns A Future object representing the result of the asynchronous operation. You can call get() or get(timeoutInMillis) to wait for the operation to finish.
              */
             static deployChannel(
-              channelIdOrName: java.lang.String | string,
+              channelIdOrName: JString,
             ): com.mirth.connect.server.userutil.Future<void>;
 
             /**
@@ -1168,7 +1160,7 @@ declare namespace com {
              * @returns A Future object representing the result of the asynchronous operation. You can call get() or get(timeoutInMillis) to wait for the operation to finish.
              */
             static undeployChannel(
-              channelIdOrName: java.lang.String | string,
+              channelIdOrName: JString,
             ): com.mirth.connect.server.userutil.Future<void>;
 
             /**
@@ -1177,7 +1169,7 @@ declare namespace com {
              * @param channelIdOrName - The channel id or current name of the channel.
              * @returns True if the channel is deployed, false if it is not.
              */
-            static isChannelDeployed(channelIdOrName: java.lang.String | string): boolean;
+            static isChannelDeployed(channelIdOrName: JString): boolean;
 
             /**
              * Start a connector on a given channel.
@@ -1188,8 +1180,8 @@ declare namespace com {
              * @throws Exception - If the task cannot be scheduled for execution.
              */
             static startConnector(
-              channelIdOrName: java.lang.String | string,
-              metaDataId: java.lang.Integer,
+              channelIdOrName: JString,
+              metaDataId: JInteger,
             ): com.mirth.connect.server.userutil.Future<void>;
 
             /**
@@ -1201,8 +1193,8 @@ declare namespace com {
              * @throws Exception - If the task cannot be scheduled for execution.
              */
             static stopConnector(
-              channelIdOrName: java.lang.String | string,
-              metaDataId: java.lang.Integer,
+              channelIdOrName: JString,
+              metaDataId: JInteger,
             ): com.mirth.connect.server.userutil.Future<void>;
 
             /**
@@ -1213,7 +1205,7 @@ declare namespace com {
              * @returns The current connector state returned as the DeployedState enumerator.
              */
             static getConnectorState(
-              channelIdOrName: java.lang.String | string,
+              channelIdOrName: JString,
               metaDataId: number,
             ): com.mirth.connect.server.userutil.DeployedState;
 
@@ -1223,7 +1215,7 @@ declare namespace com {
              * @param channelIdOrName - The channel id or current name of the deployed channel.
              * @returns The received count statistic as a Long for the specified channel.
              */
-            static getReceivedCount(channelIdOrName: java.lang.String | string): java.lang.Long;
+            static getReceivedCount(channelIdOrName: JString): java.lang.Long;
 
             /**
              * Get the received count statistic for a specific connector.
@@ -1232,10 +1224,7 @@ declare namespace com {
              * @param metaDataId - The metadata id of the connector. Note that the source connector has a metadata id of 0.
              * @returns The received count statistic as a Long for the specified connector.
              */
-            static getReceivedCount(
-              channelIdOrName: java.lang.String | string,
-              metaDataId: number,
-            ): java.lang.Long;
+            static getReceivedCount(channelIdOrName: JString, metaDataId: number): java.lang.Long;
 
             /**
              * Get the filtered count statistic for a specific channel.
@@ -1243,7 +1232,7 @@ declare namespace com {
              * @param channelIdOrName - The channel id or current name of the deployed channel.
              * @returns The filtered count statistic as a Long for the specified channel.
              */
-            static getFilteredCount(channelIdOrName: java.lang.String | string): java.lang.Long;
+            static getFilteredCount(channelIdOrName: JString): java.lang.Long;
 
             /**
              * Get the filtered count statistic for a specific connector.
@@ -1252,10 +1241,7 @@ declare namespace com {
              * @param metaDataId - The metadata id of the connector. Note that the source connector has a metadata id of 0.
              * @returns The filtered count statistic as a Long for the specified connector.
              */
-            static getFilteredCount(
-              channelIdOrName: java.lang.String | string,
-              metaDataId: number,
-            ): java.lang.Long;
+            static getFilteredCount(channelIdOrName: JString, metaDataId: number): java.lang.Long;
 
             /**
              * Get the queued count statistic for a specific channel.
@@ -1263,7 +1249,7 @@ declare namespace com {
              * @param channelIdOrName - The channel id or current name of the deployed channel.
              * @returns The queued count statistic as a Long for the specified channel.
              */
-            static getQueuedCount(channelIdOrName: java.lang.String | string): java.lang.Long;
+            static getQueuedCount(channelIdOrName: JString): java.lang.Long;
 
             /**
              * Get the queued count statistic for a specific connector.
@@ -1272,10 +1258,7 @@ declare namespace com {
              * @param metaDataId - The metadata id of the connector. Note that the source connector has a metadata id of 0.
              * @returns The queued count statistic as a Long for the specified connector.
              */
-            static getQueuedCount(
-              channelIdOrName: java.lang.String | string,
-              metaDataId: number,
-            ): java.lang.Long;
+            static getQueuedCount(channelIdOrName: JString, metaDataId: number): java.lang.Long;
 
             /**
              * Get the sent count statistic for a specific channel.
@@ -1283,7 +1266,7 @@ declare namespace com {
              * @param channelIdOrName - The channel id or current name of the deployed channel.
              * @returns The sent count statistic as a Long for the specified channel.
              */
-            static getSentCount(channelIdOrName: java.lang.String | string): java.lang.Long;
+            static getSentCount(channelIdOrName: JString): java.lang.Long;
 
             /**
              * Get the sent count statistic for a specific connector.
@@ -1292,10 +1275,7 @@ declare namespace com {
              * @param metaDataId - The metadata id of the connector. Note that the source connector has a metadata id of 0.
              * @returns The sent count statistic as a Long for the specified connector.
              */
-            static getSentCount(
-              channelIdOrName: java.lang.String | string,
-              metaDataId: number,
-            ): java.lang.Long;
+            static getSentCount(channelIdOrName: JString, metaDataId: number): java.lang.Long;
 
             /**
              * Get the error count statistic for a specific channel.
@@ -1303,7 +1283,7 @@ declare namespace com {
              * @param channelIdOrName - The channel id or current name of the deployed channel.
              * @returns The error count statistic as a Long for the specified channel.
              */
-            static getErrorCount(channelIdOrName: java.lang.String | string): java.lang.Long;
+            static getErrorCount(channelIdOrName: JString): java.lang.Long;
 
             /**
              * Get the error count statistic for a specific connector.
@@ -1312,10 +1292,7 @@ declare namespace com {
              * @param metaDataId - The metadata id of the connector. Note that the source connector has a metadata id of 0.
              * @returns The error count statistic as a Long for the specified connector.
              */
-            static getErrorCount(
-              channelIdOrName: java.lang.String | string,
-              metaDataId: number,
-            ): java.lang.Long;
+            static getErrorCount(channelIdOrName: JString, metaDataId: number): java.lang.Long;
 
             /**
              * Reset all statistics for a specific channel.
@@ -1325,7 +1302,7 @@ declare namespace com {
              * @throws Exception - If the task cannot be scheduled for execution.
              */
             static resetStatistics(
-              channelIdOrName: java.lang.String | string,
+              channelIdOrName: JString,
             ): com.mirth.connect.server.userutil.Future<void>;
 
             /**
@@ -1337,8 +1314,8 @@ declare namespace com {
              * @throws Exception - If the task cannot be scheduled for execution.
              */
             static resetStatistics(
-              channelIdOrName: java.lang.String | string,
-              metaDataId: java.lang.Integer,
+              channelIdOrName: JString,
+              metaDataId: JInteger,
             ): com.mirth.connect.server.userutil.Future<void>;
 
             /**
@@ -1351,9 +1328,11 @@ declare namespace com {
              * @throws Exception - If the task cannot be scheduled for execution.
              */
             static resetStatistics(
-              channelIdOrName: java.lang.String | string,
-              metaDataId: java.lang.Integer,
-              statuses: java.util.Collection<com.mirth.connect.userutil.Status>,
+              channelIdOrName: JString,
+              metaDataId: JInteger,
+              statuses:
+                | java.util.Collection<com.mirth.connect.userutil.Status>
+                | com.mirth.connect.userutil.Status[],
             ): com.mirth.connect.server.userutil.Future<void>;
           }
 
@@ -1405,7 +1384,7 @@ declare namespace com {
              * @param address - The server address to connect to.
              * @throws SQLException - If a database access error occurs.
              */
-            constructor(address: java.lang.String | string);
+            constructor(address: JString);
 
             /**
              * Instantiates a new database connection with the given server address and connection
@@ -1415,7 +1394,7 @@ declare namespace com {
              * @param info - A Properties object containing all applicable connection arguments.
              * @throws SQLException - If a database access error occurs.
              */
-            constructor(address: java.lang.String | string, info: java.util.Properties);
+            constructor(address: JString, info: java.util.Properties);
 
             /**
              * Instantiates a new database connection with the given driver instance and server address.
@@ -1424,7 +1403,7 @@ declare namespace com {
              * @param address - The server address to connect to.
              * @throws SQLException - If a database access error occurs.
              */
-            constructor(driver: java.sql.Driver, address: java.lang.String | string);
+            constructor(driver: java.sql.Driver, address: JString);
 
             /**
              * Instantiates a new database connection with the given driver instance, server address, and
@@ -1435,11 +1414,7 @@ declare namespace com {
              * @param info - A Properties object containing all applicable connection arguments.
              * @throws SQLException - If a database access error occurs.
              */
-            constructor(
-              driver: java.sql.Driver,
-              address: java.lang.String | string,
-              info: java.util.Properties,
-            );
+            constructor(driver: java.sql.Driver, address: JString, info: java.util.Properties);
 
             /**
              * Returns the server address.
@@ -1465,9 +1440,7 @@ declare namespace com {
              * }
              * ```
              */
-            executeCachedQuery(
-              expression: java.lang.String | string,
-            ): javax.sql.rowset.CachedRowSet;
+            executeCachedQuery(expression: JString): javax.sql.rowset.CachedRowSet;
 
             /**
              * Executes an INSERT/UPDATE on the database and returns the row count.
@@ -1484,7 +1457,7 @@ declare namespace com {
              * );
              * ```
              */
-            executeUpdate(expression: java.lang.String | string): int;
+            executeUpdate(expression: JString): int;
 
             /**
              * Executes a prepared INSERT/UPDATE statement on the database and returns the row count.
@@ -1495,8 +1468,8 @@ declare namespace com {
              * @throws SQLException - If a database access error occurs.
              */
             executeUpdate(
-              expression: java.lang.String | string,
-              parameters: java.util.List<java.lang.Object>,
+              expression: JString,
+              parameters: java.util.List<java.lang.Object> | JObject[],
             ): int;
 
             /**
@@ -1508,8 +1481,8 @@ declare namespace com {
              * @throws SQLException - If a database access error occurs.
              */
             executeCachedQuery(
-              expression: java.lang.String | string,
-              parameters: java.util.List<java.lang.Object>,
+              expression: JString,
+              parameters: java.util.List<java.lang.Object> | JObject[],
             ): javax.sql.rowset.CachedRowSet;
 
             /**
@@ -1549,9 +1522,7 @@ declare namespace com {
              * @returns A CachedRowSet containing any generated keys.
              * @throws SQLException - If a database access error occurs.
              */
-            executeUpdateAndGetGeneratedKeys(
-              expression: java.lang.String | string,
-            ): javax.sql.rowset.CachedRowSet;
+            executeUpdateAndGetGeneratedKeys(expression: JString): javax.sql.rowset.CachedRowSet;
 
             /**
              * Executes a prepared INSERT/UPDATE statement on the database and returns a CachedRowSet
@@ -1563,8 +1534,8 @@ declare namespace com {
              * @throws SQLException - If a database access error occurs.
              */
             executeUpdateAndGetGeneratedKeys(
-              expression: java.lang.String | string,
-              parameters: java.util.List<java.lang.Object>,
+              expression: JString,
+              parameters: java.util.List<java.lang.Object> | JObject[],
             ): javax.sql.rowset.CachedRowSet;
 
             /**
@@ -1618,10 +1589,10 @@ declare namespace com {
              * ```
              */
             createDatabaseConnection(
-              driver: java.lang.String | string,
-              address: java.lang.String | string,
-              username: java.lang.String | string,
-              password: java.lang.String | string,
+              driver: JString,
+              address: JString,
+              username: JString,
+              password: JString,
             ): com.mirth.connect.server.userutil.DatabaseConnection;
 
             /**
@@ -1634,8 +1605,8 @@ declare namespace com {
              * @throws SQLException - If a database access error occurs.
              */
             createDatabaseConnection(
-              driver: java.lang.String | string,
-              address: java.lang.String | string,
+              driver: JString,
+              address: JString,
             ): com.mirth.connect.server.userutil.DatabaseConnection;
 
             /**
@@ -1650,10 +1621,10 @@ declare namespace com {
              * @throws SQLException - If a database access error occurs.
              */
             createConnection(
-              driver: java.lang.String | string,
-              address: java.lang.String | string,
-              username: java.lang.String | string,
-              password: java.lang.String | string,
+              driver: JString,
+              address: JString,
+              username: JString,
+              password: JString,
             ): java.sql.Connection;
 
             /**
@@ -1663,7 +1634,7 @@ declare namespace com {
              * @param driver - The JDBC driver class (as a string) to initialize.
              * @throws Exception - If the driver could not be initialized.
              */
-            initializeDriver(driver: java.lang.String | string): void;
+            initializeDriver(driver: JString): void;
           }
 
           /**
@@ -1683,10 +1654,7 @@ declare namespace com {
              * var d = DateUtil.getDate('yyyyMMddHHmmss', msg['MSH']['MSH.7']['MSH.7.1'].toString());
              * ```
              */
-            static getDate(
-              pattern: java.lang.String | string,
-              date: java.lang.String | string,
-            ): java.util.Date;
+            static getDate(pattern: JString, date: JString): java.util.Date;
 
             /**
              * Formats a java.util.Date object into a string according to a specified pattern.
@@ -1701,10 +1669,7 @@ declare namespace com {
              * var iso = DateUtil.formatDate("yyyy-MM-dd'T'HH:mm:ss", d);
              * ```
              */
-            static formatDate(
-              pattern: java.lang.String | string,
-              date: java.util.Date,
-            ): java.lang.String;
+            static formatDate(pattern: JString, date: java.util.Date): java.lang.String;
 
             /**
              * Formats the current date into a string according to a specified pattern.
@@ -1717,7 +1682,7 @@ declare namespace com {
              * var now = DateUtil.getCurrentDate('yyyyMMddHHmmss');
              * ```
              */
-            static getCurrentDate(pattern: java.lang.String | string): java.lang.String;
+            static getCurrentDate(pattern: JString): java.lang.String;
 
             /**
              * Parses a date string according to a specified input pattern, and formats the date back to a
@@ -1730,9 +1695,9 @@ declare namespace com {
              * @throws Exception - If the pattern could not be parsed.
              */
             static convertDate(
-              inPattern: java.lang.String | string,
-              outPattern: java.lang.String | string,
-              date: java.lang.String | string,
+              inPattern: JString,
+              outPattern: JString,
+              date: JString,
             ): java.lang.String;
           }
 
@@ -1764,7 +1729,7 @@ declare namespace com {
              * @param metaDataIdOrConnectorName - An integer representing the metaDataId of a destination connector, or the actual destination connector name.
              * @returns A boolean indicating whether at least one destination connector was actually removed from processing for this message.
              */
-            remove(metaDataIdOrConnectorName: java.lang.Object): boolean;
+            remove(metaDataIdOrConnectorName: JObject): boolean;
 
             /**
              * Stop a destination from being processed for this message.
@@ -1772,7 +1737,9 @@ declare namespace com {
              * @param metaDataIdOrConnectorNames - A collection of integers representing the metaDataId of a destination connectors, or the actual destination connector names. JavaScript arrays can be used.
              * @returns A boolean indicating whether at least one destination connector was actually removed from processing for this message.
              */
-            remove(metaDataIdOrConnectorNames: java.util.Collection<java.lang.Object>): boolean;
+            remove(
+              metaDataIdOrConnectorNames: java.util.Collection<java.lang.Object> | JObject[],
+            ): boolean;
 
             /**
              * Stop all except one destination from being processed for this message.
@@ -1780,7 +1747,7 @@ declare namespace com {
              * @param metaDataIdOrConnectorName - An integer representing the metaDataId of a destination connector, or the actual destination connector name.
              * @returns A boolean indicating whether at least one destination connector was actually removed from processing for this message.
              */
-            removeAllExcept(metaDataIdOrConnectorName: java.lang.Object): boolean;
+            removeAllExcept(metaDataIdOrConnectorName: JObject): boolean;
 
             /**
              * Stop all except one destination from being processed for this message.
@@ -1789,7 +1756,7 @@ declare namespace com {
              * @returns A boolean indicating whether at least one destination connector was actually removed from processing for this message.
              */
             removeAllExcept(
-              metaDataIdOrConnectorNames: java.util.Collection<java.lang.Object>,
+              metaDataIdOrConnectorNames: java.util.Collection<java.lang.Object> | JObject[],
             ): boolean;
 
             /**
@@ -1850,7 +1817,9 @@ declare namespace com {
              */
             static mergeHeaderAttachments(
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
-              attachments: java.util.List<com.mirth.connect.server.userutil.Attachment>,
+              attachments:
+                | java.util.List<com.mirth.connect.server.userutil.Attachment>
+                | com.mirth.connect.server.userutil.Attachment[],
             ): java.lang.String;
 
             /**
@@ -1864,7 +1833,7 @@ declare namespace com {
              */
             static mergeHeaderPixelData(
               header: byte[],
-              images: java.util.List<byte[]>,
+              images: java.util.List<byte[]> | byte[][],
             ): java.lang.String;
 
             /**
@@ -1887,7 +1856,7 @@ declare namespace com {
              * @returns The converted image, as a Base64-encoded string.
              */
             static convertDICOM(
-              imageType: java.lang.String | string,
+              imageType: JString,
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
               autoThreshold: boolean,
             ): java.lang.String;
@@ -1900,7 +1869,7 @@ declare namespace com {
              * @returns The converted image, as a Base64-encoded string.
              */
             static convertDICOM(
-              imageType: java.lang.String | string,
+              imageType: JString,
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
             ): java.lang.String;
 
@@ -1913,7 +1882,7 @@ declare namespace com {
              * @returns The converted image, as a Base64-encoded string.
              */
             static convertDICOM(
-              imageType: java.lang.String | string,
+              imageType: JString,
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
               sliceIndex: int,
             ): java.lang.String;
@@ -1928,7 +1897,7 @@ declare namespace com {
              * @returns The converted image, as a Base64-encoded string.
              */
             static convertDICOM(
-              imageType: java.lang.String | string,
+              imageType: JString,
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
               sliceIndex: int,
               autoThreshold: boolean,
@@ -1942,7 +1911,7 @@ declare namespace com {
              * @returns The converted image, as a byte array.
              */
             static convertDICOMToByteArray(
-              imageType: java.lang.String | string,
+              imageType: JString,
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
             ): byte[];
 
@@ -1955,7 +1924,7 @@ declare namespace com {
              * @returns The converted image, as a byte array.
              */
             static convertDICOMToByteArray(
-              imageType: java.lang.String | string,
+              imageType: JString,
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
               sliceIndex: int,
             ): byte[];
@@ -1970,7 +1939,7 @@ declare namespace com {
              * @returns The converted image, as a byte array.
              */
             static convertDICOMToByteArray(
-              imageType: java.lang.String | string,
+              imageType: JString,
               connectorMessage: com.mirth.connect.userutil.ImmutableConnectorMessage,
               sliceIndex: int,
               autoThreshold: boolean,
@@ -2007,7 +1976,7 @@ declare namespace com {
              * @param header
              * @param encryptedData
              */
-            constructor(header: java.lang.String | string, encryptedData: byte[]);
+            constructor(header: JString, encryptedData: byte[]);
 
             /**
              * Returns the meta-information about the encrypted data. Includes the algorithm and
@@ -2034,7 +2003,7 @@ declare namespace com {
              * @returns The encrypted data.
              * @throws com.mirth.commons.encryption.EncryptionException - If the data cannot be encrypted for any reason.
              */
-            static encrypt(data: java.lang.String | string): java.lang.String;
+            static encrypt(data: JString): java.lang.String;
 
             /**
              * Convenience method for encrypting data. Uses the currently configured encryption settings.
@@ -2053,7 +2022,7 @@ declare namespace com {
              * @returns The decrypted data.
              * @throws com.mirth.commons.encryption.EncryptionException - If the data cannot be decrypted for any reason.
              */
-            static decrypt(data: java.lang.String | string): java.lang.String;
+            static decrypt(data: JString): java.lang.String;
 
             /**
              * Convenience method for decrypting data. Uses the currently configured encryption and fallback
@@ -2064,7 +2033,7 @@ declare namespace com {
              * @returns The decrypted data.
              * @throws com.mirth.commons.encryption.EncryptionException - If the data cannot be decrypted for any reason.
              */
-            static decrypt(header: java.lang.String | string, data: byte[]): byte[];
+            static decrypt(header: JString, data: byte[]): byte[];
           }
 
           /**
@@ -2086,11 +2055,7 @@ declare namespace com {
              * FileUtil.write('/data/out/audit.log', true, message + '\n');
              * ```
              */
-            static write(
-              fileName: java.lang.String | string,
-              append: boolean,
-              data: java.lang.String | string,
-            ): void;
+            static write(fileName: JString, append: boolean, data: JString): void;
 
             /**
              * Decodes a Base64 string into octets.
@@ -2098,7 +2063,7 @@ declare namespace com {
              * @param data - The Base64 string to decode.
              * @returns The decoded data, as a byte array.s
              */
-            static decode(data: java.lang.String | string): byte[];
+            static decode(data: JString): byte[];
 
             /**
              * Encoded binary data into a Base64 string.
@@ -2116,7 +2081,7 @@ declare namespace com {
              * @param bytes - The binary content to write to the file.
              * @throws IOException - If an I/O error occurred.
              */
-            static write(fileName: java.lang.String | string, append: boolean, bytes: byte[]): void;
+            static write(fileName: JString, append: boolean, bytes: byte[]): void;
 
             /**
              * Returns the contents of the file as a byte array.
@@ -2131,7 +2096,7 @@ declare namespace com {
              * var b64 = FileUtil.encode(bytes);
              * ```
              */
-            static readBytes(fileName: java.lang.String | string): byte[];
+            static readBytes(fileName: JString): byte[];
 
             /**
              * Returns the contents of the file as a string, using the system default charset encoding.
@@ -2145,7 +2110,7 @@ declare namespace com {
              * var contents = FileUtil.read('/data/in/patient.txt');
              * ```
              */
-            static read(fileName: java.lang.String | string): java.lang.String;
+            static read(fileName: JString): java.lang.String;
 
             /**
              * Deletes a specified File. In Rhino and E4X 'delete' is a keyword, so File.delete() can't be
@@ -2167,8 +2132,8 @@ declare namespace com {
              * @throws BadLocationException - If an invalid location within the document is used.
              */
             static rtfToPlainText(
-              message: java.lang.String | string,
-              replaceLinebreaksWith: java.lang.String | string,
+              message: JString,
+              replaceLinebreaksWith: JString,
             ): java.lang.String;
           }
 
@@ -2267,7 +2232,7 @@ declare namespace com {
              * @returns hash The generated SHA-256 hex hash of the data.
              * @throws Exception - If generating a SHA-256 hex hash fails.
              */
-            static generate(data: java.lang.Object): java.lang.String;
+            static generate(data: JObject): java.lang.String;
 
             /**
              * Takes in a string, an encoding, and a hashing algorithm and generates a hex hash.
@@ -2278,11 +2243,7 @@ declare namespace com {
              * @returns hash The generated hex hash of the string.
              * @throws Exception - If generating a hex hash of the string fails.
              */
-            static generate(
-              str: java.lang.String | string,
-              encoding: java.lang.String | string,
-              algorithm: java.lang.String | string,
-            ): java.lang.String;
+            static generate(str: JString, encoding: JString, algorithm: JString): java.lang.String;
 
             /**
              * Takes in a byte[], an encoding, and a hashing algorithm and generates a hex hash.
@@ -2292,7 +2253,7 @@ declare namespace com {
              * @returns hash The generated hex hash of the byte[].
              * @throws Exception - If generating a hex hash of the byte[] fails.
              */
-            static generate(bytes: byte[], algorithm: java.lang.String | string): java.lang.String;
+            static generate(bytes: byte[], algorithm: JString): java.lang.String;
           }
 
           /**
@@ -2312,9 +2273,7 @@ declare namespace com {
              * var contentType = headers.get('Content-Type');
              * ```
              */
-            static parseHeaders(
-              str: java.lang.String | string,
-            ): java.util.Map<java.lang.String, java.lang.String>;
+            static parseHeaders(str: JString): java.util.Map<java.lang.String, java.lang.String>;
 
             /**
              * Serializes an HTTP request body into XML. Multipart requests will also automatically be
@@ -2335,7 +2294,7 @@ declare namespace com {
              */
             static httpBodyToXml(
               httpBody: java.io.InputStream,
-              contentType: java.lang.String | string,
+              contentType: JString,
             ): java.lang.String;
 
             /**
@@ -2350,10 +2309,7 @@ declare namespace com {
              * @throws com.mirth.connect.donkey.util.DonkeyElement.DonkeyElementException - If an XML parsing error occurs.
              * @throws ParserConfigurationException - If an XML or multipart parsing error occurs.
              */
-            static httpBodyToXml(
-              httpBody: java.lang.String | string,
-              contentType: java.lang.String | string,
-            ): java.lang.String;
+            static httpBodyToXml(httpBody: JString, contentType: JString): java.lang.String;
           }
 
           /**
@@ -2436,7 +2392,7 @@ declare namespace com {
              * @returns a Collection object that contains the values stored in the specified column of this CachedRowSet object
              * @throws SQLException - if an error occurs generating the collection or an invalid column id is provided
              */
-            toCollection(column: java.lang.String | string): java.util.Collection<any>;
+            toCollection(column: JString): java.util.Collection<any>;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2449,7 +2405,7 @@ declare namespace com {
              * @returns the column value; if the value is SQL NULL, the value returned is null
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              */
-            getString(columnName: java.lang.String | string): java.lang.String;
+            getString(columnName: JString): java.lang.String;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2469,7 +2425,7 @@ declare namespace com {
              * @returns the column value; if the value is SQL NULL, the value returned is false
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              */
-            getBoolean(columnName: java.lang.String | string): boolean;
+            getBoolean(columnName: JString): boolean;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2482,7 +2438,7 @@ declare namespace com {
              * @returns the column value; if the value is SQL NULL, the value returned is 0
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              */
-            getByte(columnName: java.lang.String | string): byte;
+            getByte(columnName: JString): byte;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2495,7 +2451,7 @@ declare namespace com {
              * @returns the column value; if the value is SQL NULL, the value returned is 0
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              */
-            getShort(columnName: java.lang.String | string): short;
+            getShort(columnName: JString): short;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2508,7 +2464,7 @@ declare namespace com {
              * @returns the column value; if the value is SQL NULL, the value returned is 0
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              */
-            getInt(columnName: java.lang.String | string): int;
+            getInt(columnName: JString): int;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2521,7 +2477,7 @@ declare namespace com {
              * @returns the column value; if the value is SQL NULL, the value returned is 0
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              */
-            getLong(columnName: java.lang.String | string): long;
+            getLong(columnName: JString): long;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2534,7 +2490,7 @@ declare namespace com {
              * @returns the column value; if the value is SQL NULL, the value returned is 0
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              */
-            getFloat(columnName: java.lang.String | string): float;
+            getFloat(columnName: JString): float;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2547,7 +2503,7 @@ declare namespace com {
              * @returns the column value; if the value is SQL NULL, the value returned is 0
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              */
-            getDouble(columnName: java.lang.String | string): double;
+            getDouble(columnName: JString): double;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2562,7 +2518,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            getBigDecimal(columnName: java.lang.String | string, scale: int): java.math.BigDecimal;
+            getBigDecimal(columnName: JString, scale: int): java.math.BigDecimal;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2576,7 +2532,7 @@ declare namespace com {
              * @returns the column value; if the value is SQL NULL, the value returned is null
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              */
-            getBytes(columnName: java.lang.String | string): byte[];
+            getBytes(columnName: JString): byte[];
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2589,7 +2545,7 @@ declare namespace com {
              * @returns the column value; if the value is SQL NULL, the value returned is null
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              */
-            getDate(columnName: java.lang.String | string): java.sql.Date;
+            getDate(columnName: JString): java.sql.Date;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2602,7 +2558,7 @@ declare namespace com {
              * @returns the column value; if the value is SQL NULL, the value returned is null
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              */
-            getTime(columnName: java.lang.String | string): java.sql.Time;
+            getTime(columnName: JString): java.sql.Time;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2615,7 +2571,7 @@ declare namespace com {
              * @returns the column value; if the value is SQL NULL, the value returned is null
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              */
-            getTimestamp(columnName: java.lang.String | string): java.sql.Timestamp;
+            getTimestamp(columnName: JString): java.sql.Timestamp;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2638,7 +2594,7 @@ declare namespace com {
              * @returns a Java input stream that delivers the database column value as a stream of one-byte ASCII characters. If the value is SQL NULL, the value returned is null.
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              */
-            getAsciiStream(columnName: java.lang.String | string): java.io.InputStream;
+            getAsciiStream(columnName: JString): java.io.InputStream;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2666,7 +2622,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            getUnicodeStream(columnName: java.lang.String | string): java.io.InputStream;
+            getUnicodeStream(columnName: JString): java.io.InputStream;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2689,7 +2645,7 @@ declare namespace com {
              * @returns a Java input stream that delivers the database column value as a stream of uninterpreted bytes; if the value is SQL NULL, the result is null
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              */
-            getBinaryStream(columnName: java.lang.String | string): java.io.InputStream;
+            getBinaryStream(columnName: JString): java.io.InputStream;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2719,7 +2675,7 @@ declare namespace com {
              * @returns a java.lang.Object holding the column value
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              */
-            getObject(columnName: java.lang.String | string): java.lang.Object;
+            getObject(columnName: JString): java.lang.Object;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2731,7 +2687,7 @@ declare namespace com {
              * @returns the column index of the given column name
              * @throws SQLException - if the ResultSet object does not contain a column labeled columnLabel, a database access error occurs or this method is called on a closed result set
              */
-            findColumn(columnName: java.lang.String | string): int;
+            findColumn(columnName: JString): int;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2744,7 +2700,7 @@ declare namespace com {
              * @returns a java.io.Reader object that contains the column value; if the value is SQL NULL, the value returned is null in the Java programming language
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              */
-            getCharacterStream(columnName: java.lang.String | string): java.io.Reader;
+            getCharacterStream(columnName: JString): java.io.Reader;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2757,7 +2713,7 @@ declare namespace com {
              * @returns the column value (full precision); if the value is SQL NULL, the value returned is null in the Java programming language.
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              */
-            getBigDecimal(columnName: java.lang.String | string): java.math.BigDecimal;
+            getBigDecimal(columnName: JString): java.math.BigDecimal;
 
             /**
              * Description copied from interface: javax.sql.rowset.CachedRowSet
@@ -2769,7 +2725,7 @@ declare namespace com {
              * @returns true if the column has been visibly updated; false otherwise
              * @throws SQLException - if the cursor is on the insert row, before the first row, or after the last row
              */
-            columnUpdated(columnName: java.lang.String | string): boolean;
+            columnUpdated(columnName: JString): boolean;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2784,7 +2740,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateNull(columnName: java.lang.String | string): void;
+            updateNull(columnName: JString): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2800,7 +2756,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateBoolean(columnName: java.lang.String | string, x: boolean): void;
+            updateBoolean(columnName: JString, x: boolean): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2816,7 +2772,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateByte(columnName: java.lang.String | string, x: byte): void;
+            updateByte(columnName: JString, x: byte): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2832,7 +2788,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateShort(columnName: java.lang.String | string, x: short): void;
+            updateShort(columnName: JString, x: short): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2848,7 +2804,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateInt(columnName: java.lang.String | string, x: int): void;
+            updateInt(columnName: JString, x: int): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2864,7 +2820,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateLong(columnName: java.lang.String | string, x: long): void;
+            updateLong(columnName: JString, x: long): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2880,7 +2836,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateFloat(columnName: java.lang.String | string, x: float): void;
+            updateFloat(columnName: JString, x: float): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2896,7 +2852,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateDouble(columnName: java.lang.String | string, x: double): void;
+            updateDouble(columnName: JString, x: double): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2913,7 +2869,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateBigDecimal(columnName: java.lang.String | string, x: java.math.BigDecimal): void;
+            updateBigDecimal(columnName: JString, x: java.math.BigDecimal): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2929,7 +2885,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateString(columnName: java.lang.String | string, x: java.lang.String | string): void;
+            updateString(columnName: JString, x: JString): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2946,7 +2902,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateBytes(columnName: java.lang.String | string, x: byte[]): void;
+            updateBytes(columnName: JString, x: byte[]): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2962,7 +2918,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateDate(columnName: java.lang.String | string, x: java.sql.Date): void;
+            updateDate(columnName: JString, x: java.sql.Date): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2978,7 +2934,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateTime(columnName: java.lang.String | string, x: java.sql.Time): void;
+            updateTime(columnName: JString, x: java.sql.Time): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -2995,7 +2951,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateTimestamp(columnName: java.lang.String | string, x: java.sql.Timestamp): void;
+            updateTimestamp(columnName: JString, x: java.sql.Timestamp): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -3013,11 +2969,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateAsciiStream(
-              columnName: java.lang.String | string,
-              x: java.io.InputStream,
-              length: int,
-            ): void;
+            updateAsciiStream(columnName: JString, x: java.io.InputStream, length: int): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -3035,11 +2987,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateBinaryStream(
-              columnName: java.lang.String | string,
-              x: java.io.InputStream,
-              length: int,
-            ): void;
+            updateBinaryStream(columnName: JString, x: java.io.InputStream, length: int): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -3057,11 +3005,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateCharacterStream(
-              columnName: java.lang.String | string,
-              reader: java.io.Reader,
-              length: int,
-            ): void;
+            updateCharacterStream(columnName: JString, reader: java.io.Reader, length: int): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -3085,11 +3029,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateObject(
-              columnName: java.lang.String | string,
-              x: java.lang.Object,
-              scale: int,
-            ): void;
+            updateObject(columnName: JString, x: JObject, scale: int): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -3106,7 +3046,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateObject(columnName: java.lang.String | string, x: java.lang.Object): void;
+            updateObject(columnName: JString, x: JObject): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -3126,8 +3066,10 @@ declare namespace com {
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
             getObject(
-              columnName: java.lang.String | string,
-              map: java.util.Map<java.lang.String, java.lang.Class<any>>,
+              columnName: JString,
+              map:
+                | java.util.Map<java.lang.String, java.lang.Class<any>>
+                | Record<string, java.lang.Class<any>>,
             ): java.lang.Object;
 
             /**
@@ -3142,7 +3084,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            getRef(colName: java.lang.String | string): java.sql.Ref;
+            getRef(colName: JString): java.sql.Ref;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -3156,7 +3098,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            getBlob(colName: java.lang.String | string): java.sql.Blob;
+            getBlob(colName: JString): java.sql.Blob;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -3170,7 +3112,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            getClob(colName: java.lang.String | string): java.sql.Clob;
+            getClob(colName: JString): java.sql.Clob;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -3184,7 +3126,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            getArray(colName: java.lang.String | string): java.sql.Array;
+            getArray(colName: JString): java.sql.Array;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -3201,7 +3143,7 @@ declare namespace com {
              * @returns the column value as a java.sql.Date object; if the value is SQL NULL, the value returned is null in the Java programming language
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              */
-            getDate(columnName: java.lang.String | string, cal: java.util.Calendar): java.sql.Date;
+            getDate(columnName: JString, cal: java.util.Calendar): java.sql.Date;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -3218,7 +3160,7 @@ declare namespace com {
              * @returns the column value as a java.sql.Time object; if the value is SQL NULL, the value returned is null in the Java programming language
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              */
-            getTime(columnName: java.lang.String | string, cal: java.util.Calendar): java.sql.Time;
+            getTime(columnName: JString, cal: java.util.Calendar): java.sql.Time;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -3235,10 +3177,7 @@ declare namespace com {
              * @returns the column value as a java.sql.Timestamp object; if the value is SQL NULL, the value returned is null in the Java programming language
              * @throws SQLException - if the columnLabel is not valid or if a database access error occurs or this method is called on a closed result set
              */
-            getTimestamp(
-              columnName: java.lang.String | string,
-              cal: java.util.Calendar,
-            ): java.sql.Timestamp;
+            getTimestamp(columnName: JString, cal: java.util.Calendar): java.sql.Timestamp;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -3254,7 +3193,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateRef(columnName: java.lang.String | string, ref: java.sql.Ref): void;
+            updateRef(columnName: JString, ref: java.sql.Ref): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -3270,7 +3209,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateClob(columnName: java.lang.String | string, c: java.sql.Clob): void;
+            updateClob(columnName: JString, c: java.sql.Clob): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -3286,7 +3225,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateBlob(columnName: java.lang.String | string, b: java.sql.Blob): void;
+            updateBlob(columnName: JString, b: java.sql.Blob): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -3302,7 +3241,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateArray(columnName: java.lang.String | string, a: java.sql.Array): void;
+            updateArray(columnName: JString, a: java.sql.Array): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -3316,7 +3255,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; this method is called on a closed result set or if a URL is malformed
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            getURL(columnName: java.lang.String | string): java.net.URL;
+            getURL(columnName: JString): java.net.URL;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -3347,7 +3286,7 @@ declare namespace com {
              * @param url - a string value; may be null
              * @throws SQLException - if a database access error occurs
              */
-            setUrl(url: java.lang.String | string): void;
+            setUrl(url: JString): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -3373,7 +3312,7 @@ declare namespace com {
              * @param name - the logical name of the data source for this RowSet object; may be null
              * @throws SQLException - if a database access error occurs
              */
-            setDataSourceName(name: java.lang.String | string): void;
+            setDataSourceName(name: JString): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -3397,7 +3336,7 @@ declare namespace com {
              * @param name - a user name
              * @throws SQLException - if a database access error occurs
              */
-            setUsername(name: java.lang.String | string): void;
+            setUsername(name: JString): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -3420,7 +3359,7 @@ declare namespace com {
              * @param password - the password string
              * @throws SQLException - if a database access error occurs
              */
-            setPassword(password: java.lang.String | string): void;
+            setPassword(password: JString): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -3465,7 +3404,11 @@ declare namespace com {
              * @param map - a java.util.Map object containing the names of SQL user-defined types and the Java classes to which they are to be mapped
              * @throws SQLException - if a database access error occurs
              */
-            setTypeMap(map: java.util.Map<java.lang.String, java.lang.Class<any>>): void;
+            setTypeMap(
+              map:
+                | java.util.Map<java.lang.String, java.lang.Class<any>>
+                | Record<string, java.lang.Class<any>>,
+            ): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -3493,7 +3436,7 @@ declare namespace com {
              * @param cmd - the SQL query that will be used to get the data for this RowSet object; may be null
              * @throws SQLException - if a database access error occurs
              */
-            setCommand(cmd: java.lang.String | string): void;
+            setCommand(cmd: JString): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -3676,7 +3619,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setNull(parameterName: java.lang.String | string, sqlType: int): void;
+            setNull(parameterName: JString, sqlType: int): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -3705,7 +3648,7 @@ declare namespace com {
              * @param typeName - the fully qualified name of an SQL UDT or the type name of the SQL structured type being referenced by a REF type; ignored if the parameter is not a UDT or REF type
              * @throws SQLException - if a database access error occurs
              */
-            setNull(paramIndex: int, sqlType: int, typeName: java.lang.String | string): void;
+            setNull(paramIndex: int, sqlType: int, typeName: JString): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -3735,11 +3678,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setNull(
-              parameterName: java.lang.String | string,
-              sqlType: int,
-              typeName: java.lang.String | string,
-            ): void;
+            setNull(parameterName: JString, sqlType: int, typeName: JString): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -3766,7 +3705,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setBoolean(parameterName: java.lang.String | string, x: boolean): void;
+            setBoolean(parameterName: JString, x: boolean): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -3793,7 +3732,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setByte(parameterName: java.lang.String | string, x: byte): void;
+            setByte(parameterName: JString, x: byte): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -3820,7 +3759,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setShort(parameterName: java.lang.String | string, x: short): void;
+            setShort(parameterName: JString, x: short): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -3847,7 +3786,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setInt(parameterName: java.lang.String | string, x: int): void;
+            setInt(parameterName: JString, x: int): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -3874,7 +3813,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setLong(parameterName: java.lang.String | string, x: long): void;
+            setLong(parameterName: JString, x: long): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -3901,7 +3840,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setFloat(parameterName: java.lang.String | string, x: float): void;
+            setFloat(parameterName: JString, x: float): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -3928,7 +3867,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setDouble(parameterName: java.lang.String | string, x: double): void;
+            setDouble(parameterName: JString, x: double): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -3957,7 +3896,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setBigDecimal(parameterName: java.lang.String | string, x: java.math.BigDecimal): void;
+            setBigDecimal(parameterName: JString, x: java.math.BigDecimal): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -3972,7 +3911,7 @@ declare namespace com {
              * @param x - the parameter value
              * @throws SQLException - if a database access error occurs
              */
-            setString(parameterIndex: int, x: java.lang.String | string): void;
+            setString(parameterIndex: int, x: JString): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -3989,7 +3928,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setString(parameterName: java.lang.String | string, x: java.lang.String | string): void;
+            setString(parameterName: JString, x: JString): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -4020,7 +3959,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setBytes(parameterName: java.lang.String | string, x: byte[]): void;
+            setBytes(parameterName: JString, x: byte[]): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -4077,7 +4016,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setTimestamp(parameterName: java.lang.String | string, x: java.sql.Timestamp): void;
+            setTimestamp(parameterName: JString, x: java.sql.Timestamp): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -4121,11 +4060,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setAsciiStream(
-              parameterName: java.lang.String | string,
-              x: java.io.InputStream,
-              length: int,
-            ): void;
+            setAsciiStream(parameterName: JString, x: java.io.InputStream, length: int): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -4168,11 +4103,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setBinaryStream(
-              parameterName: java.lang.String | string,
-              x: java.io.InputStream,
-              length: int,
-            ): void;
+            setBinaryStream(parameterName: JString, x: java.io.InputStream, length: int): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -4216,11 +4147,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setCharacterStream(
-              parameterName: java.lang.String | string,
-              reader: java.io.Reader,
-              length: int,
-            ): void;
+            setCharacterStream(parameterName: JString, reader: java.io.Reader, length: int): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -4271,7 +4198,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setAsciiStream(parameterName: java.lang.String | string, x: java.io.InputStream): void;
+            setAsciiStream(parameterName: JString, x: java.io.InputStream): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -4320,7 +4247,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setBinaryStream(parameterName: java.lang.String | string, x: java.io.InputStream): void;
+            setBinaryStream(parameterName: JString, x: java.io.InputStream): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -4373,10 +4300,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setCharacterStream(
-              parameterName: java.lang.String | string,
-              reader: java.io.Reader,
-            ): void;
+            setCharacterStream(parameterName: JString, reader: java.io.Reader): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -4438,7 +4362,7 @@ declare namespace com {
              */
             setObject(
               parameterIndex: int,
-              x: java.lang.Object,
+              x: JObject,
               targetSqlType: int,
               scaleOrLength: int,
             ): void;
@@ -4473,12 +4397,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if targetSqlType is a ARRAY, BLOB, CLOB, DATALINK, JAVA_OBJECT, NCHAR, NCLOB, NVARCHAR, LONGNVARCHAR, REF, ROWID, SQLXML or STRUCT data type and the JDBC driver does not support this data type
              */
-            setObject(
-              parameterName: java.lang.String | string,
-              x: java.lang.Object,
-              targetSqlType: int,
-              scale: int,
-            ): void;
+            setObject(parameterName: JString, x: JObject, targetSqlType: int, scale: int): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -4498,7 +4417,7 @@ declare namespace com {
              * @param targetSqlType - the SQL type (as defined in java.sql.Types) to be sent to the database
              * @throws SQLException - if a database access error occurs
              */
-            setObject(parameterIndex: int, x: java.lang.Object, targetSqlType: int): void;
+            setObject(parameterIndex: int, x: JObject, targetSqlType: int): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -4513,11 +4432,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if targetSqlType is a ARRAY, BLOB, CLOB, DATALINK, JAVA_OBJECT, NCHAR, NCLOB, NVARCHAR, LONGNVARCHAR, REF, ROWID, SQLXML or STRUCT data type and the JDBC driver does not support this data type
              */
-            setObject(
-              parameterName: java.lang.String | string,
-              x: java.lang.Object,
-              targetSqlType: int,
-            ): void;
+            setObject(parameterName: JString, x: JObject, targetSqlType: int): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -4552,7 +4467,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs, this method is called on a closed CallableStatement or if the given Object parameter is ambiguous
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setObject(parameterName: java.lang.String | string, x: java.lang.Object): void;
+            setObject(parameterName: JString, x: JObject): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -4585,7 +4500,7 @@ declare namespace com {
              * @param x - The object containing the input parameter value
              * @throws SQLException - if a database access error occurs
              */
-            setObject(parameterIndex: int, x: java.lang.Object): void;
+            setObject(parameterIndex: int, x: JObject): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -4673,11 +4588,7 @@ declare namespace com {
              * @throws SQLException - if parameterIndex does not correspond to a parameter marker in the SQL statement, or if the length specified is less than zero; if the number of bytes in the inputstream does not match the specified length; if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setBlob(
-              parameterName: java.lang.String | string,
-              inputStream: java.io.InputStream,
-              length: long,
-            ): void;
+            setBlob(parameterName: JString, inputStream: java.io.InputStream, length: long): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -4691,7 +4602,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setBlob(parameterName: java.lang.String | string, x: java.sql.Blob): void;
+            setBlob(parameterName: JString, x: java.sql.Blob): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -4712,10 +4623,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setBlob(
-              parameterName: java.lang.String | string,
-              inputStream: java.io.InputStream,
-            ): void;
+            setBlob(parameterName: JString, inputStream: java.io.InputStream): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -4790,11 +4698,7 @@ declare namespace com {
              * @throws SQLException - if parameterIndex does not correspond to a parameter marker in the SQL statement; if the length specified is less than zero; a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setClob(
-              parameterName: java.lang.String | string,
-              reader: java.io.Reader,
-              length: long,
-            ): void;
+            setClob(parameterName: JString, reader: java.io.Reader, length: long): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -4808,7 +4712,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setClob(parameterName: java.lang.String | string, x: java.sql.Clob): void;
+            setClob(parameterName: JString, x: java.sql.Clob): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -4829,7 +4733,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setClob(parameterName: java.lang.String | string, reader: java.io.Reader): void;
+            setClob(parameterName: JString, reader: java.io.Reader): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -4874,7 +4778,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setDate(parameterName: java.lang.String | string, x: java.sql.Date): void;
+            setDate(parameterName: JString, x: java.sql.Date): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -4894,11 +4798,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setDate(
-              parameterName: java.lang.String | string,
-              x: java.sql.Date,
-              cal: java.util.Calendar,
-            ): void;
+            setDate(parameterName: JString, x: java.sql.Date, cal: java.util.Calendar): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -4927,7 +4827,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setTime(parameterName: java.lang.String | string, x: java.sql.Time): void;
+            setTime(parameterName: JString, x: java.sql.Time): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -4947,11 +4847,7 @@ declare namespace com {
              * @throws SQLException - if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setTime(
-              parameterName: java.lang.String | string,
-              x: java.sql.Time,
-              cal: java.util.Calendar,
-            ): void;
+            setTime(parameterName: JString, x: java.sql.Time, cal: java.util.Calendar): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -4988,7 +4884,7 @@ declare namespace com {
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
             setTimestamp(
-              parameterName: java.lang.String | string,
+              parameterName: JString,
               x: java.sql.Timestamp,
               cal: java.util.Calendar,
             ): void;
@@ -5079,7 +4975,7 @@ declare namespace com {
              * @param xmlObject - a SQLXML object that maps an SQL XML value
              * @throws SQLException - if a database access error occurs, this method is called on a closed result set, the java.xml.transform.Result, Writer or OutputStream has not been closed for the SQLXML object or if there is an error processing the XML value. The getCause method of the exception may provide a more detailed exception, for example, if the stream does not contain valid XML.
              */
-            setSQLXML(parameterName: java.lang.String | string, xmlObject: java.sql.SQLXML): void;
+            setSQLXML(parameterName: JString, xmlObject: java.sql.SQLXML): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -5105,7 +5001,7 @@ declare namespace com {
              * @param x - the parameter value
              * @throws SQLException - if a database access error occurs
              */
-            setRowId(parameterName: java.lang.String | string, x: java.sql.RowId): void;
+            setRowId(parameterName: JString, x: java.sql.RowId): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -5121,7 +5017,7 @@ declare namespace com {
              * @param value - the parameter value
              * @throws SQLException - if the driver does not support national character sets; if the driver can detect that a data conversion error could occur ; or if a database access error occurs
              */
-            setNString(parameterIndex: int, value: java.lang.String | string): void;
+            setNString(parameterIndex: int, value: JString): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -5134,10 +5030,7 @@ declare namespace com {
              * @param value - the parameter value
              * @throws SQLException - if the driver does not support national character sets; if the driver can detect that a data conversion error could occur; or if a database access error occurs
              */
-            setNString(
-              parameterName: java.lang.String | string,
-              value: java.lang.String | string,
-            ): void;
+            setNString(parameterName: JString, value: JString): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -5167,11 +5060,7 @@ declare namespace com {
              * @param length - the number of characters in the parameter data.
              * @throws SQLException - if the driver does not support national character sets; if the driver can detect that a data conversion error could occur; or if a database access error occurs
              */
-            setNCharacterStream(
-              parameterName: java.lang.String | string,
-              value: java.io.Reader,
-              length: long,
-            ): void;
+            setNCharacterStream(parameterName: JString, value: java.io.Reader, length: long): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -5194,10 +5083,7 @@ declare namespace com {
              * @throws SQLException - if the driver does not support national character sets; if the driver can detect that a data conversion error could occur ; if a database access error occurs; or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setNCharacterStream(
-              parameterName: java.lang.String | string,
-              value: java.io.Reader,
-            ): void;
+            setNCharacterStream(parameterName: JString, value: java.io.Reader): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -5210,7 +5096,7 @@ declare namespace com {
              * @param value - the parameter value
              * @throws SQLException - if the driver does not support national character sets; if the driver can detect that a data conversion error could occur; or if a database access error occurs
              */
-            setNClob(parameterName: java.lang.String | string, value: java.sql.NClob): void;
+            setNClob(parameterName: JString, value: java.sql.NClob): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -5230,11 +5116,7 @@ declare namespace com {
              * @throws SQLException - if parameterIndex does not correspond to a parameter marker in the SQL statement; if the length specified is less than zero; if the driver does not support national character sets; if the driver can detect that a data conversion error could occur; if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setNClob(
-              parameterName: java.lang.String | string,
-              reader: java.io.Reader,
-              length: long,
-            ): void;
+            setNClob(parameterName: JString, reader: java.io.Reader, length: long): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -5254,7 +5136,7 @@ declare namespace com {
              * @throws SQLException - if the driver does not support national character sets; if the driver can detect that a data conversion error could occur; if a database access error occurs or this method is called on a closed CallableStatement
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            setNClob(parameterName: java.lang.String | string, reader: java.io.Reader): void;
+            setNClob(parameterName: JString, reader: java.io.Reader): void;
 
             /**
              * Description copied from interface: javax.sql.RowSet
@@ -6282,7 +6164,7 @@ declare namespace com {
              * @throws SQLException - if the columnIndex is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateString(columnIndex: int, x: java.lang.String | string): void;
+            updateString(columnIndex: int, x: JString): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -6425,7 +6307,7 @@ declare namespace com {
              * @throws SQLException - if the columnIndex is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateObject(columnIndex: int, x: java.lang.Object, scaleOrLength: int): void;
+            updateObject(columnIndex: int, x: JObject, scaleOrLength: int): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -6442,7 +6324,7 @@ declare namespace com {
              * @throws SQLException - if the columnIndex is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateObject(columnIndex: int, x: java.lang.Object): void;
+            updateObject(columnIndex: int, x: JObject): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -6595,7 +6477,9 @@ declare namespace com {
              */
             getObject(
               columnIndex: int,
-              map: java.util.Map<java.lang.String, java.lang.Class<any>>,
+              map:
+                | java.util.Map<java.lang.String, java.lang.Class<any>>
+                | Record<string, java.lang.Class<any>>,
             ): java.lang.Object;
 
             /**
@@ -6809,7 +6693,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            getRowId(columnLabel: java.lang.String | string): java.sql.RowId;
+            getRowId(columnLabel: JString): java.sql.RowId;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -6841,7 +6725,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateRowId(columnLabel: java.lang.String | string, x: java.sql.RowId): void;
+            updateRowId(columnLabel: JString, x: java.sql.RowId): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -6880,7 +6764,7 @@ declare namespace com {
              * @throws SQLException - if the columnIndex is not valid; if the driver does not support national character sets; if the driver can detect that a data conversion error could occur; this method is called on a closed result set; the result set concurrency is CONCUR_READ_ONLY or if a database access error occurs
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateNString(columnIndex: int, nString: java.lang.String | string): void;
+            updateNString(columnIndex: int, nString: JString): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -6912,7 +6796,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if the driver does not support national character sets; if the driver can detect that a data conversion error could occur; this method is called on a closed result set; if a database access error occurs or the result set concurrency is CONCUR_READ_ONLY
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateNClob(columnLabel: java.lang.String | string, nClob: java.sql.NClob): void;
+            updateNClob(columnLabel: JString, nClob: java.sql.NClob): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -6940,7 +6824,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if the driver does not support national character sets; if the driver can detect that a data conversion error could occur; this method is called on a closed result set or if a database access error occurs
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            getNClob(columnLabel: java.lang.String | string): java.sql.NClob;
+            getNClob(columnLabel: JString): java.sql.NClob;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -6968,7 +6852,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            getSQLXML(columnLabel: java.lang.String | string): java.sql.SQLXML;
+            getSQLXML(columnLabel: JString): java.sql.SQLXML;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -7002,7 +6886,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; this method is called on a closed result set; the java.xml.transform.Result, Writer or OutputStream has not been closed for the SQLXML object; if there is an error processing the XML value or the result set concurrency is CONCUR_READ_ONLY. The getCause method of the exception may provide a more detailed exception, for example, if the stream does not contain valid XML.
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateSQLXML(columnLabel: java.lang.String | string, xmlObject: java.sql.SQLXML): void;
+            updateSQLXML(columnLabel: JString, xmlObject: java.sql.SQLXML): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -7036,7 +6920,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            getNString(columnLabel: java.lang.String | string): java.lang.String;
+            getNString(columnLabel: JString): java.lang.String;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -7070,7 +6954,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            getNCharacterStream(columnLabel: java.lang.String | string): java.io.Reader;
+            getNCharacterStream(columnLabel: JString): java.io.Reader;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -7119,7 +7003,7 @@ declare namespace com {
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
             updateNCharacterStream(
-              columnLabel: java.lang.String | string,
+              columnLabel: JString,
               reader: java.io.Reader,
               length: long,
             ): void;
@@ -7198,11 +7082,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateAsciiStream(
-              columnLabel: java.lang.String | string,
-              x: java.io.InputStream,
-              length: long,
-            ): void;
+            updateAsciiStream(columnLabel: JString, x: java.io.InputStream, length: long): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -7221,11 +7101,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateBinaryStream(
-              columnLabel: java.lang.String | string,
-              x: java.io.InputStream,
-              length: long,
-            ): void;
+            updateBinaryStream(columnLabel: JString, x: java.io.InputStream, length: long): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -7244,11 +7120,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateCharacterStream(
-              columnLabel: java.lang.String | string,
-              reader: java.io.Reader,
-              length: long,
-            ): void;
+            updateCharacterStream(columnLabel: JString, reader: java.io.Reader, length: long): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -7286,11 +7158,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateBlob(
-              columnLabel: java.lang.String | string,
-              inputStream: java.io.InputStream,
-              length: long,
-            ): void;
+            updateBlob(columnLabel: JString, inputStream: java.io.InputStream, length: long): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -7336,11 +7204,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateClob(
-              columnLabel: java.lang.String | string,
-              reader: java.io.Reader,
-              length: long,
-            ): void;
+            updateClob(columnLabel: JString, reader: java.io.Reader, length: long): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -7386,11 +7250,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if the driver does not support national character sets; if the driver can detect that a data conversion error could occur; this method is called on a closed result set; if a database access error occurs or the result set concurrency is CONCUR_READ_ONLY
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateNClob(
-              columnLabel: java.lang.String | string,
-              reader: java.io.Reader,
-              length: long,
-            ): void;
+            updateNClob(columnLabel: JString, reader: java.io.Reader, length: long): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -7446,10 +7306,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateNCharacterStream(
-              columnLabel: java.lang.String | string,
-              reader: java.io.Reader,
-            ): void;
+            updateNCharacterStream(columnLabel: JString, reader: java.io.Reader): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -7541,7 +7398,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateAsciiStream(columnLabel: java.lang.String | string, x: java.io.InputStream): void;
+            updateAsciiStream(columnLabel: JString, x: java.io.InputStream): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -7564,10 +7421,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateBinaryStream(
-              columnLabel: java.lang.String | string,
-              x: java.io.InputStream,
-            ): void;
+            updateBinaryStream(columnLabel: JString, x: java.io.InputStream): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -7590,10 +7444,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateCharacterStream(
-              columnLabel: java.lang.String | string,
-              reader: java.io.Reader,
-            ): void;
+            updateCharacterStream(columnLabel: JString, reader: java.io.Reader): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -7637,10 +7488,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateBlob(
-              columnLabel: java.lang.String | string,
-              inputStream: java.io.InputStream,
-            ): void;
+            updateBlob(columnLabel: JString, inputStream: java.io.InputStream): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -7690,7 +7538,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if a database access error occurs; the result set concurrency is CONCUR_READ_ONLY or this method is called on a closed result set
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateClob(columnLabel: java.lang.String | string, reader: java.io.Reader): void;
+            updateClob(columnLabel: JString, reader: java.io.Reader): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -7740,7 +7588,7 @@ declare namespace com {
              * @throws SQLException - if the columnLabel is not valid; if the driver does not support national character sets; if the driver can detect that a data conversion error could occur; this method is called on a closed result set; if a database access error occurs or the result set concurrency is CONCUR_READ_ONLY
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            updateNClob(columnLabel: java.lang.String | string, reader: java.io.Reader): void;
+            updateNClob(columnLabel: JString, reader: java.io.Reader): void;
 
             /**
              * Description copied from interface: java.sql.ResultSet
@@ -7786,7 +7634,7 @@ declare namespace com {
              * @throws SQLException - if conversion is not supported, type is null or another error occurs. The getCause() method of the exception may provide a more detailed exception, for example, if a conversion error occurs
              * @throws SQLFeatureNotSupportedException - if the JDBC driver does not support this method
              */
-            getObject<T>(columnLabel: java.lang.String | string, type: java.lang.Class<T>): T;
+            getObject<T>(columnLabel: JString, type: java.lang.Class<T>): T;
 
             /**
              * Description copied from interface: java.sql.Wrapper
@@ -7873,7 +7721,7 @@ declare namespace com {
              * @param columnName - a String object giving the name of the column to be set as the match column
              * @throws SQLException - if an invalid column name is set, the column name is a null, or the column name is an empty string
              */
-            setMatchColumn(columnName: java.lang.String | string): void;
+            setMatchColumn(columnName: JString): void;
 
             /**
              * Description copied from interface: javax.sql.rowset.Joinable
@@ -7885,7 +7733,7 @@ declare namespace com {
              * @param columnNames - an array of String objects giving the names of the column to be set as the match columns
              * @throws SQLException - if an invalid column name is set, the column name is a null, or the column name is an empty string
              */
-            setMatchColumn(columnNames: (java.lang.String | string)[]): void;
+            setMatchColumn(columnNames: JString[]): void;
 
             /**
              * Description copied from interface: javax.sql.rowset.Joinable
@@ -7952,7 +7800,7 @@ declare namespace com {
              * @param columnName - a String object giving the name of the column that is to be unset as a match column
              * @throws SQLException - if an invalid column name is designated or the designated column was not previously set as a match column
              */
-            unsetMatchColumn(columnName: java.lang.String | string): void;
+            unsetMatchColumn(columnName: JString): void;
 
             /**
              * Description copied from interface: javax.sql.rowset.Joinable
@@ -7963,7 +7811,7 @@ declare namespace com {
              * @param columnName - an array of String objects giving the names of the columns that are to be unset as the match columns
              * @throws SQLException - if an invalid column name is designated or the designated column was not previously set as a match column
              */
-            unsetMatchColumn(columnName: (java.lang.String | string)[]): void;
+            unsetMatchColumn(columnName: JString[]): void;
 
             /**
              * Description copied from interface: javax.sql.rowset.CachedRowSet
@@ -8384,7 +8232,7 @@ declare namespace com {
              * @param provider - a String object giving the fully qualified class name of a SyncProvider implementation
              * @throws SQLException - if an error occurs while attempting to reset the SyncProvider implementation
              */
-            setSyncProvider(provider: java.lang.String | string): void;
+            setSyncProvider(provider: JString): void;
 
             /**
              * Description copied from interface: javax.sql.rowset.CachedRowSet
@@ -8509,7 +8357,7 @@ declare namespace com {
              * @param tabName - a String object identifying the table from which this CachedRowSet object was derived; cannot be null but may be an empty string
              * @throws SQLException - if an error is encountered naming the table or tabName is null
              */
-            setTableName(tabName: java.lang.String | string): void;
+            setTableName(tabName: JString): void;
 
             /**
              * Description copied from interface: javax.sql.rowset.CachedRowSet
@@ -8841,10 +8689,7 @@ declare namespace com {
              * @param decimalPoints - The index at which to place a decimal point in the converted string. If this value is less than or equal to zero, or greater than or equal to the length of the overpunch code, a decimal point will not be inserted.
              * @returns The string representation of the converted decimal value.
              */
-            static formatNCPDPNumber(
-              origNumber: java.lang.String | string,
-              decimalPoints: int,
-            ): java.lang.String;
+            static formatNCPDPNumber(origNumber: JString, decimalPoints: int): java.lang.String;
           }
 
           /**
@@ -8857,7 +8702,7 @@ declare namespace com {
              *
              * @param rawData - The textual data to dispatch to the channel.
              */
-            constructor(rawData: java.lang.String | string);
+            constructor(rawData: JString);
 
             /**
              * Instantiates a RawMessage object to dispatch to a channel.
@@ -8866,8 +8711,8 @@ declare namespace com {
              * @param destinationMetaDataIds - A collection of integers (metadata IDs) representing which destinations to dispatch the message to. JavaScript arrays can be used.
              */
             constructor(
-              rawData: java.lang.String | string,
-              destinationMetaDataIds: java.util.Collection<number>,
+              rawData: JString,
+              destinationMetaDataIds: java.util.Collection<number> | number[],
             );
 
             /**
@@ -8878,9 +8723,11 @@ declare namespace com {
              * @param sourceMap - Any values placed in this map will be populated in the source map at the beginning of the message's lifecycle.
              */
             constructor(
-              rawData: java.lang.String | string,
-              destinationMetaDataIds: java.util.Collection<number>,
-              sourceMap: java.util.Map<java.lang.String, java.lang.Object>,
+              rawData: JString,
+              destinationMetaDataIds: java.util.Collection<number> | number[],
+              sourceMap:
+                | java.util.Map<java.lang.String, java.lang.Object>
+                | Record<string, JObject>,
             );
 
             /**
@@ -8896,7 +8743,10 @@ declare namespace com {
              * @param rawBytes - The binary data (byte array) to dispatch to the channel.
              * @param destinationMetaDataIds - A collection of integers (metadata IDs) representing which destinations to dispatch the message to. JavaScript arrays can be used.
              */
-            constructor(rawBytes: byte[], destinationMetaDataIds: java.util.Collection<number>);
+            constructor(
+              rawBytes: byte[],
+              destinationMetaDataIds: java.util.Collection<number> | number[],
+            );
 
             /**
              * Instantiates a RawMessage object to dispatch to a channel.
@@ -8907,8 +8757,10 @@ declare namespace com {
              */
             constructor(
               rawBytes: byte[],
-              destinationMetaDataIds: java.util.Collection<number>,
-              sourceMap: java.util.Map<java.lang.String, java.lang.Object>,
+              destinationMetaDataIds: java.util.Collection<number> | number[],
+              sourceMap:
+                | java.util.Map<java.lang.String, java.lang.Object>
+                | Record<string, JObject>,
             );
 
             /**
@@ -8938,7 +8790,9 @@ declare namespace com {
              *
              * @param destinationMetaDataIds - A list of integers (metadata IDs) representing which destinations to dispatch the message to.
              */
-            setDestinationMetaDataIds(destinationMetaDataIds: java.util.Collection<number>): void;
+            setDestinationMetaDataIds(
+              destinationMetaDataIds: java.util.Collection<number> | number[],
+            ): void;
 
             /**
              * Returns the channel map to be used at the beginning of the channel dispatch.
@@ -8956,7 +8810,11 @@ declare namespace com {
              * @deprecated This method is deprecated and will soon be removed. Please use
              * setSourceMap(sourceMap) instead.
              */
-            setChannelMap(channelMap: java.util.Map<java.lang.String, java.lang.Object>): void;
+            setChannelMap(
+              channelMap:
+                | java.util.Map<java.lang.String, java.lang.Object>
+                | Record<string, JObject>,
+            ): void;
 
             /**
              * Returns the source map to be used at the beginning of the channel dispatch.
@@ -8970,7 +8828,11 @@ declare namespace com {
              *
              * @param sourceMap - Any values placed in this map will be populated in the source map at the beginning of the message's lifecycle.
              */
-            setSourceMap(sourceMap: java.util.Map<java.lang.String, java.lang.Object>): void;
+            setSourceMap(
+              sourceMap:
+                | java.util.Map<java.lang.String, java.lang.Object>
+                | Record<string, JObject>,
+            ): void;
 
             /**
              * Returns a Boolean representing whether this object contains textual or binary data.
@@ -8995,9 +8857,7 @@ declare namespace com {
              * @param message - The response data to store.
              * @returns The instantiated Response object.
              */
-            static getSentResponse(
-              message: java.lang.String | string,
-            ): com.mirth.connect.userutil.Response;
+            static getSentResponse(message: JString): com.mirth.connect.userutil.Response;
 
             /**
              * Returns a Response representing a erred message.
@@ -9005,9 +8865,7 @@ declare namespace com {
              * @param message - The response data to store.
              * @returns The instantiated Response object.
              */
-            static getErrorResponse(
-              message: java.lang.String | string,
-            ): com.mirth.connect.userutil.Response;
+            static getErrorResponse(message: JString): com.mirth.connect.userutil.Response;
 
             /**
              * Returns a Response representing a filtered message.
@@ -9015,9 +8873,7 @@ declare namespace com {
              * @param message - The response data to store.
              * @returns The instantiated Response object.
              */
-            static getFilteredResponse(
-              message: java.lang.String | string,
-            ): com.mirth.connect.userutil.Response;
+            static getFilteredResponse(message: JString): com.mirth.connect.userutil.Response;
 
             /**
              * Returns a Response representing a queued message.
@@ -9025,9 +8881,7 @@ declare namespace com {
              * @param message - The response data to store.
              * @returns The instantiated Response object.
              */
-            static getQueuedResponse(
-              message: java.lang.String | string,
-            ): com.mirth.connect.userutil.Response;
+            static getQueuedResponse(message: JString): com.mirth.connect.userutil.Response;
           }
 
           /**
@@ -9049,7 +8903,7 @@ declare namespace com {
              * ```
              */
             static getSerializer(
-              dataType: java.lang.String | string,
+              dataType: JString,
             ): com.mirth.connect.model.converters.IMessageSerializer;
 
             /**
@@ -9061,9 +8915,13 @@ declare namespace com {
              * @returns The instantiated IXMLSerializer object.
              */
             static getSerializer(
-              dataType: java.lang.String | string,
-              serializationPropertiesMap: java.util.Map<java.lang.String, java.lang.Object>,
-              deserializationPropertiesMap: java.util.Map<java.lang.String, java.lang.Object>,
+              dataType: JString,
+              serializationPropertiesMap:
+                | java.util.Map<java.lang.String, java.lang.Object>
+                | Record<string, JObject>,
+              deserializationPropertiesMap:
+                | java.util.Map<java.lang.String, java.lang.Object>
+                | Record<string, JObject>,
             ): com.mirth.connect.model.converters.IMessageSerializer;
 
             /**
@@ -9074,7 +8932,7 @@ declare namespace com {
              * @returns The map of default serialization properties.
              */
             static getDefaultSerializationProperties(
-              dataType: java.lang.String | string,
+              dataType: JString,
             ): java.util.Map<java.lang.String, java.lang.Object>;
 
             /**
@@ -9085,7 +8943,7 @@ declare namespace com {
              * @returns The map of default deserialization properties.
              */
             static getDefaultDeserializationProperties(
-              dataType: java.lang.String | string,
+              dataType: JString,
             ): java.util.Map<java.lang.String, java.lang.Object>;
 
             /**
@@ -9200,9 +9058,9 @@ declare namespace com {
              * instead.
              */
             static getEDISerializer(
-              segmentDelim: java.lang.String | string,
-              elementDelim: java.lang.String | string,
-              subelementDelim: java.lang.String | string,
+              segmentDelim: JString,
+              elementDelim: JString,
+              subelementDelim: JString,
             ): com.mirth.connect.model.converters.IMessageSerializer;
 
             /**
@@ -9218,9 +9076,9 @@ declare namespace com {
              * instead.
              */
             static getNCPDPSerializer(
-              segmentDelim: java.lang.String | string,
-              groupDelim: java.lang.String | string,
-              fieldDelim: java.lang.String | string,
+              segmentDelim: JString,
+              groupDelim: JString,
+              fieldDelim: JString,
               useStrictValidation: boolean,
             ): com.mirth.connect.model.converters.IMessageSerializer;
 
@@ -9236,9 +9094,9 @@ declare namespace com {
              * instead.
              */
             static getNCPDPSerializer(
-              segmentDelim: java.lang.String | string,
-              groupDelim: java.lang.String | string,
-              fieldDelim: java.lang.String | string,
+              segmentDelim: JString,
+              groupDelim: JString,
+              fieldDelim: JString,
             ): com.mirth.connect.model.converters.IMessageSerializer;
           }
 
@@ -9259,14 +9117,14 @@ declare namespace com {
              * @param from - The FROM field to use for dispatched e-mail messages.
              */
             constructor(
-              host: java.lang.String | string,
-              port: java.lang.String | string,
+              host: JString,
+              port: JString,
               socketTimeout: int,
               useAuthentication: boolean,
-              secure: java.lang.String | string,
-              username: java.lang.String | string,
-              password: java.lang.String | string,
-              from: java.lang.String | string,
+              secure: JString,
+              username: JString,
+              password: JString,
+              from: JString,
             );
 
             /**
@@ -9281,13 +9139,13 @@ declare namespace com {
              * @param from - The FROM field to use for the e-mail.
              */
             constructor(
-              host: java.lang.String | string,
-              port: java.lang.String | string,
+              host: JString,
+              port: JString,
               useAuthentication: boolean,
-              secure: java.lang.String | string,
-              username: java.lang.String | string,
-              password: java.lang.String | string,
-              from: java.lang.String | string,
+              secure: JString,
+              username: JString,
+              password: JString,
+              from: JString,
             );
 
             /**
@@ -9302,7 +9160,7 @@ declare namespace com {
              *
              * @param host - The SMTP server address to use.
              */
-            setHost(host: java.lang.String | string): void;
+            setHost(host: JString): void;
 
             /**
              * Returns the SMTP server port.
@@ -9316,7 +9174,7 @@ declare namespace com {
              *
              * @param port - The SMTP server port to use (e.g. 25, 587, 465).
              */
-            setPort(port: java.lang.String | string): void;
+            setPort(port: JString): void;
 
             /**
              * Returns true if authentication is needed for the SMTP server, otherwise returns false.
@@ -9345,7 +9203,7 @@ declare namespace com {
              *
              * @param secure - The encryption security layer to use for the SMTP connection ("TLS" or "SSL"). If left blank, no encryption layer will be used.
              */
-            setSecure(secure: java.lang.String | string): void;
+            setSecure(secure: JString): void;
 
             /**
              * Returns the username being used to authenticate to the SMTP server.
@@ -9359,7 +9217,7 @@ declare namespace com {
              *
              * @param username - The username to authenticate with.
              */
-            setUsername(username: java.lang.String | string): void;
+            setUsername(username: JString): void;
 
             /**
              * Returns the password being used to authenticate to the SMTP server.
@@ -9373,7 +9231,7 @@ declare namespace com {
              *
              * @param password - The password to authenticate with.
              */
-            setPassword(password: java.lang.String | string): void;
+            setPassword(password: JString): void;
 
             /**
              * Returns the FROM field being used for dispatched e-mail messages.
@@ -9387,7 +9245,7 @@ declare namespace com {
              *
              * @param from - The FROM field to use for dispatched e-mail messages.
              */
-            setFrom(from: java.lang.String | string): void;
+            setFrom(from: JString): void;
 
             /**
              * Returns the socket connection timeout value in milliseconds.
@@ -9415,12 +9273,12 @@ declare namespace com {
              * @throws org.apache.commons.mail.EmailException - If an error occurred while sending the e-mail message.
              */
             send(
-              toList: java.lang.String | string,
-              ccList: java.lang.String | string,
-              from: java.lang.String | string,
-              subject: java.lang.String | string,
-              body: java.lang.String | string,
-              charset: java.lang.String | string,
+              toList: JString,
+              ccList: JString,
+              from: JString,
+              subject: JString,
+              body: JString,
+              charset: JString,
             ): void;
 
             /**
@@ -9434,11 +9292,11 @@ declare namespace com {
              * @throws org.apache.commons.mail.EmailException - If an error occurred while sending the e-mail message.
              */
             send(
-              toList: java.lang.String | string,
-              ccList: java.lang.String | string,
-              from: java.lang.String | string,
-              subject: java.lang.String | string,
-              body: java.lang.String | string,
+              toList: JString,
+              ccList: JString,
+              from: JString,
+              subject: JString,
+              body: JString,
             ): void;
 
             /**
@@ -9450,12 +9308,7 @@ declare namespace com {
              * @param body - The content of the e-mail message.
              * @throws org.apache.commons.mail.EmailException - If an error occurred while sending the e-mail message.
              */
-            send(
-              toList: java.lang.String | string,
-              ccList: java.lang.String | string,
-              subject: java.lang.String | string,
-              body: java.lang.String | string,
-            ): void;
+            send(toList: JString, ccList: JString, subject: JString, body: JString): void;
           }
 
           /**
@@ -9480,7 +9333,9 @@ declare namespace com {
              *
              * @param delegate - The underlying Map to reference for retrieving/setting data.
              */
-            constructor(delegate: java.util.Map<java.lang.String, java.lang.Object>);
+            constructor(
+              delegate: java.util.Map<java.lang.String, java.lang.Object> | Record<string, JObject>,
+            );
 
             /**
              * Description copied from interface: java.util.Map
@@ -9502,7 +9357,7 @@ declare namespace com {
              * @param key - key whose presence in this map is to be tested
              * @returns true if this map contains a mapping for the specified key
              */
-            containsKey(key: java.lang.Object): boolean;
+            containsKey(key: JObject): boolean;
 
             /**
              * Description copied from interface: java.util.Map
@@ -9517,7 +9372,7 @@ declare namespace com {
              * @param value - value whose presence in this map is to be tested
              * @returns true if this map maps one or more keys to the specified value
              */
-            containsValue(value: java.lang.Object): boolean;
+            containsValue(value: JObject): boolean;
 
             /**
              * Description copied from interface: java.util.Map
@@ -9587,7 +9442,7 @@ declare namespace com {
              * @param o - the reference object with which to compare.
              * @returns true if this object is the same as the obj argument; false otherwise.
              */
-            equals(o: java.lang.Object): boolean;
+            equals(o: JObject): boolean;
 
             /**
              * Description copied from interface: java.util.Map
@@ -9608,7 +9463,7 @@ declare namespace com {
              * @param key - the key whose associated value is to be returned
              * @returns the value to which the specified key is mapped, or null if this map contains no mapping for the key
              */
-            get(key: java.lang.Object): java.lang.Object;
+            get(key: JObject): java.lang.Object;
 
             /**
              * Description copied from class: java.lang.Object
@@ -9690,7 +9545,7 @@ declare namespace com {
              * @param value - value to be associated with the specified key
              * @returns the previous value associated with key, or null if there was no mapping for key. (A null return can also indicate that the map previously associated null with key, if the implementation supports null values.)
              */
-            put(key: java.lang.String | string, value: java.lang.Object): java.lang.Object;
+            put(key: JString, value: JObject): java.lang.Object;
 
             /**
              * Description copied from interface: java.util.Map
@@ -9704,7 +9559,9 @@ declare namespace com {
              *
              * @param m - mappings to be stored in this map
              */
-            putAll(m: java.util.Map<java.lang.String, java.lang.Object>): void;
+            putAll(
+              m: java.util.Map<java.lang.String, java.lang.Object> | Record<string, JObject>,
+            ): void;
 
             /**
              * Description copied from interface: java.util.Map
@@ -9729,7 +9586,7 @@ declare namespace com {
              * @param key - key whose mapping is to be removed from the map
              * @returns the previous value associated with key, or null if there was no mapping for key.
              */
-            remove(key: java.lang.Object): java.lang.Object;
+            remove(key: JObject): java.lang.Object;
 
             /**
              * Description copied from interface: java.util.Map
@@ -9804,8 +9661,8 @@ declare namespace com {
              * ```
              */
             routeMessage(
-              channelName: java.lang.String | string,
-              message: java.lang.String | string,
+              channelName: JString,
+              message: JString,
             ): com.mirth.connect.userutil.Response;
 
             /**
@@ -9818,7 +9675,7 @@ declare namespace com {
              * @returns The Response object returned by the channel, if its source connector is configured to return one.
              */
             routeMessage(
-              channelName: java.lang.String | string,
+              channelName: JString,
               rawMessage: com.mirth.connect.server.userutil.RawMessage,
             ): com.mirth.connect.userutil.Response;
 
@@ -9837,8 +9694,8 @@ declare namespace com {
              * ```
              */
             routeMessageByChannelId(
-              channelId: java.lang.String | string,
-              message: java.lang.String | string,
+              channelId: JString,
+              message: JString,
             ): com.mirth.connect.userutil.Response;
 
             /**
@@ -9851,7 +9708,7 @@ declare namespace com {
              * @returns The Response object returned by the channel, if its source connector is configured to return one.
              */
             routeMessageByChannelId(
-              channelId: java.lang.String | string,
+              channelId: JString,
               rawMessage: com.mirth.connect.server.userutil.RawMessage,
             ): com.mirth.connect.userutil.Response;
           }

@@ -9,7 +9,7 @@ declare namespace java {
      * integer scale.
      */
     class BigDecimal extends java.lang.Object implements java.lang.Comparable<BigDecimal> {
-      constructor(val: java.lang.String | string);
+      constructor(val: JString);
       /** Returns a BigDecimal whose value is (this + augend). */
       add(augend: BigDecimal): BigDecimal;
       /** Returns a BigDecimal whose value is (this - subtrahend). */
@@ -32,7 +32,7 @@ declare namespace java {
      * Immutable arbitrary-precision integers.
      */
     class BigInteger extends java.lang.Object implements java.lang.Comparable<BigInteger> {
-      constructor(val: java.lang.String | string);
+      constructor(val: JString);
       /** Returns a BigInteger whose value is (this + val). */
       add(val: BigInteger): BigInteger;
       /** Returns a BigInteger whose value is (this - val). */

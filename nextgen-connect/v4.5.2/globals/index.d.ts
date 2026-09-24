@@ -36,22 +36,22 @@ declare var responseErrorMessage: java.lang.String | string;
 declare var responseStatusMessage: java.lang.String | string;
 
 /** The connector map (per-connector, scoped to a single message). */
-declare var connectorMap: java.util.Map<java.lang.String, java.lang.Object>;
+declare var connectorMap: java.util.Map<JString, any>;
 
 /** The channel map (shared across connectors for a single message). */
-declare var channelMap: java.util.Map<java.lang.String, java.lang.Object>;
+declare var channelMap: java.util.Map<JString, any>;
 
 /** The source map (values set by the source connector; treat as read-only). */
-declare var sourceMap: java.util.Map<java.lang.String, java.lang.Object>;
+declare var sourceMap: java.util.Map<JString, any>;
 
 /** The global map (shared across all channels and messages). */
-declare var globalMap: java.util.Map<java.lang.String, java.lang.Object>;
+declare var globalMap: java.util.Map<JString, any>;
 
 /** The global channel map (shared across messages within one channel). */
-declare var globalChannelMap: java.util.Map<java.lang.String, java.lang.Object>;
+declare var globalChannelMap: java.util.Map<JString, any>;
 
 /** The response map (destination responses for the current message). */
-declare var responseMap: java.util.Map<java.lang.String, java.lang.Object>;
+declare var responseMap: java.util.Map<JString, any>;
 
 /** Get or Put connectorMap values */
 declare function $co(key: string | number, value?: unknown): unknown;
@@ -143,15 +143,11 @@ declare var destinationSet: com.mirth.connect.server.userutil.DestinationSet;
  * Creates a new E4X XML segment. With only a name, returns a standalone `<name></name>`
  * element. With `msgObj`/`index`, inserts the new segment into `msgObj` at the given index.
  */
-declare function createSegment(name: java.lang.String | string): XML;
-declare function createSegment(
-  name: java.lang.String | string,
-  msgObj: XML,
-  index?: java.lang.Integer | number,
-): XML;
+declare function createSegment(name: JString): XML;
+declare function createSegment(name: JString, msgObj: XML, index?: JInteger): XML;
 
 /** Helper function to create segments after specified field */
-declare function createSegmentAfter(name: java.lang.String, segment: XML): XML;
+declare function createSegmentAfter(name: JString, segment: XML): XML;
 
 /**
  * Creates an attachment on the current connector message and inserts it into the database.
@@ -162,7 +158,7 @@ declare function createSegmentAfter(name: java.lang.String, segment: XML): XML;
  */
 declare function addAttachment(
   content: string | byte[],
-  type: java.lang.String | string,
+  type: JString,
   base64Encode?: boolean,
 ): com.mirth.connect.server.userutil.Attachment;
 
@@ -186,14 +182,14 @@ declare function updateAttachment(
   base64Encode: boolean,
 ): com.mirth.connect.server.userutil.Attachment;
 declare function updateAttachment(
-  attachmentId: java.lang.String | string,
+  attachmentId: JString,
   content: string | byte[],
-  type: java.lang.String | string,
+  type: JString,
 ): com.mirth.connect.server.userutil.Attachment;
 declare function updateAttachment(
-  attachmentId: java.lang.String | string,
+  attachmentId: JString,
   content: string | byte[],
-  type: java.lang.String | string,
+  type: JString,
   base64Encode: boolean,
 ): com.mirth.connect.server.userutil.Attachment;
 
@@ -268,6 +264,9 @@ declare var logger: {
  * @global
  */
 declare class XML {
+  /** Parses `value` (an XML string, Java string, or another XML object) into an E4X XML object. */
+  constructor(value?: JString | XML);
+
   /** Adds the namespace to the in-scope namespaces of the element. */
   addNamespace(namespace: string): void;
 
@@ -380,15 +379,12 @@ declare class XML {
 /** Replaces `${...}` template tokens (map values, message variables, system fields) in a string. */
 declare class TemplateValueReplacer {
   /** Replaces template tokens in the given string using the current message context. */
-  replaceValues(template: java.lang.String | string): java.lang.String;
+  replaceValues(template: JString): java.lang.String;
   /** Replaces template tokens using the given channel ID for additional context. */
-  replaceValues(
-    template: java.lang.String | string,
-    channelId: java.lang.String | string,
-  ): java.lang.String;
+  replaceValues(template: JString, channelId: JString): java.lang.String;
   /** Replaces template tokens using an explicit map of replacement values. */
   replaceValues(
-    template: java.lang.String | string,
-    map: java.util.Map<java.lang.String, java.lang.Object>,
+    template: JString,
+    map: java.util.Map<java.lang.String, java.lang.Object> | Record<string, JObject>,
   ): java.lang.String;
 }
