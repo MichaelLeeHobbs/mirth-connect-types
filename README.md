@@ -4,9 +4,6 @@ TypeScript type definitions for the **Mirth Connect / NextGen Connect** server-s
 JavaScript (Rhino) **User API** — the globals, `$`-map accessors, and Java/`com.mirth.connect`
 classes available inside channel scripts, transformers, and code templates.
 
-> Sibling to [`integration-engine-api`](https://github.com/MichaelLeeHobbs/integration-engine-api),
-> which types the **REST API**. This package types the **in-engine script runtime**.
-
 > [!IMPORTANT]
 > **Early preview** — types currently cover **NextGen Connect 4.5.2** only. More versions and
 > forks (Open Integration Engine, BridgeLink) are coming; see
@@ -127,7 +124,7 @@ editor/checker aid, not a build step.
 
 ## Versioning
 
-Definitions are organized **per product + per Mirth version**, matching `integration-engine-api`:
+Definitions are organized **per product + per Mirth version**:
 
 ```
 nextgen-connect/v4.5.2/   ← current target
@@ -211,7 +208,7 @@ Planned next:
 - **More Mirth Connect versions** — generated from each release's Javadoc and published under the
   same `nextgen-connect/v<x.y.z>` subpath scheme, so you can pin types per environment.
 - **Forks** — Open Integration Engine and BridgeLink, under their own `open-integration-engine/…`
-  and `bridgelink/…` subpaths (mirroring [`integration-engine-api`](https://github.com/MichaelLeeHobbs/integration-engine-api)).
+  and `bridgelink/…` subpaths.
 - Deeper documentation for the internal `java.*` support types.
 
 Feedback and issues are very welcome while the surface stabilizes.

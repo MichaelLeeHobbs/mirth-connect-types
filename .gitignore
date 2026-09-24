@@ -1,5 +1,6 @@
 node_modules/
 *.log
+tmp/
 .DS_Store
 
 # Packed tarballs produced by `pnpm pack` / the consumer smoke test.

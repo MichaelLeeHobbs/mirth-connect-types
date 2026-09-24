@@ -7,7 +7,15 @@ All notable changes to `@ubercode/mirth-connect-types` are documented here. The 
 > The npm package version is independent of the Mirth version a type set targets — the Mirth
 > version is encoded in the subpath export (e.g. `@ubercode/mirth-connect-types/nextgen-connect/v4.5.2`).
 
-## [0.1.0] — unreleased
+## [0.1.1] — 2026-09-24
+
+### Changed
+
+- README: removed references to the unpublished `integration-engine-api` project.
+- CI: Windows runs pass (LF line endings via `.gitattributes`); releases publish from GitHub
+  Actions via npm trusted publishing with provenance.
+
+## [0.1.0] — 2026-09-24
 
 Initial release. Targets **Mirth Connect / NextGen Connect 4.5.2**.
 
@@ -36,4 +44,5 @@ Initial release. Targets **Mirth Connect / NextGen Connect 4.5.2**.
 - `Response` is reachable only via its `com.mirth.connect.userutil.Response` FQN — the unqualified
   global alias is omitted to avoid colliding with the DOM `Response` global.
 
+[0.1.1]: https://github.com/MichaelLeeHobbs/mirth-connect-types/releases/tag/v0.1.1
 [0.1.0]: https://github.com/MichaelLeeHobbs/mirth-connect-types/releases/tag/v0.1.0
