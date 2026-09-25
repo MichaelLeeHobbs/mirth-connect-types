@@ -11,7 +11,7 @@
 // (wired up as `pnpm run test:consumer`).
 
 import { execFileSync } from 'node:child_process';
-import { mkdtempSync, writeFileSync, rmSync, readdirSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, writeFileSync, rmSync, readdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -154,7 +154,78 @@ try {
     throw new Error('consumer type-check failed');
   }
 
-  console.log('[smoke] OK — packed package type-checks in a fresh consumer project.');
+  // 6. The installed mirth-types-report CLI reports package gaps and leaves user errors out.
+  console.log('[smoke] running mirth-types-report on a JS project with known errors…');
+  const reportDir = join(tempDir, 'report');
+  mkdirSync(reportDir);
+  writeFileSync(
+    join(reportDir, 'jsconfig.json'),
+    JSON.stringify({ compilerOptions: { checkJs: true, strict: true, types: [] } }),
+  );
+  writeFileSync(
+    join(reportDir, 'mirth.d.ts'),
+    '/// <reference types="@ubercode/mirth-connect-types" />\n',
+  );
+  writeFileSync(
+    join(reportDir, 'script.js'),
+    [
+      '// Package gaps: must be reported.',
+      'var nope = java.util.NoSuchThing;',
+      'ChannelUtil.getChannelName(123);',
+      'message.getConnectorMessages().nonExistentMethod();',
+      '// User errors: must be left out (the unknown name goes in its own section).',
+      'var mine = { a: 1 };',
+      'mine.b;',
+      "/** @type {number} */ var n = 'x';",
+      'undefinedHelper();',
+      '',
+    ].join('\n'),
+  );
+  if (
+    !existsSync(
+      join(
+        tempDir,
+        'node_modules',
+        '.bin',
+        IS_WINDOWS ? 'mirth-types-report.cmd' : 'mirth-types-report',
+      ),
+    )
+  ) {
+    throw new Error('the installed package did not register the mirth-types-report bin');
+  }
+  const cli = join(
+    tempDir,
+    'node_modules',
+    '@ubercode',
+    'mirth-connect-types',
+    'bin',
+    'mirth-types-report.mjs',
+  );
+  const report = run(
+    'node',
+    [cli, '--typescript', join(REPO_ROOT, 'node_modules', 'typescript'), '--no-source'],
+    {
+      cwd: reportDir,
+    },
+  );
+  const expectIn = ['NoSuchThing', 'getChannelName', 'nonExistentMethod', '`undefinedHelper`'];
+  const expectOut = [
+    "'b' does not exist",
+    "Type 'string' is not assignable to type 'number'",
+    'mine.b',
+  ];
+  const missing = expectIn.filter((s) => !report.includes(s));
+  const leaked = expectOut.filter((s) => report.includes(s));
+  if (missing.length || leaked.length) {
+    console.error(report);
+    throw new Error(
+      `report check failed; missing: ${missing.join(', ') || 'none'}; leaked: ${leaked.join(', ') || 'none'}`,
+    );
+  }
+
+  console.log(
+    '[smoke] OK — packed package type-checks in a fresh consumer project, and the report CLI works.',
+  );
 } finally {
   if (tempDir) {
     try {

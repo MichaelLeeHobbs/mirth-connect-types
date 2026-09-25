@@ -5,9 +5,10 @@ JavaScript (Rhino) **User API** — the globals, `$`-map accessors, and Java/`co
 classes available inside channel scripts, transformers, and code templates.
 
 > [!IMPORTANT]
-> **Early preview** — types currently cover **NextGen Connect 4.5.2** only. More versions and
-> forks (Open Integration Engine, BridgeLink) are coming; see
-> [Project status & roadmap](#project-status--roadmap).
+> **Preview:** types cover **NextGen Connect 4.5.2** only. They're checked against a production
+> channel codebase and against Mirth's own Rhino, but gaps remain. Please
+> [report them](#reporting-a-type-gap). More versions and forks (Open Integration Engine,
+> BridgeLink) are planned; see [Project status & roadmap](#project-status--roadmap).
 
 ## Why
 
@@ -18,7 +19,7 @@ IntelliSense, inline Javadoc, and compile-time checking for that surface.
 ## Install
 
 ```sh
-pnpm add -D @ubercode/mirth-connect-types
+npm i -D @ubercode/mirth-connect-types   # or: pnpm add -D … / yarn add -D …
 ```
 
 ## Usage
@@ -131,9 +132,9 @@ version directly in `tsconfig.json`:
 Either way, **the code that runs in Mirth is still JavaScript** — the types are purely an
 editor/checker aid, not a build step.
 
-> Verified end-to-end: real consumption (subpath `exports`, ambient globals, `skipLibCheck: false`
-> with the DOM `lib`) is exercised on every `check` by a pack → install → type-check smoke test
-> (`pnpm run test:consumer`).
+> Verified end-to-end: every `check` packs the tarball, installs it in a fresh project, type-checks
+> a Mirth script (subpath `exports`, ambient globals, `skipLibCheck: false` with the DOM `lib`),
+> and runs the installed `mirth-types-report` (`pnpm run test:consumer`).
 
 ### Rhino language support
 
@@ -204,6 +205,22 @@ plus part of ES2015, and TypeScript can't check the gaps, so they fail only in M
 - **`Cannot find name 'console'`.** That's correct: Mirth's Rhino scope has no `console`. Use
   `logger`. Don't add the `dom` lib to silence it.
 
+## Reporting a type gap
+
+If the types reject code that runs in Mirth, or miss an API, run this in your project:
+
+```sh
+npx mirth-types-report --out mirth-types-report.md   # add --no-source to leave out code lines
+```
+
+It type-checks the project with your own TypeScript and config, and keeps only the errors that
+involve this package. Your own code's errors are left out, and unknown names get their own list.
+It also flags setup problems: the package not loaded, two copies installed, TypeScript 7, or a
+parse error stopping all checks. Review the file, then open a
+[type gap issue](https://github.com/MichaelLeeHobbs/mirth-connect-types/issues/new?template=type-gap.yml)
+with it. Options: `--project <config>` (default `jsconfig.json`, then `tsconfig.json`) and
+`--typescript <dir>` to use a TypeScript install outside the project.
+
 ## Versioning
 
 Definitions are organized **per product + per Mirth version**:
@@ -211,10 +228,14 @@ Definitions are organized **per product + per Mirth version**:
 ```
 nextgen-connect/v4.5.2/   ← current target
   index.d.ts              ← entry; triple-slash references the split files
-  globals/                ← index.d.ts: msg, tmp, $c/$co/..., maps, helpers; and
+  globals/                ← index.d.ts: msg, tmp, $c/$co/..., maps, helpers, XML;
+                          ←   rhino.d.ts: Packages, JavaAdapter, importPackage, XMLList;
                           ←   userapi.d.ts (generated: ChannelUtil/AttachmentUtil/Status/... globals)
-  java/                   ← java.lang / java.util / java.io / ... primitive aliases
-  com/mirth/              ← com.mirth.connect.* (userutil, donkey, plugins, ...)
+  java/                   ← java.lang / util / io / time / text / security / ...; primitive
+                          ←   aliases; coercion.d.ts (JString, JInteger, JKey, ...)
+  javax/                  ← javax.crypto / sql / xml.bind
+  org/                    ← org.dcm4che2
+  com/mirth/              ← com.mirth.connect.* (userutil, donkey, plugins, internals)
 ```
 
 ### What's covered
@@ -227,11 +248,20 @@ The three User API packages are generated from the Mirth Javadoc:
 | `com.mirth.connect.userutil`                  |    17 | `com/mirth/connect-userutil.d.ts`        |
 | `com.mirth.connect.plugins.httpauth.userutil` |     2 | `com/mirth/plugins.d.ts`                 |
 
-The supporting `java.*`, `javax.*`, `org.dcm4che2.*`, and internal
-`com.mirth.connect.{donkey,model}.*` types these reference are declared as
-minimal hand-maintained ambient files. They aren't exhaustive: they cover the surface the User API
-touches plus JDK classes channel scripts commonly use directly (`javax.crypto`,
-`javax.xml.bind.DatatypeConverter`, `java.io.ByteArray*Stream`, `java.util.Properties`).
+Hand-maintained files cover the rest of what channel scripts touch:
+
+- **Mirth script scope:** `msg`/`tmp`, the maps and `$` accessors, `logger`, `router`,
+  `destinationSet`, `connectorMessage`, `message`, response globals, the attachment and segment
+  helpers, `reader` (batch scripts), and the E4X `XML`/`XMLList` API.
+- **Rhino:** `Packages`, `JavaAdapter`, `importPackage`, and `JSON.parse` of Java strings.
+- **JDK classes scripts use directly:** `java.lang` (boxed types, `String`, `System`, `Thread`,
+  `reflect.Array`), `java.util` (collections, `Base64`, `Arrays`, `UUID`, `Calendar`,
+  `Properties`), `java.io` streams and writers, `java.time`, `java.text`, `java.sql`/`javax.sql`,
+  `java.security`, `javax.crypto`, and `javax.xml.bind.DatatypeConverter` (bundled with Mirth).
+- **Mirth internals:** the donkey `Message`/`ConnectorMessage` getters. Other internals
+  (`ControllerFactory`, `ObjectXMLSerializer`, …) resolve as untyped `any` values.
+
+None of this is exhaustive. If your code uses something missing, [report it](#reporting-a-type-gap).
 
 The npm `package` version tracks this repo's releases (semver); the **Mirth** version a set of
 types targets is encoded in the path/subpath export. Additional versions and products
@@ -263,7 +293,8 @@ Javadoc documents. **Do not hand-edit them**; they are overwritten by
    `FileUtil`, `HTTPUtil`, `VMRouter`, `DatabaseConnection*`, `Lists`/`Maps`, …)
    live in `src/generator/overlays.ts`, keyed by `ClassName` /
    `ClassName#methodName`. The emitter merges them into the generated JSDoc, so
-   curation survives regeneration.
+   curation survives regeneration. An overlay can also replace a return type the Javadoc can't
+   express (e.g. `ImmutableMessage#getConnectorMessages`).
 
 ```sh
 pnpm run fetch-javadoc   # pull Javadoc HTML from the container (only when refreshing a version)
@@ -274,21 +305,22 @@ pnpm run check           # lint + typecheck + coercion rule + type tests + forma
 
 ## Scripts
 
-| Script                       | Purpose                                                                                                                                                                      |
-| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `check`                      | `lint` + `typecheck` + `test:types` + `format` + `test:consumer` (CI gate).                                                                                                  |
-| `typecheck`                  | `tsc --noEmit` over the published `.d.ts`.                                                                                                                                   |
-| `test:types`                 | Compile the `test-types/` assertions against the definitions.                                                                                                                |
-| `test:consumer`              | Pack the tarball, install it in a temp project, and type-check a real Mirth script — proves the published package resolves and the ambient globals work under the DOM `lib`. |
-| `lint` / `format`            | ESLint (generator code) / Prettier (everything).                                                                                                                             |
-| `fetch-javadoc` / `generate` | Regenerate the three userutil files from a Mirth container's Javadoc.                                                                                                        |
-| `generate:hash`              | Print the sha256 of each generated file (byte-idempotency check).                                                                                                            |
+| Script                       | Purpose                                                                                                                                                           |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `check`                      | `lint` + `typecheck` + `check:coercion` + `test:types` + `format` + `test:consumer` (CI gate).                                                                    |
+| `check:coercion`             | Fail if any declaration parameter breaks the Rhino coercion rule; `--fix` rewrites them.                                                                          |
+| `typecheck`                  | `tsc --noEmit` over the published `.d.ts`.                                                                                                                        |
+| `test:types`                 | Compile the `test-types/` assertions against the definitions.                                                                                                     |
+| `test:consumer`              | Pack the tarball, install it in a temp project, type-check a real Mirth script, and run the installed `mirth-types-report` against known package and user errors. |
+| `lint` / `format`            | ESLint (generator code) / Prettier (everything).                                                                                                                  |
+| `fetch-javadoc` / `generate` | Regenerate the three userutil files from a Mirth container's Javadoc.                                                                                             |
+| `generate:hash`              | Print the sha256 of each generated file (byte-idempotency check).                                                                                                 |
 
 ## Project status & roadmap
 
-> [!IMPORTANT]
-> **This is an early preview.** It currently provides types for **NextGen Connect 4.5.2** only,
-> and the surface may shift as the generator and conventions settle.
+The types target **NextGen Connect 4.5.2** only. Parameter and collection typing follows what
+Mirth's Rhino actually does, verified by running probes in the 4.5.2 image. The JDK and internal
+coverage grows from what real projects report through `mirth-types-report`.
 
 Planned next:
 
@@ -296,9 +328,7 @@ Planned next:
   same `nextgen-connect/v<x.y.z>` subpath scheme, so you can pin types per environment.
 - **Forks** — Open Integration Engine and BridgeLink, under their own `open-integration-engine/…`
   and `bridgelink/…` subpaths.
-- Deeper documentation for the internal `java.*` support types.
-
-Feedback and issues are very welcome while the surface stabilizes.
+- **More of the JDK and Mirth internals**, driven by [type-gap reports](#reporting-a-type-gap).
 
 ## License
 

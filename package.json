@@ -37,7 +37,11 @@
     },
     "./package.json": "./package.json"
   },
+  "bin": {
+    "mirth-types-report": "bin/mirth-types-report.mjs"
+  },
   "files": [
+    "bin",
     "nextgen-connect",
     "README.md",
     "CHANGELOG.md",
@@ -93,5 +97,13 @@
     "typescript": "^5.0.0",
     "typescript-eslint": "^8.0.0"
   },
-  "packageManager": "pnpm@10.0.0"
+  "packageManager": "pnpm@10.0.0",
+  "peerDependencies": {
+    "typescript": ">=5"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
+  }
 }
