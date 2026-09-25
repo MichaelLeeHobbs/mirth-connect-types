@@ -28,3 +28,30 @@ void stored;
 void cfgValue;
 void id;
 void count;
+
+// Scope variables from Mirth 4.5.2's JavaScriptScopeUtil.
+const cfgDirect: unknown = configurationMap.get('environment');
+const connectorName: string = connector;
+const outboundTemplate: string = template;
+const rowValue: unknown = resultMap.get('patient_id');
+const delimiter: string = columnDelimiter;
+// message is a string in the preprocessor and an ImmutableMessage in the postprocessor.
+const preprocessorMessage: string = message;
+// Both response classes have getMessage/getError/getStatusMessage; the status getter differs.
+const responseText = response.getMessage();
+// $ only reads.
+// @ts-expect-error $ takes a single key
+$('key', 'value');
+// These appear in Mirth's editor highlighting but aren't in any script scope.
+// @ts-expect-error not a runtime global
+createDatabaseConnection('driver', 'url');
+// @ts-expect-error not a runtime global
+databaseConnectionFactory.createDatabaseConnection('driver', 'url');
+
+void cfgDirect;
+void connectorName;
+void outboundTemplate;
+void rowValue;
+void delimiter;
+void preprocessorMessage;
+void responseText;
