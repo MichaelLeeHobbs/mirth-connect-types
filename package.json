@@ -1,6 +1,6 @@
 {
   "name": "@ubercode/mirth-connect-types",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "TypeScript type definitions for the Mirth Connect / NextGen Connect server-side JavaScript (Rhino) User API.",
   "keywords": [
     "mirth",
