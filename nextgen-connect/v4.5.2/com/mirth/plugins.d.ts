@@ -47,7 +47,7 @@ declare namespace com {
                *
                * @param username - The username that the request has been authenticated with.
                */
-              setUsername(username: java.lang.String | string): void;
+              setUsername(username: JString): void;
 
               /**
                * Returns the realm that the request has been authenticated with.
@@ -61,7 +61,7 @@ declare namespace com {
                *
                * @param realm - The realm that the request has been authenticated with.
                */
-              setRealm(realm: java.lang.String | string): void;
+              setRealm(realm: JString): void;
 
               /**
                * Returns the map of HTTP headers to be sent along with the authentication response.
@@ -79,7 +79,9 @@ declare namespace com {
                * @param responseHeaders - The map of HTTP headers to be sent along with the authentication response.
                */
               setResponseHeaders(
-                responseHeaders: java.util.Map<java.lang.String, java.util.List<java.lang.String>>,
+                responseHeaders:
+                  | java.util.Map<java.lang.String, java.util.List<java.lang.String>>
+                  | Record<string, java.util.List<java.lang.String> | JString[]>,
               ): void;
 
               /**
@@ -88,10 +90,7 @@ declare namespace com {
                * @param key - The name of the header.
                * @param value - The value of the header.
                */
-              addResponseHeader(
-                key: java.lang.String | string,
-                value: java.lang.String | string,
-              ): void;
+              addResponseHeader(key: JString, value: JString): void;
 
               /**
                * Convenience method to create a new AuthenticationResult with the CHALLENGED status.
@@ -100,7 +99,7 @@ declare namespace com {
                * @returns The created AuthenticationResult object.
                */
               static Challenged(
-                authenticateHeader: java.lang.String | string,
+                authenticateHeader: JString,
               ): com.mirth.connect.plugins.httpauth.userutil.AuthenticationResult;
 
               /**
@@ -118,8 +117,8 @@ declare namespace com {
                * @returns The created AuthenticationResult object.
                */
               static Success(
-                username: java.lang.String | string,
-                realm: java.lang.String | string,
+                username: JString,
+                realm: JString,
               ): com.mirth.connect.plugins.httpauth.userutil.AuthenticationResult;
 
               /**
@@ -174,7 +173,7 @@ declare namespace com {
                * @throws IllegalArgumentException - if this enum type has no constant with the specified name
                * @throws NullPointerException - if the argument is null
                */
-              function valueOf(name: java.lang.String | string): AuthStatus;
+              function valueOf(name: JString): AuthStatus;
             }
           }
         }

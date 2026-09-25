@@ -17,6 +17,7 @@ import { dirname, join } from 'node:path';
 import * as prettier from 'prettier';
 import { parseClassHtml, type ClassModel } from './parse-javadoc.ts';
 import { emitPackageBody, emitGlobalAliases, type AliasPackage } from './emit-dts.ts';
+import { applyCoercion } from './coercion.ts';
 
 const VERSION = 'v4.5.2';
 const PRODUCT = 'nextgen-connect';
@@ -225,6 +226,16 @@ async function main(): Promise<void> {
       `(${aliasResult.classAliases.length} typeof aliases, ` +
       `${aliasResult.enumConstAliases.length} enum constants).`,
   );
+
+  // Emit exact Java parameter types above, then widen them the same way the
+  // hand-written files are (see coercion.ts / `pnpm run check:coercion`).
+  const coerced = await applyCoercion({
+    rootFile: join(REPO_ROOT, PRODUCT, VERSION, 'index.d.ts'),
+    files: PACKAGES.map((spec) => join(OUT_DIR, spec.outFile)),
+    fix: true,
+    repoRoot: REPO_ROOT,
+  });
+  console.log(`Applied Rhino parameter coercion to ${coerced.length} parameter(s).`);
 
   console.log('\n=== Generation report ===');
   const allUnresolved = new Set<string>();

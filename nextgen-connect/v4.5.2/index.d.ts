@@ -22,7 +22,8 @@
  *                          Returned/accepted by Java APIs; Rhino transparently
  *                          converts to/from a JS string in most contexts.
  * We model Java method returns as `java.lang.String` for accuracy about what
- * the Java API actually hands back.
+ * the Java API actually hands back. Parameters accept whatever Rhino converts
+ * for them; see ./java/coercion.d.ts.
  *
  * ----------------------------------------------------------------------------
  * Java type conventions
@@ -36,14 +37,18 @@
  */
 
 /// <reference path="./java/primitives.d.ts" />
+/// <reference path="./java/coercion.d.ts" />
 /// <reference path="./java/lang.d.ts" />
 /// <reference path="./java/io.d.ts" />
 /// <reference path="./java/net.d.ts" />
 /// <reference path="./java/util.d.ts" />
 /// <reference path="./java/math.d.ts" />
 /// <reference path="./java/nio.d.ts" />
+/// <reference path="./java/security.d.ts" />
 /// <reference path="./java/sql.d.ts" />
+/// <reference path="./javax/crypto.d.ts" />
 /// <reference path="./javax/sql.d.ts" />
+/// <reference path="./javax/xml.d.ts" />
 /// <reference path="./org/dcm4che2.d.ts" />
 /// <reference path="./com/mirth/commons.d.ts" />
 /// <reference path="./com/mirth/internal.d.ts" />

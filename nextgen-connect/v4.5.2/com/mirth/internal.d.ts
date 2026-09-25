@@ -23,7 +23,7 @@ declare namespace com {
              * @param source - The inbound message, in its native data type encoding.
              * @returns The serialized XML representation of the message.
              */
-            toXML(source: java.lang.String): java.lang.String;
+            toXML(source: JString): java.lang.String;
 
             /**
              * Deserializes an XML message back into this serializer's data type.
@@ -31,7 +31,7 @@ declare namespace com {
              * @param source - The XML representation of the message.
              * @returns The message in its native data type encoding.
              */
-            fromXML(source: java.lang.String): java.lang.String;
+            fromXML(source: JString): java.lang.String;
           }
         }
       }

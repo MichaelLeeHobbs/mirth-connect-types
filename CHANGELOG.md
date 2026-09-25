@@ -7,6 +7,37 @@ All notable changes to `@ubercode/mirth-connect-types` are documented here. The 
 > The npm package version is independent of the Mirth version a type set targets — the Mirth
 > version is encoded in the subpath export (e.g. `@ubercode/mirth-connect-types/nextgen-connect/v4.5.2`).
 
+## [Unreleased]
+
+### Changed
+
+- **Parameters accept the JS values Rhino converts for them**, across the generated User API and
+  the hand-written `java.*`/`javax.*`/internal files: JS strings (and E4X `XML`) for `String`,
+  JS numbers for boxed numerics, any value for `Object`, JS arrays for `List`/`Collection`/
+  `Iterable`, and JS objects for `Map`. Aliases (`JString`, `JInteger`, `JObject`, …) are in
+  `java/coercion.d.ts`. Return types are unchanged. Fixes `destinationSet.remove([...])`,
+  `removeAllExcept('name')`, `globalMap.put('k', 'v')`, `new java.lang.String(s)`,
+  `ChannelUtil.startConnector(id, 1)`, and similar calls that run on Mirth but failed to type-check.
+- The script maps (`globalMap`, `channelMap`, `sourceMap`, …) are `java.util.Map<JString, any>`,
+  so reads of live objects need no cast.
+- `msg` and `tmp` are `any`: they are an E4X `XML` object, a parsed JSON value, or a string
+  depending on the channel's data type, which the types can't see.
+- Java primitive arrays and chars are returned the way Rhino hands them to scripts: `getBytes()`
+  returns `byte[]` and `toCharArray()` returns `char[]` (JS number arrays), and `charAt()` returns
+  `char` (a number). The deprecated `String#getBytes(int, int, byte[], int)` overload is removed.
+
+### Added
+
+- `javax.crypto` (`Cipher`, `Mac`, `SecretKeyFactory`, `KeyGenerator`, `SecretKey`, and
+  `spec.SecretKeySpec`/`IvParameterSpec`/`GCMParameterSpec`/`PBEKeySpec`), the
+  `java.security` types they use, `javax.xml.bind.DatatypeConverter` (bundled with Mirth), and
+  `java.io.ByteArrayInputStream`/`ByteArrayOutputStream`.
+- `java.util.Properties` extends the new `java.util.Hashtable`, so `put`/`get` exist.
+- `new XML(value)` constructor.
+- README troubleshooting: where the reference file must live, `typeRoots` disabling checks, E4X
+  literal files, and duplicate installs.
+- `pnpm run check:coercion`, which fails the build when a declaration breaks the coercion rule.
+
 ## [0.1.1] — 2026-09-24
 
 ### Changed

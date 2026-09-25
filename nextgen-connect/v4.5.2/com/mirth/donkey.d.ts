@@ -50,7 +50,7 @@ declare namespace com {
                * @throws IllegalArgumentException - If this enum type has no constant with the specified name.
                * @throws NullPointerException - If the argument is null.
                */
-              function valueOf(name: java.lang.String): DeployedState;
+              function valueOf(name: JString): DeployedState;
 
               /**
                * Returns the name of this enum constant, as contained in the declaration.
@@ -64,9 +64,9 @@ declare namespace com {
             /** Exception thrown when message serialization fails. */
             class MessageSerializerException extends java.lang.Exception {
               constructor();
-              constructor(message: java.lang.String);
+              constructor(message: JString);
               constructor(cause: java.lang.Throwable);
-              constructor(message: java.lang.String, cause: java.lang.Throwable);
+              constructor(message: JString, cause: java.lang.Throwable);
             }
 
             /** Represents a connector message in the Donkey message model. */
@@ -109,9 +109,9 @@ declare namespace com {
             /** Exception thrown when an unsupported data type is encountered. */
             class UnsupportedDataTypeException extends java.lang.Exception {
               constructor();
-              constructor(message: java.lang.String);
+              constructor(message: JString);
               constructor(cause: java.lang.Throwable);
-              constructor(message: java.lang.String, cause: java.lang.Throwable);
+              constructor(message: JString, cause: java.lang.Throwable);
             }
           }
         }

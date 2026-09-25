@@ -10,7 +10,7 @@
  */
 
 import type { ClassModel, MethodModel, ConstructorModel, ParamModel } from './parse-javadoc.ts';
-import { mapType, mapParamType, type ResolveContext } from './type-map.ts';
+import { mapType, type ResolveContext } from './type-map.ts';
 import { OVERLAYS, type Overlay } from './overlays.ts';
 
 const INDENT = '  ';
@@ -88,7 +88,7 @@ function buildContext(pkg: string, localNames: Set<string>, typeVars: string[]):
 }
 
 function emitParams(params: ParamModel[], ctx: ResolveContext): string {
-  return params.map((p) => `${p.name}: ${mapParamType(p.type, ctx)}`).join(', ');
+  return params.map((p) => `${p.name}: ${mapType(p.type, ctx)}`).join(', ');
 }
 
 function emitConstructor(c: ConstructorModel, ctx: ResolveContext): string {
@@ -240,7 +240,7 @@ function emitEnum(model: ClassModel, ctx: ResolveContext): string {
       });
       helperLines.push(
         indent(
-          `${doc ? doc + '\n' : ''}function valueOf(name: ${mapParamType('java.lang.String', ctx)}): ${model.name};`,
+          `${doc ? doc + '\n' : ''}function valueOf(name: ${mapType('java.lang.String', ctx)}): ${model.name};`,
           1,
         ),
       );

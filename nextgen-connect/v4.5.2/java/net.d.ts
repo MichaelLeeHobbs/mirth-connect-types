@@ -7,16 +7,11 @@ declare namespace java {
      */
     class URL extends java.lang.Object implements java.io.Serializable {
       /** Creates a URL object from the String representation. */
-      constructor(spec: java.lang.String);
+      constructor(spec: JString);
       /** Creates a URL object from the specified protocol, host, port number, and file. */
-      constructor(
-        protocol: java.lang.String,
-        host: java.lang.String,
-        port: int,
-        file: java.lang.String,
-      );
+      constructor(protocol: JString, host: JString, port: int, file: JString);
       /** Creates a URL by parsing the given spec within a specified context. */
-      constructor(context: URL, spec: java.lang.String);
+      constructor(context: URL, spec: JString);
 
       /** Gets the protocol name of this URL. */
       getProtocol(): java.lang.String;
@@ -55,16 +50,16 @@ declare namespace java {
      */
     class URI extends java.lang.Object implements java.io.Serializable {
       /** Constructs a URI by parsing the given string. */
-      constructor(str: java.lang.String);
+      constructor(str: JString);
       /** Constructs a hierarchical URI from the given components. */
       constructor(
-        scheme: java.lang.String,
-        userInfo: java.lang.String,
-        host: java.lang.String,
+        scheme: JString,
+        userInfo: JString,
+        host: JString,
         port: int,
-        path: java.lang.String,
-        query: java.lang.String,
-        fragment: java.lang.String,
+        path: JString,
+        query: JString,
+        fragment: JString,
       );
 
       /** Returns the scheme component of this URI. */
@@ -101,9 +96,9 @@ declare namespace java {
       /** Returns an output stream that writes to this connection. */
       getOutputStream(): java.io.OutputStream;
       /** Returns the value of the named header field. */
-      getHeaderField(name: java.lang.String): java.lang.String;
+      getHeaderField(name: JString): java.lang.String;
       /** Sets the value of the specified request header field. */
-      setRequestProperty(key: java.lang.String, value: java.lang.String): void;
+      setRequestProperty(key: JString, value: JString): void;
       /** Opens a communications link to the resource referenced by this URL. */
       connect(): void;
     }

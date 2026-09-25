@@ -27,9 +27,9 @@ declare namespace java {
 
       add(index: int, element: T): void;
 
-      addAll(collection: java.util.Collection<T>): boolean;
+      addAll(collection: java.util.Collection<T> | T[]): boolean;
 
-      addAll(index: int, collection: java.util.Collection<T>): boolean;
+      addAll(index: int, collection: java.util.Collection<T> | T[]): boolean;
 
       clear(): void;
 
@@ -79,7 +79,7 @@ declare namespace java {
 
       put(key: K, value: V): V | null;
 
-      putAll(map: Map<K, V>): void;
+      putAll(map: Map<K, V> | Record<string, V>): void;
 
       remove(key: K): V | null;
 
@@ -102,7 +102,7 @@ declare namespace java {
     interface Collection<T> extends java.lang.Iterable<T> {
       add(element: T): boolean;
 
-      addAll(collection: java.util.Collection<T>): boolean;
+      addAll(collection: java.util.Collection<T> | T[]): boolean;
 
       clear(): void;
 
@@ -164,9 +164,9 @@ declare namespace java {
       static US: Locale;
       static UK: Locale;
 
-      constructor(language: java.lang.String);
-      constructor(language: java.lang.String, country: java.lang.String);
-      constructor(language: java.lang.String, country: java.lang.String, variant: java.lang.String);
+      constructor(language: JString);
+      constructor(language: JString, country: JString);
+      constructor(language: JString, country: JString, variant: JString);
 
       getCountry(): java.lang.String;
 
@@ -218,27 +218,34 @@ declare namespace java {
 
       compareTo(anotherDate: Date): int;
 
-      equals(obj: java.lang.Object): boolean;
+      equals(obj: JObject): boolean;
 
       toString(): string;
     }
 
+    /** A synchronized hash table. Its `Map` methods come from the merged interface below. */
+    class Hashtable<K, V> extends java.lang.Object {
+      constructor();
+    }
+    interface Hashtable<K, V> extends java.util.Map<K, V> {}
+
     /**
      * The Properties class represents a persistent set of properties.
      * Each key and its corresponding value in the property list is a string.
+     * It is a `Hashtable`, so `put`/`get` accept any key and value (e.g. JSch config).
      */
-    class Properties extends java.lang.Object {
+    class Properties extends Hashtable<JObject, any> {
       constructor();
       constructor(defaults: Properties);
 
       /** Searches for the property with the specified key. */
-      getProperty(key: java.lang.String): java.lang.String | null;
+      getProperty(key: JString): java.lang.String | null;
 
       /** Searches for the property with the specified key and returns the default value if not found. */
-      getProperty(key: java.lang.String, defaultValue: java.lang.String): java.lang.String;
+      getProperty(key: JString, defaultValue: JString): java.lang.String;
 
       /** Sets the property value for the specified key. */
-      setProperty(key: java.lang.String, value: java.lang.String): java.lang.Object;
+      setProperty(key: JString, value: JString): java.lang.Object;
 
       /** Returns an enumeration of all the keys in this property list. */
       propertyNames(): java.util.Iterator<java.lang.Object>;
@@ -256,7 +263,7 @@ declare namespace java {
      * The root class from which all event state objects shall be derived.
      */
     class EventObject extends java.lang.Object {
-      constructor(source: java.lang.Object);
+      constructor(source: JObject);
 
       /** The object on which the Event initially occurred. */
       getSource(): java.lang.Object;
@@ -334,7 +341,7 @@ declare namespace java {
         function values(): TimeUnit[];
 
         /** Returns the enum constant with the specified name. */
-        function valueOf(name: java.lang.String): TimeUnit;
+        function valueOf(name: JString): TimeUnit;
       }
     }
   }

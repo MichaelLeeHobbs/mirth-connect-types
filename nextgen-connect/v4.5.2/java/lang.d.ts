@@ -7,7 +7,7 @@ declare namespace java {
      */
     interface CharSequence {
       /** Returns the char value at the specified index. */
-      charAt(index: java.lang.Integer): java.lang.Character;
+      charAt(index: JInteger): char;
 
       /** Returns a stream of int zero-extending the char values from this sequence. */
       chars?(): java.util.stream.IntStream;
@@ -19,7 +19,7 @@ declare namespace java {
       length(): java.lang.Integer;
 
       /** Returns a CharSequence that is a subsequence of this sequence. */
-      subSequence(start: java.lang.Integer, end: java.lang.Integer): CharSequence;
+      subSequence(start: JInteger, end: JInteger): CharSequence;
 
       /** Returns a string containing the characters in this sequence in the same order as this sequence. */
       toString(): string;
@@ -63,7 +63,7 @@ declare namespace java {
       getCanonicalName(): java.lang.String;
 
       /** Determines if the specified Object is assignment-compatible with the object represented by this Class. */
-      isInstance(obj: java.lang.Object): boolean;
+      isInstance(obj: JObject): boolean;
 
       /** Determines if the class or interface represented by this Class object is a superclass or superinterface of the class or interface represented by the specified Class parameter. */
       isAssignableFrom(cls: Class<any>): boolean;
@@ -94,7 +94,7 @@ declare namespace java {
       protected clone(): java.lang.Object;
 
       /** Indicates whether some other object is "equal to" this one. */
-      equals(obj: java.lang.Object): boolean;
+      equals(obj: JObject): boolean;
 
       /** Called by the garbage collector on an object when garbage collection determines that there are no more references to the object. */
       finalize(): void;
@@ -124,8 +124,8 @@ declare namespace java {
 
     class Throwable extends java.lang.Object implements java.io.Serializable {
       constructor();
-      constructor(message: java.lang.String);
-      constructor(message: java.lang.String, cause: java.lang.Throwable);
+      constructor(message: JString);
+      constructor(message: JString, cause: java.lang.Throwable);
       constructor(cause: java.lang.Throwable);
 
       /** Returns the detail message string of this throwable. */
@@ -144,8 +144,8 @@ declare namespace java {
 
     class Exception extends java.lang.Throwable implements java.io.Serializable {
       constructor();
-      constructor(message: java.lang.String);
-      constructor(message: java.lang.String, cause: java.lang.Throwable);
+      constructor(message: JString);
+      constructor(message: JString, cause: java.lang.Throwable);
       constructor(cause: java.lang.Throwable);
     }
 
@@ -154,127 +154,89 @@ declare namespace java {
       implements java.io.Serializable, java.lang.CharSequence, Comparable<java.lang.String>
     {
       constructor();
-      constructor(byteArray: Byte[]);
-      constructor(byteArray: Byte[], charset: java.lang.String);
-      constructor(ascii: Byte[], hibyte: java.lang.Integer);
-      constructor(bytes: Byte[], offset: java.lang.Integer, length: java.lang.Integer);
-      constructor(
-        ascii: Byte[],
-        hibyte: java.lang.Integer,
-        offset: java.lang.Integer,
-        count: java.lang.Integer,
-      );
-      constructor(
-        bytes: Byte[],
-        offset: java.lang.Integer,
-        length: java.lang.Integer,
-        charsetName: java.lang.String,
-      );
-      constructor(bytes: Byte[], charsetName: java.lang.String);
-      constructor(chars: java.lang.Character[]);
-      constructor(
-        chars: java.lang.Character[],
-        offset: java.lang.Integer,
-        count: java.lang.Integer,
-      );
-      constructor(
-        codePoints: java.lang.Integer[],
-        offset: java.lang.Integer,
-        count: java.lang.Integer,
-      );
-      constructor(original: java.lang.String);
+      constructor(byteArray: byte[]);
+      constructor(byteArray: byte[], charset: JString);
+      constructor(ascii: byte[], hibyte: JInteger);
+      constructor(bytes: byte[], offset: JInteger, length: JInteger);
+      constructor(ascii: byte[], hibyte: JInteger, offset: JInteger, count: JInteger);
+      constructor(bytes: byte[], offset: JInteger, length: JInteger, charsetName: JString);
+      constructor(bytes: byte[], charsetName: JString);
+      constructor(chars: JCharacter[]);
+      constructor(chars: JCharacter[], offset: JInteger, count: JInteger);
+      constructor(codePoints: JInteger[], offset: JInteger, count: JInteger);
+      constructor(original: JString);
       constructor(buffer: java.lang.StringBuffer);
       constructor(builder: java.lang.StringBuilder);
 
       /** Returns the JavaChar value at the specified index. */
-      charAt(index: java.lang.Integer): java.lang.Character;
+      charAt(index: JInteger): char;
 
       /** Returns the character (Unicode code point) at the specified index. */
-      codePointAt(index: java.lang.Integer): java.lang.Integer;
+      codePointAt(index: JInteger): java.lang.Integer;
 
       /** Returns the character (Unicode code point) before the specified index.*/
-      codePointBefore(index: java.lang.Integer): java.lang.Integer;
+      codePointBefore(index: JInteger): java.lang.Integer;
 
       /** Returns the number of Unicode code points in the specified text range of this String. */
-      codePointCount(beginIndex: java.lang.Integer, endIndex: java.lang.Integer): java.lang.Integer;
+      codePointCount(beginIndex: JInteger, endIndex: JInteger): java.lang.Integer;
 
       /** Compares two strings lexicographically. */
-      compareTo(anotherString: String): int;
+      compareTo(anotherString: JString): int;
 
       /** Compares two strings lexicographically, ignoring case differences.*/
-      compareToIgnoreCase(str: String): java.lang.Integer;
+      compareToIgnoreCase(str: JString): java.lang.Integer;
 
       /** Concatenates the specified string to the end of this string. */
-      concat(str: String): String;
+      concat(str: JString): String;
 
       /** Returns true if and only if this string contains the specified sequence of JavaChar values. */
-      contains(s: CharSequence): java.lang.Boolean;
+      contains(s: JCharSequence): java.lang.Boolean;
 
       /** Compares this string to the specified CharSequence. */
-      contentEquals(cs: CharSequence): java.lang.Boolean;
+      contentEquals(cs: JCharSequence): java.lang.Boolean;
       /** Compares this string to the specified StringBuffer.*/
       contentEquals(sb: java.lang.StringBuffer): java.lang.Boolean;
 
       /** Equivalent to valueOf(JavaChar[]). */
-      static copyValueOf(data: java.lang.Character[]): java.lang.String;
+      static copyValueOf(data: JCharacter[]): java.lang.String;
       /** Equivalent to valueOf(JavaChar[], JavaInteger, JavaInteger). */
-      static copyValueOf(
-        data: java.lang.Character[],
-        offset: java.lang.Integer,
-        count: java.lang.Integer,
-      ): java.lang.String;
+      static copyValueOf(data: JCharacter[], offset: JInteger, count: JInteger): java.lang.String;
 
       /** Tests if this string ends with the specified suffix.*/
-      endsWith(suffix: String): java.lang.Boolean;
+      endsWith(suffix: JString): java.lang.Boolean;
 
       /** Compares this string to the specified object.*/
-      equals(anObject: Object): boolean;
+      equals(anObject: JObject): boolean;
 
       /** Compares this String to another String, ignoring case considerations. */
-      equalsIgnoreCase(anotherString: String): java.lang.Boolean;
+      equalsIgnoreCase(anotherString: JString): java.lang.Boolean;
 
       /** Returns a formatted string using the specified locale, format string, and arguments. */
-      static format(
-        l: java.util.Locale,
-        format: java.lang.String,
-        ...args: any[]
-      ): java.lang.String;
+      static format(l: java.util.Locale, format: JString, ...args: any[]): java.lang.String;
       /** Returns a formatted string using the specified format string and arguments. */
-      static format(format: java.lang.String, ...args: any[]): java.lang.String;
+      static format(format: JString, ...args: any[]): java.lang.String;
 
       /** Encodes this String into a sequence of bytes using the platform's default charset, storing the result into a new byte array. */
-      getBytes(): Byte[];
+      getBytes(): byte[];
       /** Encodes this String into a sequence of bytes using the given charset, storing the result into a new byte array. */
-      getBytes(charset: java.nio.charset.Charset): Byte[];
-      /** Deprecated. This method does not properly convert characters into bytes. As of JDK 1.1, the preferred way to do this is via the getBytes() method, which uses the platform's default charset. */
-      getBytes(
-        srcBegin: java.lang.Integer,
-        srcEnd: java.lang.Integer,
-        dst: Byte[],
-        dstBegin: java.lang.Integer,
-      ): void;
+      getBytes(charset: java.nio.charset.Charset): byte[];
       /** Encodes this String into a sequence of bytes using the named charset, storing the result into a new byte array. */
-      getBytes(charsetName: java.lang.String): Byte[];
+      getBytes(charsetName: JString): byte[];
 
       /** Copies characters from this string into the destination character array. */
-      getChars(
-        srcBegin: java.lang.Integer,
-        srcEnd: java.lang.Integer,
-        dst: java.lang.Character[],
-        dstBegin: java.lang.Integer,
-      ): void;
+      getChars(srcBegin: JInteger, srcEnd: JInteger, dst: JCharacter[], dstBegin: JInteger): void;
 
       /** Returns a hash code for this string. */
       hashCode(): int;
 
       /** Returns the index within this string of the first occurrence of the specified character. */
-      indexOf(ch: java.lang.Integer): java.lang.Integer;
+      indexOf(ch: JInteger): java.lang.Integer;
       /** Returns the index within this string of the first occurrence of the specified character, starting the search at the specified index. */
-      indexOf(ch: java.lang.Integer, fromIndex: java.lang.Integer): java.lang.Integer;
+      indexOf(ch: JInteger, fromIndex: JInteger): java.lang.Integer;
       /** Returns the index within this string of the first occurrence of the specified substring. */
-      indexOf(str: String): java.lang.Integer;
+      indexOf(str: JString): java.lang.Integer;
       /** Returns the index within this string of the first occurrence of the specified substring, starting at the specified index. */
-      indexOf(str: String, fromIndex: java.lang.Integer): java.lang.Integer;
+      indexOf(str: JString, fromIndex: JInteger): java.lang.Integer;
 
       /** Returns a canonical representation for the string object. */
       intern(): java.lang.String;
@@ -283,78 +245,75 @@ declare namespace java {
       isEmpty(): java.lang.Boolean;
 
       /** Returns a new String composed of copies of the CharSequence elements joined together with a copy of the specified delimiter. */
-      static join(delimiter: CharSequence, ...elements: CharSequence[]): java.lang.String;
+      static join(delimiter: JCharSequence, ...elements: JCharSequence[]): java.lang.String;
       /** Returns a new String composed of copies of the CharSequence elements joined together with a copy of the specified delimiter. */
-      static join(delimiter: CharSequence, elements: java.lang.String[]): java.lang.String;
+      static join(delimiter: JCharSequence, elements: JString[]): java.lang.String;
 
       /** Returns the index within this string of the last occurrence of the specified character. */
-      lastIndexOf(ch: java.lang.Integer): java.lang.Integer;
+      lastIndexOf(ch: JInteger): java.lang.Integer;
       /** Returns the index within this string of the last occurrence of the specified character, searching backward starting at the specified index. */
-      lastIndexOf(ch: java.lang.Integer, fromIndex: java.lang.Integer): java.lang.Integer;
+      lastIndexOf(ch: JInteger, fromIndex: JInteger): java.lang.Integer;
       /** Returns the index within this string of the last occurrence of the specified substring. */
-      lastIndexOf(str: String): java.lang.Integer;
+      lastIndexOf(str: JString): java.lang.Integer;
       /** Returns the index within this string of the last occurrence of the specified substring, searching backward starting at the specified index. */
-      lastIndexOf(str: String, fromIndex: java.lang.Integer): java.lang.Integer;
+      lastIndexOf(str: JString, fromIndex: JInteger): java.lang.Integer;
 
       /** Returns the length of this string. */
       length(): java.lang.Integer;
 
       /** Tells whether or not this string matches the given regular expression. */
-      matches(regex: String): java.lang.Boolean;
+      matches(regex: JString): java.lang.Boolean;
 
       /** Returns the index within this String that is offset from the given index by codePointOffset code points. */
-      offsetByCodePoints(
-        index: java.lang.Integer,
-        codePointOffset: java.lang.Integer,
-      ): java.lang.Integer;
+      offsetByCodePoints(index: JInteger, codePointOffset: JInteger): java.lang.Integer;
 
       /** Tests if two string regions are equal. */
       regionMatches(
-        ignoreCase: java.lang.Boolean,
-        toffset: java.lang.Integer,
-        other: String,
-        ooffset: java.lang.Integer,
-        len: java.lang.Integer,
+        ignoreCase: JBoolean,
+        toffset: JInteger,
+        other: JString,
+        ooffset: JInteger,
+        len: JInteger,
       ): java.lang.Boolean;
       /** Tests if two string regions are equal. */
       regionMatches(
-        toffset: java.lang.Integer,
-        other: String,
-        ooffset: java.lang.Integer,
-        len: java.lang.Integer,
+        toffset: JInteger,
+        other: JString,
+        ooffset: JInteger,
+        len: JInteger,
       ): java.lang.Boolean;
 
       /** Returns a string resulting from replacing all occurrences of oldChar in this string with newChar. */
-      replace(oldChar: java.lang.Character, newChar: java.lang.Character): String;
+      replace(oldChar: JCharacter, newChar: JCharacter): String;
       /** Replaces each substring of this string that matches the literal target sequence with the specified literal replacement sequence. */
-      replace(target: CharSequence, replacement: CharSequence): String;
+      replace(target: JCharSequence, replacement: JCharSequence): String;
 
       /** Replaces each substring of this string that matches the given regular expression with the given replacement. */
-      replaceAll(regex: String, replacement: String): String;
+      replaceAll(regex: JString, replacement: JString): String;
 
       /** Replaces the first substring of this string that matches the given regular expression with the given replacement. */
-      replaceFirst(regex: String, replacement: String): String;
+      replaceFirst(regex: JString, replacement: JString): String;
 
       /** Splits this string around matches of the given regular expression. */
-      split(regex: java.lang.String): java.lang.String[];
+      split(regex: JString): java.lang.String[];
       /** Splits this string around matches of the given regular expression. */
-      split(regex: java.lang.String, limit: java.lang.Integer): java.lang.String[];
+      split(regex: JString, limit: JInteger): java.lang.String[];
 
       /** Tests if this string starts with the specified prefix. */
-      startsWith(prefix: String): java.lang.Boolean;
+      startsWith(prefix: JString): java.lang.Boolean;
       /** Tests if the substring of this string beginning at the specified index starts with the specified prefix. */
-      startsWith(prefix: String, toffset: java.lang.Integer): java.lang.Boolean;
+      startsWith(prefix: JString, toffset: JInteger): java.lang.Boolean;
 
       /** Returns a character sequence that is a subsequence of this sequence. */
-      subSequence(beginIndex: java.lang.Integer, endIndex: java.lang.Integer): CharSequence;
+      subSequence(beginIndex: JInteger, endIndex: JInteger): CharSequence;
 
       /** Returns a string that is a substring of this string. */
-      substring(beginIndex: java.lang.Integer): String;
+      substring(beginIndex: JInteger): String;
       /** Returns a string that is a substring of this string. */
-      substring(beginIndex: java.lang.Integer, endIndex: java.lang.Integer): String;
+      substring(beginIndex: JInteger, endIndex: JInteger): String;
 
       /** Converts this string to a new character array. */
-      toCharArray(): java.lang.Character[];
+      toCharArray(): char[];
 
       /** Converts all of the characters in this String to lower case using the rules of the default locale. */
       toLowerCase(): java.lang.String;
@@ -375,43 +334,39 @@ declare namespace java {
       /** Returns the string representation of the boolean argument. */
       static valueOf(b: boolean): java.lang.String;
       /** Returns the string representation of the JavaChar argument. */
-      static valueOf(c: java.lang.Character): java.lang.String;
+      static valueOf(c: JCharacter): java.lang.String;
       /** Returns the string representation of the JavaChar array argument. */
-      static valueOf(data: java.lang.Character[]): java.lang.String;
+      static valueOf(data: JCharacter[]): java.lang.String;
       /** Returns the string representation of a specific subarray of the JavaChar array argument. */
-      static valueOf(
-        data: java.lang.Character[],
-        offset: java.lang.Integer,
-        count: java.lang.Integer,
-      ): java.lang.String;
+      static valueOf(data: JCharacter[], offset: JInteger, count: JInteger): java.lang.String;
       /** Returns the string representation of the double argument. */
-      static valueOf(d: java.lang.Double): java.lang.String;
+      static valueOf(d: JDouble): java.lang.String;
       /** Returns the string representation of the float argument. */
-      static valueOf(f: java.lang.Float): java.lang.String;
+      static valueOf(f: JFloat): java.lang.String;
       /** Returns the string representation of the JavaInteger argument. */
-      static valueOf(i: java.lang.Integer): java.lang.String;
+      static valueOf(i: JInteger): java.lang.String;
       /** Returns the string representation of the long argument. */
-      static valueOf(l: java.lang.Long): java.lang.String;
+      static valueOf(l: JLong): java.lang.String;
       /** Returns the string representation of the Object argument. */
-      static valueOf(obj: Object): java.lang.String;
+      static valueOf(obj: JObject): java.lang.String;
     }
 
     /** A thread-safe, mutable sequence of characters. */
     class StringBuffer extends java.lang.Object implements java.io.Serializable, CharSequence {
       constructor();
-      constructor(seq: CharSequence);
-      constructor(capacity: java.lang.Integer);
-      constructor(str: java.lang.String);
+      constructor(seq: JCharSequence);
+      constructor(capacity: JInteger);
+      constructor(str: JString);
 
-      append(s: java.lang.String): StringBuffer;
-      append(c: java.lang.Character): StringBuffer;
-      append(i: java.lang.Integer): StringBuffer;
+      append(s: JString): StringBuffer;
+      append(c: JCharacter): StringBuffer;
+      append(i: JInteger): StringBuffer;
 
-      charAt(index: java.lang.Integer): java.lang.Character;
+      charAt(index: JInteger): char;
 
       length(): java.lang.Integer;
 
-      subSequence(start: java.lang.Integer, end: java.lang.Integer): CharSequence;
+      subSequence(start: JInteger, end: JInteger): CharSequence;
 
       toString(): string;
     }
@@ -419,19 +374,19 @@ declare namespace java {
     /** A mutable sequence of characters (not thread-safe). */
     class StringBuilder extends java.lang.Object implements java.io.Serializable, CharSequence {
       constructor();
-      constructor(seq: CharSequence);
-      constructor(capacity: java.lang.Integer);
-      constructor(str: java.lang.String);
+      constructor(seq: JCharSequence);
+      constructor(capacity: JInteger);
+      constructor(str: JString);
 
-      append(s: java.lang.String): StringBuilder;
-      append(c: java.lang.Character): StringBuilder;
-      append(i: java.lang.Integer): StringBuilder;
+      append(s: JString): StringBuilder;
+      append(c: JCharacter): StringBuilder;
+      append(i: JInteger): StringBuilder;
 
-      charAt(index: java.lang.Integer): java.lang.Character;
+      charAt(index: JInteger): char;
 
       length(): java.lang.Integer;
 
-      subSequence(start: java.lang.Integer, end: java.lang.Integer): CharSequence;
+      subSequence(start: JInteger, end: JInteger): CharSequence;
 
       toString(): string;
     }
@@ -444,15 +399,15 @@ declare namespace java {
       static BYTES: int;
 
       constructor(value: int);
-      constructor(s: java.lang.String);
+      constructor(s: JString);
 
       byteValue(): Byte;
 
-      compareTo(anotherInteger: java.lang.Integer): int;
+      compareTo(anotherInteger: JInteger): int;
 
       doubleValue(): Double;
 
-      equals(obj: java.lang.Object): boolean;
+      equals(obj: JObject): boolean;
 
       floatValue(): Float;
 
@@ -466,12 +421,12 @@ declare namespace java {
 
       toString(): string;
 
-      static parseInt(s: java.lang.String): int;
-      static parseInt(s: java.lang.String, radix: int): int;
+      static parseInt(s: JString): int;
+      static parseInt(s: JString, radix: int): int;
 
       static valueOf(i: int): java.lang.Integer;
-      static valueOf(s: java.lang.String): java.lang.Integer;
-      static valueOf(s: java.lang.String, radix: int): java.lang.Integer;
+      static valueOf(s: JString): java.lang.Integer;
+      static valueOf(s: JString, radix: int): java.lang.Integer;
     }
 
     /** Wrapper class for primitive long. */
@@ -482,15 +437,15 @@ declare namespace java {
       static BYTES: int;
 
       constructor(value: long);
-      constructor(s: java.lang.String);
+      constructor(s: JString);
 
       byteValue(): Byte;
 
-      compareTo(anotherLong: Long): int;
+      compareTo(anotherLong: JLong): int;
 
       doubleValue(): Double;
 
-      equals(obj: java.lang.Object): boolean;
+      equals(obj: JObject): boolean;
 
       floatValue(): Float;
 
@@ -504,12 +459,12 @@ declare namespace java {
 
       toString(): string;
 
-      static parseLong(s: java.lang.String): long;
-      static parseLong(s: java.lang.String, radix: int): long;
+      static parseLong(s: JString): long;
+      static parseLong(s: JString, radix: int): long;
 
       static valueOf(l: long): Long;
-      static valueOf(s: java.lang.String): Long;
-      static valueOf(s: java.lang.String, radix: int): Long;
+      static valueOf(s: JString): Long;
+      static valueOf(s: JString, radix: int): Long;
     }
 
     /** Wrapper class for primitive double. */
@@ -523,15 +478,15 @@ declare namespace java {
       static BYTES: int;
 
       constructor(value: number);
-      constructor(s: java.lang.String);
+      constructor(s: JString);
 
       byteValue(): Byte;
 
-      compareTo(anotherDouble: Double): int;
+      compareTo(anotherDouble: JDouble): int;
 
       doubleValue(): number;
 
-      equals(obj: java.lang.Object): boolean;
+      equals(obj: JObject): boolean;
 
       floatValue(): Float;
 
@@ -549,10 +504,10 @@ declare namespace java {
 
       toString(): string;
 
-      static parseDouble(s: java.lang.String): number;
+      static parseDouble(s: JString): number;
 
       static valueOf(d: number): Double;
-      static valueOf(s: java.lang.String): Double;
+      static valueOf(s: JString): Double;
     }
 
     /** Wrapper class for primitive float. */
@@ -566,15 +521,15 @@ declare namespace java {
       static BYTES: int;
 
       constructor(value: number);
-      constructor(s: java.lang.String);
+      constructor(s: JString);
 
       byteValue(): Byte;
 
-      compareTo(anotherFloat: Float): int;
+      compareTo(anotherFloat: JFloat): int;
 
       doubleValue(): Double;
 
-      equals(obj: java.lang.Object): boolean;
+      equals(obj: JObject): boolean;
 
       floatValue(): number;
 
@@ -592,10 +547,10 @@ declare namespace java {
 
       toString(): string;
 
-      static parseFloat(s: java.lang.String): number;
+      static parseFloat(s: JString): number;
 
       static valueOf(f: number): Float;
-      static valueOf(s: java.lang.String): Float;
+      static valueOf(s: JString): Float;
     }
 
     /** Wrapper class for primitive boolean. */
@@ -604,22 +559,22 @@ declare namespace java {
       static FALSE: Boolean;
 
       constructor(value: boolean);
-      constructor(s: java.lang.String);
+      constructor(s: JString);
 
       booleanValue(): boolean;
 
-      compareTo(b: Boolean): int;
+      compareTo(b: JBoolean): int;
 
-      equals(obj: java.lang.Object): boolean;
+      equals(obj: JObject): boolean;
 
       hashCode(): int;
 
       toString(): string;
 
-      static parseBoolean(s: java.lang.String): boolean;
+      static parseBoolean(s: JString): boolean;
 
       static valueOf(b: boolean): Boolean;
-      static valueOf(s: java.lang.String): Boolean;
+      static valueOf(s: JString): Boolean;
     }
 
     /** Wrapper class for primitive short. */
@@ -630,15 +585,15 @@ declare namespace java {
       static BYTES: int;
 
       constructor(value: int);
-      constructor(s: java.lang.String);
+      constructor(s: JString);
 
       byteValue(): Byte;
 
-      compareTo(anotherShort: Short): int;
+      compareTo(anotherShort: JShort): int;
 
       doubleValue(): Double;
 
-      equals(obj: java.lang.Object): boolean;
+      equals(obj: JObject): boolean;
 
       floatValue(): Float;
 
@@ -652,12 +607,12 @@ declare namespace java {
 
       toString(): string;
 
-      static parseShort(s: java.lang.String): int;
-      static parseShort(s: java.lang.String, radix: int): int;
+      static parseShort(s: JString): int;
+      static parseShort(s: JString, radix: int): int;
 
       static valueOf(s: int): Short;
-      static valueOf(s: java.lang.String): Short;
-      static valueOf(s: java.lang.String, radix: int): Short;
+      static valueOf(s: JString): Short;
+      static valueOf(s: JString, radix: int): Short;
     }
 
     /** Wrapper class for primitive byte. */
@@ -668,15 +623,15 @@ declare namespace java {
       static BYTES: int;
 
       constructor(value: int);
-      constructor(s: java.lang.String);
+      constructor(s: JString);
 
       byteValue(): int;
 
-      compareTo(anotherByte: Byte): int;
+      compareTo(anotherByte: JByte): int;
 
       doubleValue(): Double;
 
-      equals(obj: java.lang.Object): boolean;
+      equals(obj: JObject): boolean;
 
       floatValue(): Float;
 
@@ -690,12 +645,12 @@ declare namespace java {
 
       toString(): string;
 
-      static parseByte(s: java.lang.String): int;
-      static parseByte(s: java.lang.String, radix: int): int;
+      static parseByte(s: JString): int;
+      static parseByte(s: JString, radix: int): int;
 
       static valueOf(b: int): Byte;
-      static valueOf(s: java.lang.String): Byte;
-      static valueOf(s: java.lang.String, radix: int): Byte;
+      static valueOf(s: JString): Byte;
+      static valueOf(s: JString, radix: int): Byte;
     }
 
     /** Wrapper class for primitive char. */
@@ -712,9 +667,9 @@ declare namespace java {
 
       charValue(): string;
 
-      compareTo(anotherCharacter: Character): int;
+      compareTo(anotherCharacter: JCharacter): int;
 
-      equals(obj: java.lang.Object): boolean;
+      equals(obj: JObject): boolean;
 
       hashCode(): int;
 
@@ -731,7 +686,7 @@ declare namespace java {
       getParent(): ClassLoader | null;
 
       /** Loads the class with the specified binary name. */
-      loadClass(name: java.lang.String): java.lang.Class;
+      loadClass(name: JString): java.lang.Class;
 
       /** Returns the system class loader for delegation. */
       static getSystemClassLoader(): ClassLoader;

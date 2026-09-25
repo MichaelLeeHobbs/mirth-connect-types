@@ -53,23 +53,23 @@ declare namespace javax {
       /** Sets the designated column's normal maximum width in chars to the given number. */
       setColumnDisplaySize(columnIndex: int, size: int): void;
       /** Sets the suggested column title for use in printouts and displays, if any, to the given String. */
-      setColumnLabel(columnIndex: int, label: java.lang.String): void;
+      setColumnLabel(columnIndex: int, label: JString): void;
       /** Sets the column name of the designated column to the given String. */
-      setColumnName(columnIndex: int, columnName: java.lang.String): void;
+      setColumnName(columnIndex: int, columnName: JString): void;
       /** Sets the designated column's table's schema name, if any, to the given String. */
-      setSchemaName(columnIndex: int, schemaName: java.lang.String): void;
+      setSchemaName(columnIndex: int, schemaName: JString): void;
       /** Sets the designated column's number of decimal digits to the given number. */
       setPrecision(columnIndex: int, precision: int): void;
       /** Sets the designated column's number of digits to the right of the decimal point to the given number. */
       setScale(columnIndex: int, scale: int): void;
       /** Sets the designated column's table name, if any, to the given String. */
-      setTableName(columnIndex: int, tableName: java.lang.String): void;
+      setTableName(columnIndex: int, tableName: JString): void;
       /** Sets the designated column's table's catalog name, if any, to the given String. */
-      setCatalogName(columnIndex: int, catalogName: java.lang.String): void;
+      setCatalogName(columnIndex: int, catalogName: JString): void;
       /** Sets the designated column's SQL type to the one given. */
       setColumnType(columnIndex: int, SQLType: int): void;
       /** Sets the designated column's type name, if any, to the given String. */
-      setColumnTypeName(columnIndex: int, typeName: java.lang.String): void;
+      setColumnTypeName(columnIndex: int, typeName: JString): void;
     }
 
     namespace rowset {
@@ -85,9 +85,9 @@ declare namespace javax {
        */
       class RowSetWarning extends java.sql.SQLException {
         constructor();
-        constructor(reason: java.lang.String);
-        constructor(reason: java.lang.String, SQLState: java.lang.String);
-        constructor(reason: java.lang.String, SQLState: java.lang.String, vendorCode: int);
+        constructor(reason: JString);
+        constructor(reason: JString, SQLState: JString);
+        constructor(reason: JString, SQLState: JString, vendorCode: int);
         /** Retrieves the warning chained to this RowSetWarning object. */
         getNextWarning(): RowSetWarning;
         /** Sets this RowSetWarning object as the next warning. */

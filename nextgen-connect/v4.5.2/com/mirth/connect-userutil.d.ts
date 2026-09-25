@@ -34,11 +34,7 @@ declare namespace com {
            * @param content - The content to store for the attachment entry.
            * @param mimeType - The MIME type of the attachment entry.
            */
-          constructor(
-            name: java.lang.String | string,
-            content: java.lang.String | string,
-            mimeType: java.lang.String | string,
-          );
+          constructor(name: JString, content: JString, mimeType: JString);
 
           /**
            * Returns the name of the attachment entry.
@@ -52,7 +48,7 @@ declare namespace com {
            *
            * @param name - The name of the attachment entry.
            */
-          setName(name: java.lang.String | string): void;
+          setName(name: JString): void;
 
           /**
            * Returns the content of the attachment entry.
@@ -66,7 +62,7 @@ declare namespace com {
            *
            * @param content - The content of the attachment entry.
            */
-          setContent(content: java.lang.String | string): void;
+          setContent(content: JString): void;
 
           /**
            * Returns the MIME type of the attachment entry.
@@ -80,7 +76,7 @@ declare namespace com {
            *
            * @param mimeType - The MIME type of the attachment entry.
            */
-          setMimeType(mimeType: java.lang.String | string): void;
+          setMimeType(mimeType: JString): void;
 
           /**
            * Description copied from class: java.lang.Object
@@ -130,7 +126,7 @@ declare namespace com {
            * @param obj - the reference object with which to compare.
            * @returns true if this object is the same as the obj argument; false otherwise.
            */
-          equals(obj: java.lang.Object): boolean;
+          equals(obj: JObject): boolean;
         }
 
         /**
@@ -182,7 +178,7 @@ declare namespace com {
            * @throws IllegalArgumentException - if this enum type has no constant with the specified name
            * @throws NullPointerException - if the argument is null
            */
-          function valueOf(name: java.lang.String | string): ContentType;
+          function valueOf(name: JString): ContentType;
         }
 
         /**
@@ -268,7 +264,9 @@ declare namespace com {
           constructor(
             connectorMessage: com.mirth.connect.donkey.model.message.ConnectorMessage,
             modifiableMaps: boolean,
-            destinationIdMap: java.util.Map<java.lang.String, java.lang.Integer>,
+            destinationIdMap:
+              | java.util.Map<java.lang.String, java.lang.Integer>
+              | Record<string, JInteger>,
           );
 
           /**
@@ -773,7 +771,7 @@ declare namespace com {
            * @param input - The JSON string to format.
            * @returns The formatted JSON string.
            */
-          static prettyPrint(input: java.lang.String | string): java.lang.String;
+          static prettyPrint(input: JString): java.lang.String;
 
           /**
            * Escapes any special JSON characters in the input.
@@ -781,7 +779,7 @@ declare namespace com {
            * @param input - The string to escape.
            * @returns The escaped string.
            */
-          static escape(input: java.lang.String | string): java.lang.String;
+          static escape(input: JString): java.lang.String;
 
           /**
            * Converts a JSON string to XML. This is the same as calling toXml(String jsonString, boolean
@@ -791,7 +789,7 @@ declare namespace com {
            * @returns The converted XML string.
            * @throws Exception - If the conversion failed.
            */
-          static toXml(jsonString: java.lang.String | string): java.lang.String;
+          static toXml(jsonString: JString): java.lang.String;
 
           /**
            * Converts a JSON string to XML.
@@ -803,7 +801,7 @@ declare namespace com {
            * @throws Exception - If the conversion failed.
            */
           static toXml(
-            jsonString: java.lang.String | string,
+            jsonString: JString,
             multiplePI: boolean,
             prettyPrint: boolean,
           ): java.lang.String;
@@ -819,7 +817,7 @@ declare namespace com {
            * @param e - element to be appended to this list
            * @returns This ListBuilder instance.
            */
-          append(e: java.lang.Object): com.mirth.connect.userutil.ListBuilder;
+          append(e: JObject): com.mirth.connect.userutil.ListBuilder;
 
           /**
            * Returns the number of elements in this list. If this list contains
@@ -846,7 +844,7 @@ declare namespace com {
            * @param o - element whose presence in this list is to be tested
            * @returns true if this list contains the specified element
            */
-          contains(o: java.lang.Object): boolean;
+          contains(o: JObject): boolean;
 
           /**
            * Returns an iterator over the elements in this list in proper sequence.
@@ -902,7 +900,7 @@ declare namespace com {
            * @param a - the array into which the elements of this list are to be stored, if it is big enough; otherwise, a new array of the same runtime type is allocated for this purpose.
            * @returns an array containing the elements of this list
            */
-          toArray(a: java.lang.Object[]): java.lang.Object[];
+          toArray(a: JObject[]): java.lang.Object[];
 
           /**
            * Appends the specified element to the end of this list (optional
@@ -918,7 +916,7 @@ declare namespace com {
            * @param e - element to be appended to this list
            * @returns true (as specified by Collection.add(E))
            */
-          add(e: java.lang.Object): boolean;
+          add(e: JObject): boolean;
 
           /**
            * Removes the first occurrence of the specified element from this list,
@@ -933,7 +931,7 @@ declare namespace com {
            * @param o - element to be removed from this list, if present
            * @returns true if this list contained the specified element
            */
-          remove(o: java.lang.Object): boolean;
+          remove(o: JObject): boolean;
 
           /**
            * Returns true if this list contains all of the elements of the
@@ -942,7 +940,7 @@ declare namespace com {
            * @param c - collection to be checked for containment in this list
            * @returns true if this list contains all of the elements of the specified collection
            */
-          containsAll(c: java.util.Collection<any>): boolean;
+          containsAll(c: java.util.Collection<any> | any[]): boolean;
 
           /**
            * Appends all of the elements in the specified collection to the end of
@@ -955,7 +953,7 @@ declare namespace com {
            * @param c - collection containing elements to be added to this list
            * @returns true if this list changed as a result of the call
            */
-          addAll(c: java.util.Collection<any>): boolean;
+          addAll(c: java.util.Collection<any> | any[]): boolean;
 
           /**
            * Inserts all of the elements in the specified collection into this
@@ -972,7 +970,7 @@ declare namespace com {
            * @param c - collection containing elements to be added to this list
            * @returns true if this list changed as a result of the call
            */
-          addAll(index: int, c: java.util.Collection<any>): boolean;
+          addAll(index: int, c: java.util.Collection<any> | any[]): boolean;
 
           /**
            * Removes from this list all of its elements that are contained in the
@@ -981,7 +979,7 @@ declare namespace com {
            * @param c - collection containing elements to be removed from this list
            * @returns true if this list changed as a result of the call
            */
-          removeAll(c: java.util.Collection<any>): boolean;
+          removeAll(c: java.util.Collection<any> | any[]): boolean;
 
           /**
            * Retains only the elements in this list that are contained in the
@@ -992,7 +990,7 @@ declare namespace com {
            * @param c - collection containing elements to be retained in this list
            * @returns true if this list changed as a result of the call
            */
-          retainAll(c: java.util.Collection<any>): boolean;
+          retainAll(c: java.util.Collection<any> | any[]): boolean;
 
           /**
            * Removes all of the elements from this list (optional operation).
@@ -1016,7 +1014,7 @@ declare namespace com {
            * @param element - element to be stored at the specified position
            * @returns the element previously at the specified position
            */
-          set(index: int, element: java.lang.Object): java.lang.Object;
+          set(index: int, element: JObject): java.lang.Object;
 
           /**
            * Inserts the specified element at the specified position in this list
@@ -1027,7 +1025,7 @@ declare namespace com {
            * @param index - index at which the specified element is to be inserted
            * @param element - element to be inserted
            */
-          add(index: int, element: java.lang.Object): void;
+          add(index: int, element: JObject): void;
 
           /**
            * Removes the element at the specified position in this list (optional
@@ -1050,7 +1048,7 @@ declare namespace com {
            * @param o - element to search for
            * @returns the index of the first occurrence of the specified element in this list, or -1 if this list does not contain the element
            */
-          indexOf(o: java.lang.Object): int;
+          indexOf(o: JObject): int;
 
           /**
            * Returns the index of the last occurrence of the specified element
@@ -1062,7 +1060,7 @@ declare namespace com {
            * @param o - element to search for
            * @returns the index of the last occurrence of the specified element in this list, or -1 if this list does not contain the element
            */
-          lastIndexOf(o: java.lang.Object): int;
+          lastIndexOf(o: JObject): int;
 
           /**
            * Returns a list iterator over the elements in this list (in proper
@@ -1164,7 +1162,7 @@ declare namespace com {
            * @param obj - the reference object with which to compare.
            * @returns true if this object is the same as the obj argument; false otherwise.
            */
-          equals(obj: java.lang.Object): boolean;
+          equals(obj: JObject): boolean;
 
           /**
            * Returns a hash code value for the object. This method is
@@ -1250,7 +1248,7 @@ declare namespace com {
            * @param e - element to be appended to this list
            * @returns The new ListBuilder instance.
            */
-          static list(e: java.lang.Object): com.mirth.connect.userutil.ListBuilder;
+          static list(e: JObject): com.mirth.connect.userutil.ListBuilder;
 
           /**
            * Instantiates a new ListBuilder using the given list.
@@ -1258,7 +1256,7 @@ declare namespace com {
            * @param list - The delegate List to use.
            * @returns The new ListBuilder instance.
            */
-          static list(list: java.util.List<any>): com.mirth.connect.userutil.ListBuilder;
+          static list(list: java.util.List<any> | any[]): com.mirth.connect.userutil.ListBuilder;
         }
 
         /**
@@ -1272,10 +1270,7 @@ declare namespace com {
            * @param value - value to be associated with the specified key
            * @returns This MapBuilder instance.
            */
-          add(
-            key: java.lang.Object,
-            value: java.lang.Object,
-          ): com.mirth.connect.userutil.MapBuilder;
+          add(key: JObject, value: JObject): com.mirth.connect.userutil.MapBuilder;
 
           /**
            * Returns the number of key-value mappings in this map. If the
@@ -1303,7 +1298,7 @@ declare namespace com {
            * @param key - key whose presence in this map is to be tested
            * @returns true if this map contains a mapping for the specified key
            */
-          containsKey(key: java.lang.Object): boolean;
+          containsKey(key: JObject): boolean;
 
           /**
            * Returns true if this map maps one or more keys to the
@@ -1316,7 +1311,7 @@ declare namespace com {
            * @param value - value whose presence in this map is to be tested
            * @returns true if this map maps one or more keys to the specified value
            */
-          containsValue(value: java.lang.Object): boolean;
+          containsValue(value: JObject): boolean;
 
           /**
            * Returns the value to which the specified key is mapped,
@@ -1335,7 +1330,7 @@ declare namespace com {
            * @param key - the key whose associated value is to be returned
            * @returns the value to which the specified key is mapped, or null if this map contains no mapping for the key
            */
-          get(key: java.lang.Object): java.lang.Object;
+          get(key: JObject): java.lang.Object;
 
           /**
            * Associates the specified value with the specified key in this map
@@ -1349,7 +1344,7 @@ declare namespace com {
            * @param value - value to be associated with the specified key
            * @returns the previous value associated with key, or null if there was no mapping for key. (A null return can also indicate that the map previously associated null with key, if the implementation supports null values.)
            */
-          put(key: java.lang.Object, value: java.lang.Object): java.lang.Object;
+          put(key: JObject, value: JObject): java.lang.Object;
 
           /**
            * Removes the mapping for a key from this map if it is present
@@ -1372,7 +1367,7 @@ declare namespace com {
            * @param key - key whose mapping is to be removed from the map
            * @returns the previous value associated with key, or null if there was no mapping for key.
            */
-          remove(key: java.lang.Object): java.lang.Object;
+          remove(key: JObject): java.lang.Object;
 
           /**
            * Copies all of the mappings from the specified map to this map
@@ -1384,7 +1379,7 @@ declare namespace com {
            *
            * @param m - mappings to be stored in this map
            */
-          putAll(m: java.util.Map<any, any>): void;
+          putAll(m: java.util.Map<any, any> | Record<string, any>): void;
 
           /**
            * Removes all of the mappings from this map (optional operation).
@@ -1490,7 +1485,7 @@ declare namespace com {
            * @param obj - the reference object with which to compare.
            * @returns true if this object is the same as the obj argument; false otherwise.
            */
-          equals(obj: java.lang.Object): boolean;
+          equals(obj: JObject): boolean;
 
           /**
            * Returns a hash code value for the object. This method is
@@ -1578,10 +1573,7 @@ declare namespace com {
            * @param value - value to be associated with the specified key
            * @returns The new MapBuilder instance.
            */
-          static map(
-            key: java.lang.Object,
-            value: java.lang.Object,
-          ): com.mirth.connect.userutil.MapBuilder;
+          static map(key: JObject, value: JObject): com.mirth.connect.userutil.MapBuilder;
 
           /**
            * Instantiates a new MapBuilder using the given map.
@@ -1589,14 +1581,20 @@ declare namespace com {
            * @param map - The delegate map to use.
            * @returns The new MapBuilder instance.
            */
-          static map(map: java.util.Map<any, any>): com.mirth.connect.userutil.MapBuilder;
+          static map(
+            map: java.util.Map<any, any> | Record<string, any>,
+          ): com.mirth.connect.userutil.MapBuilder;
         }
 
         class MessageHeaders extends java.lang.Object {
           /**
            * @param delegate
            */
-          constructor(delegate: java.util.Map<java.lang.String, java.util.List<java.lang.String>>);
+          constructor(
+            delegate:
+              | java.util.Map<java.lang.String, java.util.List<java.lang.String>>
+              | Record<string, java.util.List<java.lang.String> | JString[]>,
+          );
 
           /**
            * Get the first header value for the given key.
@@ -1606,7 +1604,7 @@ declare namespace com {
            * @deprecated This method is deprecated and will soon be removed. Please use getHeader(key) or
            * getHeaderList(key) instead.
            */
-          get(key: java.lang.String | string): java.lang.String;
+          get(key: JString): java.lang.String;
 
           /**
            * Get the first header value for the given key.
@@ -1614,7 +1612,7 @@ declare namespace com {
            * @param key - The name of the header key.
            * @returns The associated value or null if no value exists.
            */
-          getHeader(key: java.lang.String | string): java.lang.String;
+          getHeader(key: JString): java.lang.String;
 
           /**
            * Get all header values for the given key.
@@ -1622,7 +1620,7 @@ declare namespace com {
            * @param key - The name of header key.
            * @returns A list of all header values for the given key or null if no values exist.
            */
-          getHeaderList(key: java.lang.String | string): java.util.List<java.lang.String>;
+          getHeaderList(key: JString): java.util.List<java.lang.String>;
 
           /**
            * Get all header keys.
@@ -1637,7 +1635,7 @@ declare namespace com {
            * @param key - The name of the header key.
            * @returns true if headers exist for the given key, false otherwise.
            */
-          contains(key: java.lang.String | string): boolean;
+          contains(key: JString): boolean;
 
           /**
            * Description copied from class: java.lang.Object
@@ -1667,7 +1665,11 @@ declare namespace com {
           /**
            * @param delegate
            */
-          constructor(delegate: java.util.Map<java.lang.String, java.util.List<java.lang.String>>);
+          constructor(
+            delegate:
+              | java.util.Map<java.lang.String, java.util.List<java.lang.String>>
+              | Record<string, java.util.List<java.lang.String> | JString[]>,
+          );
 
           /**
            * Get the first parameter value for the given key.
@@ -1677,7 +1679,7 @@ declare namespace com {
            * @deprecated This method is deprecated and will soon be removed. Please use getParameter(key)
            * or getParameterList(key) instead.
            */
-          get(key: java.lang.String | string): java.lang.String;
+          get(key: JString): java.lang.String;
 
           /**
            * Get the first parameter value for the given key.
@@ -1685,7 +1687,7 @@ declare namespace com {
            * @param key - The name of the parameter key.
            * @returns The associated value or null if no value exists.
            */
-          getParameter(key: java.lang.String | string): java.lang.String;
+          getParameter(key: JString): java.lang.String;
 
           /**
            * Get all parameter values for the given key.
@@ -1693,7 +1695,7 @@ declare namespace com {
            * @param key - The name of parameter key.
            * @returns A list of all parameter values for the given key or null if no values exist.
            */
-          getParameterList(key: java.lang.String | string): java.util.List<java.lang.String>;
+          getParameterList(key: JString): java.util.List<java.lang.String>;
 
           /**
            * Get all parameter keys.
@@ -1708,7 +1710,7 @@ declare namespace com {
            * @param key - The name of the parameter key.
            * @returns true if parameters exist for the given key, false otherwise.
            */
-          contains(key: java.lang.String | string): boolean;
+          contains(key: JString): boolean;
 
           /**
            * Description copied from class: java.lang.Object
@@ -1749,7 +1751,7 @@ declare namespace com {
            *
            * @param message - The actual response data.
            */
-          constructor(message: java.lang.String | string);
+          constructor(message: JString);
 
           /**
            * Instantiates a new Response object.
@@ -1757,10 +1759,7 @@ declare namespace com {
            * @param status - The status (e.g. SENT, ERROR) of the response.
            * @param message - The actual response data.
            */
-          constructor(
-            status: com.mirth.connect.userutil.Status,
-            message: java.lang.String | string,
-          );
+          constructor(status: com.mirth.connect.userutil.Status, message: JString);
 
           /**
            * Instantiates a new Response object.
@@ -1771,8 +1770,8 @@ declare namespace com {
            */
           constructor(
             status: com.mirth.connect.userutil.Status,
-            message: java.lang.String | string,
-            statusMessage: java.lang.String | string,
+            message: JString,
+            statusMessage: JString,
           );
 
           /**
@@ -1785,9 +1784,9 @@ declare namespace com {
            */
           constructor(
             status: com.mirth.connect.userutil.Status,
-            message: java.lang.String | string,
-            statusMessage: java.lang.String | string,
-            error: java.lang.String | string,
+            message: JString,
+            statusMessage: JString,
+            error: JString,
           );
 
           /**
@@ -1811,7 +1810,7 @@ declare namespace com {
            *
            * @param message - The response data (String) to use.
            */
-          setMessage(message: java.lang.String | string): void;
+          setMessage(message: JString): void;
 
           /**
            * Returns the Status (e.g. SENT, QUEUED) of this response.
@@ -1839,7 +1838,7 @@ declare namespace com {
            *
            * @param error - The error string to use.
            */
-          setError(error: java.lang.String | string): void;
+          setError(error: JString): void;
 
           /**
            * Returns a brief message explaining the reason for the current status.
@@ -1853,7 +1852,7 @@ declare namespace com {
            *
            * @param statusMessage - A brief message explaining the reason for the current status.
            */
-          setStatusMessage(statusMessage: java.lang.String | string): void;
+          setStatusMessage(statusMessage: JString): void;
 
           /**
            * Indicates whether some other object is "equal to" this one.
@@ -1901,7 +1900,7 @@ declare namespace com {
            * @param other - the reference object with which to compare.
            * @returns true if this object is the same as the obj argument; false otherwise.
            */
-          equals(other: java.lang.Object): boolean;
+          equals(other: JObject): boolean;
 
           /**
            * Returns a string representation of the object. In general, the
@@ -1941,8 +1940,10 @@ declare namespace com {
            * @param destinationIdMap - A Map of destination names and their corresponding "d#" response map keys (where "#" is the destination connector metadata ID).
            */
           constructor(
-            delegate: java.util.Map<java.lang.String, java.lang.Object>,
-            destinationIdMap: java.util.Map<java.lang.String, java.lang.Integer>,
+            delegate: java.util.Map<java.lang.String, java.lang.Object> | Record<string, JObject>,
+            destinationIdMap:
+              | java.util.Map<java.lang.String, java.lang.Integer>
+              | Record<string, JInteger>,
           );
 
           /**
@@ -1965,7 +1966,7 @@ declare namespace com {
            * @param key - key whose presence in this map is to be tested
            * @returns true if this map contains a mapping for the specified key
            */
-          containsKey(key: java.lang.Object): boolean;
+          containsKey(key: JObject): boolean;
 
           /**
            * Description copied from interface: java.util.Map
@@ -1980,7 +1981,7 @@ declare namespace com {
            * @param value - value whose presence in this map is to be tested
            * @returns true if this map maps one or more keys to the specified value
            */
-          containsValue(value: java.lang.Object): boolean;
+          containsValue(value: JObject): boolean;
 
           /**
            * Description copied from interface: java.util.Map
@@ -2050,7 +2051,7 @@ declare namespace com {
            * @param o - the reference object with which to compare.
            * @returns true if this object is the same as the obj argument; false otherwise.
            */
-          equals(o: java.lang.Object): boolean;
+          equals(o: JObject): boolean;
 
           /**
            * Returns the value to which the specified key is mapped, or null if this map contains no
@@ -2060,7 +2061,7 @@ declare namespace com {
            * @param key - the key whose associated value is to be returned
            * @returns the value to which the specified key is mapped, or null if this map contains no mapping for the key
            */
-          get(key: java.lang.Object): java.lang.Object;
+          get(key: JObject): java.lang.Object;
 
           /**
            * Description copied from class: java.lang.Object
@@ -2142,7 +2143,7 @@ declare namespace com {
            * @param value - value to be associated with the specified key
            * @returns the previous value associated with key, or null if there was no mapping for key. (A null return can also indicate that the map previously associated null with key, if the implementation supports null values.)
            */
-          put(key: java.lang.String | string, value: java.lang.Object): java.lang.Object;
+          put(key: JString, value: JObject): java.lang.Object;
 
           /**
            * Description copied from interface: java.util.Map
@@ -2156,7 +2157,9 @@ declare namespace com {
            *
            * @param m - mappings to be stored in this map
            */
-          putAll(m: java.util.Map<java.lang.String, java.lang.Object>): void;
+          putAll(
+            m: java.util.Map<java.lang.String, java.lang.Object> | Record<string, JObject>,
+          ): void;
 
           /**
            * Description copied from interface: java.util.Map
@@ -2181,7 +2184,7 @@ declare namespace com {
            * @param key - key whose mapping is to be removed from the map
            * @returns the previous value associated with key, or null if there was no mapping for key.
            */
-          remove(key: java.lang.Object): java.lang.Object;
+          remove(key: JObject): java.lang.Object;
 
           /**
            * Description copied from interface: java.util.Map
@@ -2253,7 +2256,7 @@ declare namespace com {
            * @throws IllegalArgumentException - if this enum type has no constant with the specified name
            * @throws NullPointerException - if the argument is null
            */
-          function valueOf(name: java.lang.String | string): Status;
+          function valueOf(name: JString): Status;
         }
 
         /**
@@ -2266,7 +2269,7 @@ declare namespace com {
            * @param input - The XML string to format.
            * @returns The formatted XML string.
            */
-          static prettyPrint(input: java.lang.String | string): java.lang.String;
+          static prettyPrint(input: JString): java.lang.String;
 
           /**
            * Converts an XML/HTML entity reference into a string with the literal character.
@@ -2274,7 +2277,7 @@ declare namespace com {
            * @param entity - The XML/HTML entity to decode.
            * @returns A string containing the decoded character.
            */
-          static decode(entity: java.lang.String | string): java.lang.String;
+          static decode(entity: JString): java.lang.String;
 
           /**
            * Encodes a character into the corresponding XML/HTML entity.
@@ -2290,7 +2293,7 @@ declare namespace com {
            * @param s - The string to encode.
            * @returns The encoded string with replaced XML/HTML entities.
            */
-          static encode(s: java.lang.String | string): java.lang.String;
+          static encode(s: JString): java.lang.String;
 
           /**
            * Converts a character array, encoding characters into the corresponding XML/HTML entities as
@@ -2310,7 +2313,7 @@ declare namespace com {
            * @returns The converted JSON string.
            * @throws Exception - If conversion failed.
            */
-          static toJson(xmlString: java.lang.String | string): java.lang.String;
+          static toJson(xmlString: JString): java.lang.String;
 
           /**
            * Converts an XML string to JSON.
@@ -2320,10 +2323,7 @@ declare namespace com {
            * @returns The converted JSON string.
            * @throws Exception - If conversion failed.
            */
-          static toJson(
-            xmlString: java.lang.String | string,
-            normalizeNamespaces: boolean,
-          ): java.lang.String;
+          static toJson(xmlString: JString, normalizeNamespaces: boolean): java.lang.String;
 
           /**
            * Converts an XML string to JSON.
@@ -2337,7 +2337,7 @@ declare namespace com {
            * @throws Exception - If conversion failed.
            */
           static toJson(
-            xmlString: java.lang.String | string,
+            xmlString: JString,
             autoArray: boolean,
             autoPrimitive: boolean,
             prettyPrint: boolean,
@@ -2358,7 +2358,7 @@ declare namespace com {
            * @throws Exception - If conversion failed.
            */
           static toJson(
-            xmlString: java.lang.String | string,
+            xmlString: JString,
             autoArray: boolean,
             autoPrimitive: boolean,
             prettyPrint: boolean,

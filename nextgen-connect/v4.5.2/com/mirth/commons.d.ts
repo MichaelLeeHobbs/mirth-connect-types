@@ -9,9 +9,9 @@ declare namespace com {
          */
         class EncryptionException extends java.lang.Exception {
           constructor();
-          constructor(message: java.lang.String);
+          constructor(message: JString);
           constructor(cause: java.lang.Throwable);
-          constructor(message: java.lang.String, cause: java.lang.Throwable);
+          constructor(message: JString, cause: java.lang.Throwable);
         }
       }
     }
