@@ -250,9 +250,16 @@ The three User API packages are generated from the Mirth Javadoc:
 
 Hand-maintained files cover the rest of what channel scripts touch:
 
-- **Mirth script scope:** `msg`/`tmp`, the maps and `$` accessors, `logger`, `router`,
-  `destinationSet`, `connectorMessage`, `message`, response globals, the attachment and segment
-  helpers, `reader` (batch scripts), and the E4X `XML`/`XMLList` API.
+- **Mirth script scope,** checked against Mirth 4.5.2's `JavaScriptScopeUtil` and
+  `JavaScriptBuilder`: `msg`/`tmp`, the maps (including `configurationMap`) and `$` accessors,
+  `logger`, `router`, `alerts`, `destinationSet`, `connectorMessage`, `message`, `response` and
+  the response globals, `connector`, `template`, the attachment and segment helpers, and the E4X
+  `XML`/`XMLList`/`Namespace`/`QName` API.
+- **Script-specific variables:** `reader` and the Delimited settings (batch scripts), `binary`
+  (attachment script), and `resultMap` (Database Reader update script). They're declared
+  everywhere, because the types can't tell which script a file is. The Database Reader's
+  `results` is left out, because a global with that name would clash with scripts that declare
+  their own `results`.
 - **Rhino:** `Packages`, `JavaAdapter`, `importPackage`, and `JSON.parse` of Java strings.
 - **JDK classes scripts use directly:** `java.lang` (boxed types, `String`, `System`, `Thread`,
   `reflect.Array`), `java.util` (collections, `Base64`, `Arrays`, `UUID`, `Calendar`,

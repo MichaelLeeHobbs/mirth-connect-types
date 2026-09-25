@@ -112,9 +112,10 @@ const byId = new java.util.HashMap<java.lang.Integer, string>();
 byId.get(1);
 const found = byId.get(java.lang.Integer.valueOf(1));
 // ImmutableMessage's connector map is the exception: its get() converts a JS number.
-const firstDestination = message.getConnectorMessages().get(1);
+declare const postprocessorMessage: com.mirth.connect.userutil.ImmutableMessage;
+const firstDestination = postprocessorMessage.getConnectorMessages().get(1);
 // @ts-expect-error containsKey on that map still needs an Integer
-message.getConnectorMessages().containsKey(1);
+postprocessorMessage.getConnectorMessages().containsKey(1);
 
 // Donkey's internal message model.
 declare const rawMessage: com.mirth.connect.donkey.model.message.Message;
@@ -127,6 +128,14 @@ declare const rawMap: java.util.Map;
 const rawFirst: unknown = rawList.get(0);
 const rawValue: unknown = rawMap.get('k');
 
+// E4X namespaces and qualified names.
+const cda = new XML('<ClinicalDocument xmlns="urn:hl7-org:v3"/>');
+const hl7ns = new Namespace('hl7', 'urn:hl7-org:v3');
+const rootName: string = cda.name().localName;
+const nsUri: string | undefined = cda.namespace()?.uri;
+// @ts-expect-error a QName is never === a string; compare .localName
+if (cda.name() === 'ClinicalDocument') void 0;
+
 // Calendar arithmetic.
 const cal = java.util.Calendar.getInstance();
 cal.add(java.util.Calendar.SECOND, -5);
@@ -136,6 +145,9 @@ void entityUtils;
 void markup;
 void trace;
 void controllers;
+void hl7ns;
+void rootName;
+void nsUri;
 void rawFirst;
 void rawValue;
 void obxId;

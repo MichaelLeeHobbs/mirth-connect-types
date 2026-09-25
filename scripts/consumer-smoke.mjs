@@ -172,7 +172,7 @@ try {
       '// Package gaps: must be reported.',
       'var nope = java.util.NoSuchThing;',
       'ChannelUtil.getChannelName(123);',
-      'message.getConnectorMessages().nonExistentMethod();',
+      'connectorMessage.nonExistentMethod();',
       '// User errors: must be left out (the unknown name goes in its own section).',
       'var mine = { a: 1 };',
       'mine.b;',

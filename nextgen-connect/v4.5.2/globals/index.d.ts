@@ -43,11 +43,21 @@ declare var msg: any;
  */
 declare var tmp: any;
 
-/** The full immutable message. Available in the postprocessor and response transformer scopes. */
-declare var message: com.mirth.connect.userutil.ImmutableMessage;
+/**
+ * The message, whose shape depends on the script: the raw message string in the preprocessor and
+ * attachment scripts, and a `com.mirth.connect.userutil.ImmutableMessage` in the postprocessor.
+ * Narrow it where it helps, e.g.
+ * `var m = /** @type {com.mirth.connect.userutil.ImmutableMessage} *\/ (message);`.
+ */
+declare var message: any;
 
-/** The response message. */
-declare var response: com.mirth.connect.server.userutil.ImmutableResponse;
+/**
+ * The response: an `ImmutableResponse` in the response transformer, and a mutable
+ * `com.mirth.connect.userutil.Response` in the postprocessor.
+ */
+declare var response:
+  | com.mirth.connect.server.userutil.ImmutableResponse
+  | com.mirth.connect.userutil.Response;
 
 /** The batch input, line by line. Available only in a source connector's batch script. */
 declare var reader: java.io.BufferedReader;
@@ -76,6 +86,46 @@ declare var globalMap: java.util.Map<JString, any>;
 /** The global channel map (shared across messages within one channel). */
 declare var globalChannelMap: java.util.Map<JString, any>;
 
+/** The server's configuration map (Settings > Configuration Map). Read-only in practice. */
+declare var configurationMap: java.util.Map<JString, any>;
+
+/** The name of the current connector (filter/transformer, response transformer, and message scripts). */
+declare var connector: string;
+
+/**
+ * The outbound message template as a string, in the filter/transformer and response transformer.
+ * `tmp` is its parsed form.
+ */
+declare var template: string;
+
+/** Whether the inbound data is binary. Available only in the attachment script. */
+declare var binary: boolean;
+
+/**
+ * The current row in a Database Reader's post-process (update) script, keyed by column name.
+ * The aggregate update script gets every row as `results` instead, which isn't declared here
+ * because the name is so common; use `/** @type {java.util.List<java.util.Map>} *\/ (results)`.
+ */
+declare var resultMap: java.util.Map<JString, any>;
+
+// Delimited data type batch scripts also receive the reader settings.
+/** Delimited batch script: the column delimiter. */
+declare var columnDelimiter: string;
+/** Delimited batch script: the record delimiter. */
+declare var recordDelimiter: string;
+/** Delimited batch script: fixed column widths, or null when columns are delimited. */
+declare var columnWidths: number[] | null;
+/** Delimited batch script: the quote token. */
+declare var quoteToken: string;
+/** Delimited batch script: whether a doubled quote token escapes a quote. */
+declare var escapeWithDoubleQuote: boolean;
+/** Delimited batch script: the quote escape token. */
+declare var quoteEscapeToken: string;
+/** Delimited batch script: whether carriage returns are ignored. */
+declare var ignoreCR: boolean;
+/** Delimited batch script: the number of header records to skip. */
+declare var skipRecords: number;
+
 /** The response map (destination responses for the current message). */
 declare var responseMap: java.util.Map<JString, any>;
 
@@ -100,11 +150,12 @@ declare function $cfg(key: string | number, value?: unknown): any;
 /** Get or Put responseMap values */
 declare function $r(key: string | number, value?: unknown): any;
 
-/** Get the key from the first map that contains it */
-declare function $(key: string | number, value?: unknown): any;
-
-/** Factory for opening JDBC database connections (lowercase instance global). */
-declare var databaseConnectionFactory: com.mirth.connect.server.userutil.DatabaseConnectionFactory;
+/**
+ * Reads `key` from the first map that has it: responseMap, connectorMap, channelMap, sourceMap,
+ * globalChannelMap, globalMap, configurationMap, then the Database Reader's resultMap. Returns
+ * `''` when none has it. Read-only; use the specific accessor (`$c`, `$g`, ...) to put.
+ */
+declare function $(key: string | number): any;
 
 /**
  * Factory for opening JDBC database connections. Mirth injects this as an
@@ -116,38 +167,6 @@ declare var DatabaseConnectionFactory: com.mirth.connect.server.userutil.Databas
 
 /** Sends the alerts configured for the channel. */
 declare var alerts: com.mirth.connect.server.userutil.AlertSender;
-
-/**
- * @deprecated Use `databaseConnectionFactory.createDatabaseConnection(...)` instead.
- * Opens a JDBC database connection using the given driver/URL and optional credentials.
- */
-declare var createDatabaseConnection: (
-  driver: java.lang.String | string,
-  address: java.lang.String | string,
-  username?: java.lang.String | string,
-  password?: java.lang.String | string,
-) => com.mirth.connect.server.userutil.DatabaseConnection;
-
-/**
- * @deprecated Open a connection via `databaseConnectionFactory` and call
- * `DatabaseConnection.executeUpdate(...)` instead. Executes an INSERT/UPDATE/DELETE.
- */
-declare var executeUpdate: (
-  expression: java.lang.String | string,
-  parameters?: java.util.List<java.lang.Object>,
-) => int;
-
-/**
- * @deprecated Open a connection via `databaseConnectionFactory` and call
- * `DatabaseConnection.executeCachedQuery(...)` instead. Executes a SELECT.
- */
-declare var executeCachedQuery: (
-  expression: java.lang.String | string,
-  parameters?: java.util.List<java.lang.Object>,
-) => javax.sql.rowset.CachedRowSet;
-
-/** @deprecated Use `SMTPConnectionFactory.createSMTPConnection()` instead. */
-declare var createSMTPConnection: () => com.mirth.connect.server.userutil.SMTPConnection;
 
 /** The current channel ID. */
 declare var channelId: string;
@@ -317,7 +336,7 @@ declare class XML {
   constructor(value?: JString | XML);
 
   /** Adds the namespace to the in-scope namespaces of the element. */
-  addNamespace(namespace: string): void;
+  addNamespace(namespace: Namespace | string): XML;
 
   /** Adds child as a new child of the element, after all other children. */
   appendChild(child: XML): XML;
@@ -359,7 +378,7 @@ declare class XML {
   hasSimpleContent(): boolean;
 
   /** Returns an array of Namespace objects representing the namespaces in scope for this object. */
-  inScopeNamespaces(): object[];
+  inScopeNamespaces(): Namespace[];
 
   /** Inserts child2 immediately after child1 in the XML object's children list. */
   insertChildAfter(child1: XML, child2: XML): void;
@@ -374,13 +393,13 @@ declare class XML {
   localName(): string;
 
   /** Returns the qualified name of this object. */
-  name(): string;
+  name(): QName;
 
   /** Returns the namespace associated with this object, or if a prefix is specified, an in-scope namespace with that prefix. */
-  namespace(prefix?: string): string;
+  namespace(prefix?: string): Namespace | undefined;
 
   /** An array of Namespace objects representing the namespace declarations associated with this object. */
-  namespaceDeclarations(): string[];
+  namespaceDeclarations(): Namespace[];
 
   /** A string representing the kind of object this is (e.g. "element"). */
   nodeKind(): string;
@@ -398,7 +417,7 @@ declare class XML {
   prependChild(value: string): void;
 
   /** Removes a namespace from the in-scope namespaces of the element. */
-  removeNamespace(namespace: string): void;
+  removeNamespace(namespace: Namespace | string): XML;
 
   /** Replace a child with a new one. */
   replace(propertyName: string, value: XML): void;
@@ -413,7 +432,7 @@ declare class XML {
   setName(name: string): void;
 
   /** Sets the namespace of the XML object to the requested value. */
-  setNamespace(ns: string): void;
+  setNamespace(ns: Namespace | string): void;
 
   /** Concatenation of all text node children. */
   text(): string;

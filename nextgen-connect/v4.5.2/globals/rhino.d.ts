@@ -67,3 +67,29 @@ declare var XMLList: {
   new (value?: JString | XML | XMLList): XMLList;
   prototype: XMLList;
 };
+
+/**
+ * An E4X XML namespace, e.g. for CDA: `var hl7 = new Namespace('urn:hl7-org:v3');` then
+ * `doc.hl7::component`. `default xml namespace = hl7;` also works but is a TypeScript parse error.
+ */
+declare class Namespace {
+  constructor();
+  constructor(uri: JString | Namespace | QName);
+  constructor(prefix: JString, uri: JString);
+  readonly prefix: string | undefined;
+  readonly uri: string;
+  toString(): string;
+}
+
+/**
+ * An E4X qualified name, as returned by `XML#name()`. Compare with `.localName` or `toString()`:
+ * `x.name() === 'PID'` is always false because a QName isn't a string.
+ */
+declare class QName {
+  constructor();
+  constructor(name: JString | QName);
+  constructor(namespace: JString | Namespace, localName: JString);
+  readonly localName: string;
+  readonly uri: string | null;
+  toString(): string;
+}

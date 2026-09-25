@@ -7,6 +7,37 @@ All notable changes to `@ubercode/mirth-connect-types` are documented here. The 
 > The npm package version is independent of the Mirth version a type set targets — the Mirth
 > version is encoded in the subpath export (e.g. `@ubercode/mirth-connect-types/nextgen-connect/v4.5.2`).
 
+## [Unreleased]
+
+Audited against Mirth 4.5.2's source (`JavaScriptScopeUtil`, `JavaScriptBuilder`, the batch
+adaptors, and the Database Reader).
+
+### Added
+
+- Scope variables: `configurationMap`, `connector`, `template`, `binary` (attachment script),
+  `resultMap` (Database Reader update script), and the Delimited batch settings
+  (`columnDelimiter`, `recordDelimiter`, `columnWidths`, `quoteToken`, `escapeWithDoubleQuote`,
+  `quoteEscapeToken`, `ignoreCR`, `skipRecords`).
+- E4X `Namespace` and `QName` classes.
+
+### Fixed
+
+- `message` is `any`: a string in the preprocessor and attachment scripts, an `ImmutableMessage`
+  in the postprocessor.
+- `response` is `ImmutableResponse | com.mirth.connect.userutil.Response`: the postprocessor gets
+  the mutable `Response`.
+- `$(key)` takes only a key; it reads and never writes.
+- `XML#name()` returns a `QName` and `XML#namespace()` a `Namespace` (they were typed `string`),
+  and the other namespace methods use `Namespace`.
+
+### Removed
+
+- `databaseConnectionFactory`, `createDatabaseConnection`, `executeUpdate`, `executeCachedQuery`
+  and `createSMTPConnection` as bare globals. No Mirth script scope defines them (they only appear
+  in the Administrator's syntax-highlighting keyword list), so calling them throws a
+  `ReferenceError`. Use `DatabaseConnectionFactory.createDatabaseConnection(...)` and
+  `SMTPConnectionFactory.createSMTPConnection()`.
+
 ## [0.2.0] — 2026-09-25
 
 ### Changed
