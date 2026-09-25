@@ -204,6 +204,22 @@ plus part of ES2015, and TypeScript can't check the gaps, so they fail only in M
 - **`Cannot find name 'console'`.** That's correct: Mirth's Rhino scope has no `console`. Use
   `logger`. Don't add the `dom` lib to silence it.
 
+## Reporting a type gap
+
+If the types reject code that runs in Mirth, or miss an API, run this in your project:
+
+```sh
+npx mirth-types-report --out mirth-types-report.md   # add --no-source to leave out code lines
+```
+
+It type-checks the project with your own TypeScript and config, and keeps only the errors that
+involve this package. Your own code's errors are left out, and unknown names get their own list.
+It also flags setup problems: the package not loaded, two copies installed, TypeScript 7, or a
+parse error stopping all checks. Review the file, then open a
+[type gap issue](https://github.com/MichaelLeeHobbs/mirth-connect-types/issues/new?template=type-gap.yml)
+with it. Options: `--project <config>` (default `jsconfig.json`, then `tsconfig.json`) and
+`--typescript <dir>` to use a TypeScript install outside the project.
+
 ## Versioning
 
 Definitions are organized **per product + per Mirth version**:

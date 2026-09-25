@@ -15,7 +15,7 @@ export default tseslint.config(
   {
     // Generator tooling and the consumer smoke test are the only runtime code
     // in this package; both run on Node.
-    files: ['src/**/*.ts', 'scripts/**/*.mjs'],
+    files: ['src/**/*.ts', 'scripts/**/*.mjs', 'bin/**/*.mjs'],
     languageOptions: {
       globals: { ...globals.node },
     },

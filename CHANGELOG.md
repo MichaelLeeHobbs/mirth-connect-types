@@ -28,6 +28,11 @@ All notable changes to `@ubercode/mirth-connect-types` are documented here. The 
 
 ### Added
 
+- `npx mirth-types-report`: type-checks a Mirth script project with its own TypeScript and config
+  and writes a Markdown report of only the errors that involve this package, plus setup problems
+  and unknown names, for filing a type-gap issue (new issue form included). `typescript` is an
+  optional peer dependency.
+
 - `javax.crypto` (`Cipher`, `Mac`, `SecretKeyFactory`, `KeyGenerator`, `SecretKey`, and
   `spec.SecretKeySpec`/`IvParameterSpec`/`GCMParameterSpec`/`PBEKeySpec`), the
   `java.security` types they use, `javax.xml.bind.DatatypeConverter` (bundled with Mirth), and

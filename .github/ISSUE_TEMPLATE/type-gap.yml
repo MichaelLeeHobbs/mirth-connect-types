@@ -1,0 +1,23 @@
+name: Type gap or wrong type
+description: A Mirth, Rhino, or Java API the types reject, miss, or get wrong.
+labels: ['type-gap']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Run `npx mirth-types-report --out mirth-types-report.md` in your project and paste the relevant part below. It lists only errors that involve this package. Review it for anything sensitive first, or run it with `--no-source`.
+  - type: textarea
+    id: report
+    attributes:
+      label: Report output
+      description: The relevant sections of mirth-types-report.md.
+      render: markdown
+    validations:
+      required: true
+  - type: textarea
+    id: runtime
+    attributes:
+      label: Does the code run in Mirth?
+      description: Say whether the flagged code works in Mirth, and your Mirth version and `rhino.languageversion` (in `mirth.properties`) if you know them.
+    validations:
+      required: true

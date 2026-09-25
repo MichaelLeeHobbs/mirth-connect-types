@@ -2,10 +2,12 @@
 
 ## What this is
 
-A **types-only** npm package: ambient TypeScript declarations for the Mirth Connect /
-NextGen Connect server-side JavaScript (Rhino) **User API**. There is **no runtime code** to
-ship — the `.d.ts` files _are_ the published artifact (no build/dist, no tsup, no vitest).
-The only executable code is the Javadoc-to-`.d.ts` generator under `src/generator/`.
+An npm package of ambient TypeScript declarations for the Mirth Connect / NextGen Connect
+server-side JavaScript (Rhino) **User API**. The `.d.ts` files _are_ the published artifact (no
+build/dist, no tsup, no vitest). The one shipped runtime file is `bin/mirth-types-report.mjs`, a
+dependency-free CLI (plain `.mjs`, uses the consumer's own TypeScript) that users run to report
+type gaps; `test:consumer` exercises it. Everything else executable is dev tooling: the
+Javadoc-to-`.d.ts` generator under `src/generator/` and `scripts/`.
 
 Sibling project: `../integration-engine-api` types the REST API and is the structural
 template (per product + per version, `src/generator/`, `test-types/`, per-version `exports`).
