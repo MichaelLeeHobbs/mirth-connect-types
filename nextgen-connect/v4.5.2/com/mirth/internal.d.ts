@@ -6,6 +6,33 @@
 declare namespace com {
   namespace mirth {
     namespace connect {
+      // Mirth internals that scripts reach into (ControllerFactory, ObjectXMLSerializer,
+      // EventFilter, ...). They aren't the User API and change between versions, so their
+      // values are untyped rather than errors. The declared types under them still resolve.
+      const model: any;
+      namespace server {
+        const controllers: any;
+        const util: any;
+      }
+
+      namespace userutil {
+        namespace ImmutableMessage {
+          /**
+           * The map `ImmutableMessage#getConnectorMessages()` returns, keyed by metadata id. Unlike
+           * other Java maps, its `get` converts a JS number key, so `get(1)` works; `containsKey`
+           * still needs `java.lang.Integer.valueOf(n)`.
+           */
+          interface ConnectorMessageMap extends java.util.Map<
+            java.lang.Integer,
+            com.mirth.connect.userutil.ImmutableConnectorMessage
+          > {
+            get(
+              metaDataId: JKey<java.lang.Integer> | number,
+            ): com.mirth.connect.userutil.ImmutableConnectorMessage | null;
+          }
+        }
+      }
+
       namespace model {
         namespace converters {
           /**

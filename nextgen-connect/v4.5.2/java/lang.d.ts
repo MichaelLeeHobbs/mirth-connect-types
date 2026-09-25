@@ -24,8 +24,9 @@ declare namespace java {
       /** Returns a string containing the characters in this sequence in the same order as this sequence. */
       toString(): string;
     }
+    const CharSequence: JavaInterface<CharSequence>;
 
-    interface Comparable<T> {
+    interface Comparable<T = any> {
       /**
        * Compares this object with the specified object for order. Returns a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than the specified object.
        * @param o the object to be compared
@@ -33,20 +34,30 @@ declare namespace java {
        */
       compareTo(o: T): int;
     }
+    const Comparable: JavaInterface<Comparable<any>>;
 
     interface ConstantDesc {
       /** Resolves this descriptor reflectively. */
       resolveConstantDesc?(lookup: any): java.lang.Object;
     }
+    const ConstantDesc: JavaInterface<ConstantDesc>;
 
     interface Constable {
       describeConstable?<T extends ConstantDesc>(): T | undefined;
     }
+    const Constable: JavaInterface<Constable>;
 
     /** Implementing this interface allows an object to be the target of the "for-each loop" statement. */
-    interface Iterable<T> {
+    /** A task with a `run` method, e.g. implemented in script with `JavaAdapter`. */
+    interface Runnable {
+      run(): void;
+    }
+    const Runnable: JavaInterface<Runnable>;
+
+    interface Iterable<T = any> {
       iterator(): java.util.Iterator<T>;
     }
+    const Iterable: JavaInterface<Iterable<any>>;
 
     /**
      * Instances of the class Class represent classes and interfaces in a running Java application.
@@ -86,6 +97,7 @@ declare namespace java {
       /** Returns a string describing this Class. */
       toString(): string;
     }
+    const Class: JavaInterface<Class<any>>;
 
     class Object {
       constructor();
@@ -140,6 +152,8 @@ declare namespace java {
       getStackTrace(): java.lang.Object[];
       /** Prints this throwable and its backtrace to the standard error stream. */
       printStackTrace(): void;
+      /** Writes the stack trace to `s`, e.g. a `PrintWriter` over a `StringWriter`. */
+      printStackTrace(s: java.io.PrintWriter): void;
     }
 
     class Exception extends java.lang.Throwable implements java.io.Serializable {
@@ -393,6 +407,9 @@ declare namespace java {
 
     /** Wrapper class for primitive int. */
     class Integer extends java.lang.Object implements java.io.Serializable, Comparable<Integer> {
+      /** The `Class` for the primitive `int`, e.g. for `java.lang.reflect.Array.newInstance`. */
+      static readonly TYPE: java.lang.Class<any>;
+
       static MAX_VALUE: int;
       static MIN_VALUE: int;
       static SIZE: int;
@@ -431,6 +448,9 @@ declare namespace java {
 
     /** Wrapper class for primitive long. */
     class Long extends java.lang.Object implements java.io.Serializable, Comparable<Long> {
+      /** The `Class` for the primitive `long`, e.g. for `java.lang.reflect.Array.newInstance`. */
+      static readonly TYPE: java.lang.Class<any>;
+
       static MAX_VALUE: long;
       static MIN_VALUE: long;
       static SIZE: int;
@@ -469,6 +489,9 @@ declare namespace java {
 
     /** Wrapper class for primitive double. */
     class Double extends java.lang.Object implements java.io.Serializable, Comparable<Double> {
+      /** The `Class` for the primitive `double`, e.g. for `java.lang.reflect.Array.newInstance`. */
+      static readonly TYPE: java.lang.Class<any>;
+
       static MAX_VALUE: number;
       static MIN_VALUE: number;
       static NaN: number;
@@ -512,6 +535,9 @@ declare namespace java {
 
     /** Wrapper class for primitive float. */
     class Float extends java.lang.Object implements java.io.Serializable, Comparable<Float> {
+      /** The `Class` for the primitive `float`, e.g. for `java.lang.reflect.Array.newInstance`. */
+      static readonly TYPE: java.lang.Class<any>;
+
       static MAX_VALUE: number;
       static MIN_VALUE: number;
       static NaN: number;
@@ -555,6 +581,9 @@ declare namespace java {
 
     /** Wrapper class for primitive boolean. */
     class Boolean extends java.lang.Object implements java.io.Serializable, Comparable<Boolean> {
+      /** The `Class` for the primitive `boolean`, e.g. for `java.lang.reflect.Array.newInstance`. */
+      static readonly TYPE: java.lang.Class<any>;
+
       static TRUE: Boolean;
       static FALSE: Boolean;
 
@@ -579,6 +608,9 @@ declare namespace java {
 
     /** Wrapper class for primitive short. */
     class Short extends java.lang.Object implements java.io.Serializable, Comparable<Short> {
+      /** The `Class` for the primitive `short`, e.g. for `java.lang.reflect.Array.newInstance`. */
+      static readonly TYPE: java.lang.Class<any>;
+
       static MAX_VALUE: int;
       static MIN_VALUE: int;
       static SIZE: int;
@@ -617,6 +649,9 @@ declare namespace java {
 
     /** Wrapper class for primitive byte. */
     class Byte extends java.lang.Object implements java.io.Serializable, Comparable<Byte> {
+      /** The `Class` for the primitive `byte`, e.g. for `java.lang.reflect.Array.newInstance`. */
+      static readonly TYPE: java.lang.Class<any>;
+
       static MAX_VALUE: int;
       static MIN_VALUE: int;
       static SIZE: int;
@@ -658,6 +693,9 @@ declare namespace java {
       extends java.lang.Object
       implements java.io.Serializable, Comparable<Character>
     {
+      /** The `Class` for the primitive `char`, e.g. for `java.lang.reflect.Array.newInstance`. */
+      static readonly TYPE: java.lang.Class<any>;
+
       static MAX_VALUE: string;
       static MIN_VALUE: string;
       static SIZE: int;
@@ -690,6 +728,57 @@ declare namespace java {
 
       /** Returns the system class loader for delegation. */
       static getSystemClassLoader(): ClassLoader;
+    }
+
+    /** A thread of execution. Scripts mostly use `Thread.sleep` for retry back-off. */
+    class Thread extends java.lang.Object implements Runnable {
+      /** Pauses the current thread for `millis` milliseconds. */
+      static sleep(millis: long): void;
+      static currentThread(): Thread;
+
+      run(): void;
+      getName(): java.lang.String;
+      getId(): long;
+      interrupt(): void;
+      isInterrupted(): boolean;
+    }
+
+    /** Access to system properties, environment variables, time, and array copying. */
+    class System extends java.lang.Object {
+      /** Copies `length` elements from `src[srcPos]` into `dest[destPos]`. */
+      static arraycopy(src: JObject, srcPos: int, dest: JObject, destPos: int, length: int): void;
+
+      /** Returns the current time in milliseconds since the epoch. */
+      static currentTimeMillis(): long;
+
+      /** Returns a high-resolution time source value in nanoseconds (for measuring elapsed time). */
+      static nanoTime(): long;
+
+      /** Returns the system property, or null. */
+      static getProperty(key: JString): java.lang.String | null;
+      static getProperty(key: JString, def: JString): java.lang.String;
+
+      /** Returns the environment variable, or null. */
+      static getenv(name: JString): java.lang.String | null;
+
+      /** Returns the platform line separator. */
+      static lineSeparator(): java.lang.String;
+    }
+
+    namespace reflect {
+      /** Creates and inspects Java arrays. */
+      class Array extends java.lang.Object {
+        /**
+         * Creates a Java array. With a primitive `TYPE` this is how scripts make a real `byte[]`.
+         *
+         * @example
+         * var buffer = java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, 1024);
+         */
+        static newInstance(componentType: java.lang.Class<any>, length: int): any;
+
+        /** Returns the length of a Java array. */
+        static getLength(array: JObject): int;
+      }
     }
   }
 }

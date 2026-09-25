@@ -5,6 +5,26 @@
 // wrapper has been removed because this is an ambient script declaration file,
 // so each top-level statement carries its own `declare`.
 
+/**
+ * Retrieves an attachment of the current message by ID.
+ * @param attachmentId - The attachment ID.
+ * @param base64Decode - If true, decodes the content from Base64.
+ */
+declare function getAttachment(
+  attachmentId: JString,
+  base64Decode?: boolean,
+): com.mirth.connect.server.userutil.Attachment;
+/**
+ * Retrieves an attachment of any message by channel, message, and attachment ID.
+ * @param base64Decode - If true, decodes the content from Base64.
+ */
+declare function getAttachment(
+  channelId: JString,
+  messageId: JLong,
+  attachmentId: JString,
+  base64Decode?: boolean,
+): com.mirth.connect.server.userutil.Attachment;
+
 /** Gets the Attachment IDs for the specified channel and message. If no channel or message is specified, the current channel and message are used. */
 declare function getAttachmentIds(channelId?: string, messageId?: string): java.lang.String[];
 
@@ -28,6 +48,9 @@ declare var message: com.mirth.connect.userutil.ImmutableMessage;
 
 /** The response message. */
 declare var response: com.mirth.connect.server.userutil.ImmutableResponse;
+
+/** The batch input, line by line. Available only in a source connector's batch script. */
+declare var reader: java.io.BufferedReader;
 
 /** The response status (settable in a response transformer): SENT, QUEUED, ERROR, etc. */
 declare var responseStatus: com.mirth.connect.userutil.Status;
@@ -57,28 +80,28 @@ declare var globalChannelMap: java.util.Map<JString, any>;
 declare var responseMap: java.util.Map<JString, any>;
 
 /** Get or Put connectorMap values */
-declare function $co(key: string | number, value?: unknown): unknown;
+declare function $co(key: string | number, value?: unknown): any;
 
 /** Get or Put channelMap values */
-declare function $c(key: string | number, value?: unknown): unknown;
+declare function $c(key: string | number, value?: unknown): any;
 
 /** Get or Put sourceMap values */
-declare function $s(key: string | number, value?: unknown): unknown;
+declare function $s(key: string | number, value?: unknown): any;
 
 /** Get or Put globalChannelMap values */
-declare function $gc(key: string | number, value?: unknown): unknown;
+declare function $gc(key: string | number, value?: unknown): any;
 
 /** Get or Put globalMap values */
-declare function $g(key: string | number, value?: unknown): unknown;
+declare function $g(key: string | number, value?: unknown): any;
 
 /** Get or Put configurationMap values - note: the configurationMap is read-only */
-declare function $cfg(key: string | number, value?: unknown): unknown;
+declare function $cfg(key: string | number, value?: unknown): any;
 
 /** Get or Put responseMap values */
-declare function $r(key: string | number, value?: unknown): unknown;
+declare function $r(key: string | number, value?: unknown): any;
 
 /** Get the key from the first map that contains it */
-declare function $(key: string | number, value?: unknown): unknown;
+declare function $(key: string | number, value?: unknown): any;
 
 /** Factory for opening JDBC database connections (lowercase instance global). */
 declare var databaseConnectionFactory: com.mirth.connect.server.userutil.DatabaseConnectionFactory;
@@ -267,6 +290,29 @@ declare var logger: {
  * @global
  */
 declare class XML {
+  /**
+   * E4X child access: `seg['OBX.1']['OBX.1.1']` reads or assigns a child element list. Any name
+   * is a valid child, so this is untyped (and a misspelled method name isn't an error).
+   */
+  [childName: string]: any;
+
+  /** Whether `toXMLString()` indents output. Global E4X setting; default `true`. */
+  static prettyPrinting: boolean;
+  /** Spaces per indent level when pretty printing. Default `2`. */
+  static prettyIndent: number;
+  /** Whether parsing drops whitespace-only text nodes. Default `true`. */
+  static ignoreWhitespace: boolean;
+  /** Whether parsing drops comments. Default `true`. */
+  static ignoreComments: boolean;
+  /** Whether parsing drops processing instructions. Default `true`. */
+  static ignoreProcessingInstructions: boolean;
+  /** Returns the current E4X settings as an object. */
+  static settings(): object;
+  /** Applies E4X settings from `settings()`; with no argument, restores the defaults. */
+  static setSettings(settings?: object): void;
+  /** Returns the default E4X settings. */
+  static defaultSettings(): object;
+
   /** Parses `value` (an XML string, Java string, or another XML object) into an E4X XML object. */
   constructor(value?: JString | XML);
 
@@ -283,13 +329,13 @@ declare class XML {
   attributes(): string[];
 
   /** Returns the child element with the given propertyName, or if propertyName is an integer, returns the child in that position. */
-  child(propertyName: string): XML;
+  child(propertyName: string): XMLList;
 
   /** Returns the index of this children among its siblings. */
   childIndex(): number;
 
   /** Returns all the children of this object. */
-  children(): XML[];
+  children(): XMLList;
 
   /** Returns all the comments that are children of this XML object. */
   comments(): string[];
@@ -301,10 +347,10 @@ declare class XML {
   copy(): XML;
 
   /** Returns the descendant elements (children, grandchildren, etc.). If a name is provided, only elements with that name are returned. */
-  descendants(name?: string): XML;
+  descendants(name?: string): XMLList;
 
   /** Returns the child elements. If a name is provided, only elements with that name are returned. */
-  elements(name?: string): XML;
+  elements(name?: string): XMLList;
 
   /** Returns true for elements with child elements, otherwise false. */
   hasComplexContent(): boolean;
@@ -373,6 +419,9 @@ declare class XML {
   text(): string;
 
   /** For elements without element children, returns the values of the text node children. For elements with element children, returns same as toXMLString. For other kinds of objects, the value of the object. */
+  /** Returns the XML markup, including the element's own tags (unlike `toString()` for simple content). */
+  toXMLString(): string;
+
   toString(): string;
 
   /** Returns this XML object. */

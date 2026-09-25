@@ -47,3 +47,12 @@ type JFloat = java.lang.Float | number;
 
 /** A `java.lang.Double` parameter: also accepts a JS number. */
 type JDouble = java.lang.Double | number;
+
+/**
+ * A lookup argument (`Map#get`, `Map#containsKey`, `List#contains`, ...). Java declares these with
+ * `Object`, and Rhino passes a JS string as a `String` but a JS number as a `Double`, which never
+ * equals an `Integer` or `Long` key, so the lookup silently misses. So a lookup takes the key type
+ * or a JS string, but not a JS number: use `java.lang.Integer.valueOf(1)` for integer keys. (A
+ * plain union, not a conditional type, so `Map<String, V>` stays assignable to `Map<JString, V>`.)
+ */
+type JKey<K> = K | JString;

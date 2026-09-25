@@ -125,17 +125,18 @@ function emitMethod(
   // Propagate unresolved set into the shared collector.
   // `toString()` must return the TS primitive `string` to remain assignable to
   // the structural `Object.toString(): string` base TypeScript injects.
-  const returns =
-    m.name === 'toString' && m.params.length === 0 ? 'string' : mapType(m.returnType, localCtx);
-  const paramsText = emitParams(m.params, localCtx);
-  for (const u of localCtx.unresolved) ctx.unresolved.add(u);
-
   // Attach a method overlay to the first overload of this name only.
   let ov: Overlay | undefined;
   if (overlay && !overlay.consumed.has(m.name)) {
     ov = OVERLAYS[`${overlay.classFqn}#${m.name}`];
     if (ov) overlay.consumed.add(m.name);
   }
+
+  const returns =
+    ov?.returnType ??
+    (m.name === 'toString' && m.params.length === 0 ? 'string' : mapType(m.returnType, localCtx));
+  const paramsText = emitParams(m.params, localCtx);
+  for (const u of localCtx.unresolved) ctx.unresolved.add(u);
 
   const doc = jsdoc({
     description: m.jsdoc,

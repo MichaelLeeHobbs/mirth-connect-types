@@ -19,7 +19,7 @@ All notable changes to `@ubercode/mirth-connect-types` are documented here. The 
   `removeAllExcept('name')`, `globalMap.put('k', 'v')`, `new java.lang.String(s)`,
   `ChannelUtil.startConnector(id, 1)`, and similar calls that run on Mirth but failed to type-check.
 - The script maps (`globalMap`, `channelMap`, `sourceMap`, …) are `java.util.Map<JString, any>`,
-  so reads of live objects need no cast.
+  and the `$c`/`$gc`/`$g`/… accessors return `any`, so reads of live objects need no cast.
 - `msg` and `tmp` are `any`: they are an E4X `XML` object, a parsed JSON value, or a string
   depending on the channel's data type, which the types can't see.
 - Java primitive arrays and chars are returned the way Rhino hands them to scripts: `getBytes()`
@@ -33,6 +33,44 @@ All notable changes to `@ubercode/mirth-connect-types` are documented here. The 
   `java.security` types they use, `javax.xml.bind.DatatypeConverter` (bundled with Mirth), and
   `java.io.ByteArrayInputStream`/`ByteArrayOutputStream`.
 - `java.util.Properties` extends the new `java.util.Hashtable`, so `put`/`get` exist.
+- Rhino top-level: `Packages` (mirrors `java`/`javax`/`com`; other packages are `any`),
+  `JavaAdapter`, `importPackage`, and `importClass` (marked deprecated, as Mirth logs an error).
+- `JSON.parse` accepts a `java.lang.String` (Rhino converts it).
+- `XMLList`: `children()`, `elements()`, `descendants()`, and `child()` return it, and it indexes
+  to `XML`.
+- Scope built-ins: `reader` (batch scripts) and both `getAttachment(...)` forms.
+- `java.time` (`Instant`, `LocalDate`, `LocalDateTime`, `ZonedDateTime`, `ZoneId`, `ZoneOffset`,
+  `zone.ZoneRules`, `format.DateTimeFormatter`, `format.TextStyle`).
+- `XML#toXMLString()` and the E4X settings (`XML.prettyPrinting`, `prettyIndent`,
+  `ignoreWhitespace`, `ignoreComments`, `ignoreProcessingInstructions`, `settings()`,
+  `setSettings()`, `defaultSettings()`).
+- `java.lang.Thread`, `java.io.StringWriter`/`PrintWriter`, and `Throwable#printStackTrace(PrintWriter)`.
+- Mirth internals (`com.mirth.connect.model`, `server.controllers`, `server.util`, and
+  `donkey.server`'s `Donkey` and subpackages) are `any` values instead of errors.
+- E4X child access on any `XML` value (`seg['OBX.1']['OBX.1.1'] = 'x'`): `XML` has a string
+  index signature.
+- Collection lookups (`Map#get`/`containsKey`/`containsValue`/`remove`, `List`/`Collection`
+  `contains`/`indexOf`/`remove`) take `JKey<K>`, the key type or a JS string, but not a JS number.
+  Rhino passes a JS number to Java's `Object` parameter as a `Double`, which never matches an
+  `Integer` key. `ImmutableMessage#getConnectorMessages()` returns a `ConnectorMessageMap` whose
+  `get` does accept a number, since Mirth converts it.
+- donkey `Message` and `ConnectorMessage` getters (from the 4.5.2 donkey jar).
+- Generic Java interfaces default their type arguments to `any`, so a bare `{java.util.List}` or
+  `{java.util.Map}` works in strict-mode JSDoc.
+- README: use TypeScript 6 for checking (TypeScript 7 drops ES5 constructor inference and
+  Closure-style function JSDoc), plus troubleshooting for a missing reference and for a single
+  parse error hiding every other error.
+- Java interfaces are runtime values (`JavaInterface<T>`), so `x instanceof java.util.List`
+  compiles and narrows, while `new java.util.List()` is still an error.
+- `java.text.SimpleDateFormat` and `Normalizer`, `java.security.KeyStore`, and
+  `java.io.FileInputStream`/`FileOutputStream`.
+- `java.util.ArrayList`, `HashMap`, `Base64`, `Arrays`, `UUID`, and `Calendar#add`;
+  `java.lang.System`, `java.lang.reflect.Array`, `java.lang.Runnable`, the boxed types' `TYPE`
+  constants, and `java.io.BufferedReader`.
+- README: Rhino language support (`const` in a loop keeps its first value; template literals don't
+  interpolate; no spread, `class`, or
+  default parameters) with a matching `lib` list, and a troubleshooting entry for code templates
+  that end in `module.exports`.
 - `new XML(value)` constructor.
 - README troubleshooting: where the reference file must live, `typeRoots` disabling checks, E4X
   literal files, and duplicate installs.

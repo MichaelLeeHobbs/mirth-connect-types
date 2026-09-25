@@ -42,6 +42,8 @@ Before opening a PR:
   `JObject`, …). In a hand-written file, write the exact Java type and run
   `pnpm run check:coercion --fix`.
 - Numeric Java primitives map to the aliases in `java/primitives.d.ts` (`int`, `long`, `byte`, …).
+- A hand-written Java interface also gets a value, `const Name: JavaInterface<Name>`, because in
+  Rhino interfaces are objects (`instanceof`, `JavaAdapter`).
 - No TypeScript `enum` in hand-written files (it is lint-banned); the generated enums are the
   documented exception.
 - Don't emit a global alias that collides with a TypeScript lib global (e.g. `Response`). The

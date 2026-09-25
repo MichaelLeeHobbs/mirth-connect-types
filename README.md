@@ -55,6 +55,12 @@ TypeScript project required.
 These definitions work in **plain JavaScript** projects — you do not need to adopt TypeScript.
 The package ships ambient declarations; you just point your editor at them.
 
+**Use TypeScript 6.x for checking.** The declarations compile on TypeScript 5.9 through 7, but
+TypeScript 7 stopped inferring ES5 constructor functions (`@constructor` included) and treats
+Closure-style JSDoc such as `{function(string): number}` as a parse error, so it can't check
+typical Mirth code. Pin `typescript@6` in the project and point your editor at the workspace
+version.
+
 **1. Add the package** to the project that holds your Mirth scripts:
 
 ```sh
@@ -82,7 +88,8 @@ Add a `jsconfig.json` at the project root so VS Code treats the folder as a JS p
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["ES2020"], // Rhino ≈ ES5 plus bits of ES6 — keep modest; do not add "dom"
+    // What Mirth 4.5.2's Rhino provides; see "Rhino language support". Do not add "dom".
+    "lib": ["ES2015", "ES2016.Array.Include", "ES2017.String", "ES2019.String"],
     "checkJs": false, // set true to type-check every .js, or use `// @ts-check` per file
   },
   "include": ["**/*.js", "mirth.d.ts"],
@@ -128,6 +135,32 @@ editor/checker aid, not a build step.
 > with the DOM `lib`) is exercised on every `check` by a pack → install → type-check smoke test
 > (`pnpm run test:consumer`).
 
+### Rhino language support
+
+Mirth 4.5.2 runs Rhino 1.7.13. What scripts can use depends on `rhino.languageversion` in
+`mirth.properties`: a fresh 4.5.2 install sets `es6`, but a server upgraded from an older Mirth
+may still be on `1.8` or lower. Check before relying on ES6 features. Under `es6` you get ES5
+plus part of ES2015, and TypeScript can't check the gaps, so they fail only in Mirth:
+
+- **`const` inside a loop keeps its first value.** Rhino scopes it to the function and ignores
+  later initializations, so `for (…) { const c = i * 10; out.push(c); }` pushes the same value
+  every time. Assigning to a `const` is silently ignored too. Inside loop bodies use `let`,
+  which is re-created each iteration.
+- **`for (let i …)` shares one `i`.** Closures created in the loop all see the final value.
+- **A JS number passed where Java expects `Object` becomes a `Double`.** So `map.get(1)` and
+  `list.contains(1)` silently miss `Integer` keys and elements. Use `java.lang.Integer.valueOf(1)`.
+  The types enforce this: a lookup on an `Integer`-keyed map rejects a JS number.
+  `message.getConnectorMessages().get(1)` is the exception, because Mirth converts the key there.
+- **Template literals don't interpolate.** `` `id ${n}` `` evaluates to the literal text
+  `id ${n}`. Use string concatenation.
+- **Not supported:** spread (`f(...args)`), `class`, and default parameters (`function (a = 1)`).
+- **Supported:** `let`, arrow functions, destructuring, `Array.prototype.includes`,
+  `padStart`/`padEnd`, and `trimStart`. `for…of`, `Map`, and `Set` exist only with `es6`: at
+  `1.8`, `for…of` is a syntax error and `Map`/`Set` are undefined.
+- **Missing built-ins:** `Object.values`/`entries`/`fromEntries`, `Array.prototype.flat`/`flatMap`,
+  and `Promise`. The `lib` list above leaves out all of these except `Promise`, which comes with
+  `ES2015`.
+
 ### Troubleshooting
 
 - **Mirth globals are missing (`Cannot find name 'ChannelUtil'`).** The `mirth.d.ts` file has to
@@ -138,6 +171,12 @@ editor/checker aid, not a build step.
   `typeRoots` points at a folder with subfolders, such as a `types/` folder of your own
   declarations. TypeScript treats each subfolder as a type library, and when that fails it skips
   semantic checking entirely. Set `"types": []` or remove `typeRoots`.
+- **Mirth APIs the package covers still show as missing.** Nothing in the project references the
+  package (the `/// <reference types>` file is missing or not included), or an older hand-written
+  declaration file is still included and shadows it. Run the `--listFilesOnly` check above.
+- **One parse error, then no other errors at all.** TypeScript skips semantic checking when any
+  file fails to parse, so the check looks clean. Common causes are E4X literals (next entry) and,
+  on TypeScript 7, Closure-style `{function(A): R}` JSDoc. TypeScript 7 also rejects `baseUrl`.
 - **One file with E4X literals stops all checking.** XML literal syntax (`var x = <a/>;`) is a
   TypeScript parse error. Exclude those files. The `XML` type covers the E4X API, not the literal
   syntax.
@@ -148,6 +187,20 @@ editor/checker aid, not a build step.
   run `npx tsc -p jsconfig.json --noEmit --skipLibCheck false` and look for `TS2300`/`TS2403`
   errors in `mirth-connect-types` files. Then run `npm ls @ubercode/mirth-connect-types` or
   `pnpm why @ubercode/mirth-connect-types`, and check `node_modules/.pnpm`.
+- **Your own code-template globals are `Cannot find name`.** A file that ends with
+  `if (typeof module !== 'undefined') module.exports = X` (the usual way to unit-test code
+  templates with Jest) is a CommonJS module to TypeScript, so `X` is no longer global. Declare it
+  in a `.d.ts`: `declare global { var X: typeof import('./path/to/X'); } export {};`
+- **`Cannot use namespace 'org' as a value`.** Rhino also accepts bare
+  third-party roots (`org.apache.http…`), but the types only cover them through `Packages`
+  (`Packages.org.apache.http…`, typed `any`). A global `org` value would clash with scripts that
+  name a variable `org`.
+- **A Mirth internal class fails in a JSDoc type.** Internals such as
+  `com.mirth.connect.server.controllers.ControllerFactory` aren't the User API, so they're typed as
+  `any` values only. In JSDoc, use `{any}`.
+- **`Value of type 'typeof X' is not callable`.** Rhino also constructs a Java object when a
+  class is called without `new` (`java.lang.String('x')`), but the types only model `new`. Add
+  `new`; it behaves the same.
 - **`Cannot find name 'console'`.** That's correct: Mirth's Rhino scope has no `console`. Use
   `logger`. Don't add the `dom` lib to silence it.
 

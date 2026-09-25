@@ -6,6 +6,7 @@ declare namespace java {
     interface Serializable {
       // Marker interface - no methods required
     }
+    const Serializable: JavaInterface<Serializable>;
 
     /** Output stream for writing objects. */
     class ObjectOutputStream extends java.lang.Object {
@@ -119,6 +120,20 @@ declare namespace java {
       close(): void;
     }
 
+    /** Reads bytes from a file. */
+    class FileInputStream extends InputStream {
+      constructor(name: JString);
+      constructor(file: File);
+    }
+
+    /** Writes bytes to a file. */
+    class FileOutputStream extends OutputStream {
+      constructor(name: JString);
+      constructor(name: JString, append: boolean);
+      constructor(file: File);
+      constructor(file: File, append: boolean);
+    }
+
     /** An input stream that reads from a byte array, e.g. to upload in-memory content. */
     class ByteArrayInputStream extends InputStream {
       constructor(buf: byte[]);
@@ -164,6 +179,15 @@ declare namespace java {
       close(): void;
     }
 
+    /** Reads text from a character stream, buffering it and exposing it line by line. */
+    class BufferedReader extends Reader {
+      constructor(reader: Reader);
+      constructor(reader: Reader, size: int);
+
+      /** Returns the next line without its terminator, or null at the end of the stream. */
+      readLine(): java.lang.String | null;
+    }
+
     /**
      * Abstract class for writing to character streams.
      */
@@ -188,6 +212,27 @@ declare namespace java {
 
       /** Closes the stream, flushing it first. */
       close(): void;
+    }
+
+    /** A character stream that collects its output in a string buffer. */
+    class StringWriter extends Writer {
+      constructor();
+      constructor(initialSize: int);
+
+      getBuffer(): java.lang.StringBuffer;
+      toString(): string;
+    }
+
+    /** Prints formatted text to a character or byte stream. */
+    class PrintWriter extends Writer {
+      constructor(out: Writer);
+      constructor(out: Writer, autoFlush: boolean);
+      constructor(out: OutputStream);
+      constructor(fileName: JString);
+
+      print(x: JObject): void;
+      println(): void;
+      println(x: JObject): void;
     }
   }
 }

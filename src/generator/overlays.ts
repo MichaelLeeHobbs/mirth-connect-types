@@ -24,6 +24,11 @@ export interface Overlay {
   example?: string;
   /** Extra prose appended to the generated description. */
   note?: string;
+  /**
+   * Replaces the generated return type, for a Mirth API whose runtime behavior the Javadoc type
+   * can't express. Method overlays only.
+   */
+  returnType?: string;
 }
 
 /**
@@ -31,6 +36,16 @@ export interface Overlay {
  * doc for key format. Keep snippets short, correct, and Rhino-safe.
  */
 export const OVERLAYS: Record<string, Overlay> = {
+  // ---------------------------------------------------------------------------
+  // ImmutableMessage — its connector-message map converts JS number keys in get().
+  // ---------------------------------------------------------------------------
+  'com.mirth.connect.userutil.ImmutableMessage#getConnectorMessages': {
+    returnType: 'com.mirth.connect.userutil.ImmutableMessage.ConnectorMessageMap',
+    example: [
+      '// Metadata id 0 is the source connector; destinations start at 1.',
+      'var firstDestination = message.getConnectorMessages().get(1);',
+    ].join('\n'),
+  },
   // ---------------------------------------------------------------------------
   // ChannelUtil — channel introspection and lifecycle control.
   // ---------------------------------------------------------------------------

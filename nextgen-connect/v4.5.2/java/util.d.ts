@@ -19,10 +19,11 @@ declare namespace java {
         /** Returns a stream consisting of the results of applying the given function to the elements. */
         map(mapper: (value: int) => int): java.util.stream.IntStream;
       }
+      const IntStream: JavaInterface<IntStream>;
     }
 
     /** An ordered collection (sequence). */
-    interface List<T> extends java.util.Collection<T> {
+    interface List<T = any> extends java.util.Collection<T> {
       add(element: T): boolean;
 
       add(index: int, element: T): void;
@@ -33,21 +34,21 @@ declare namespace java {
 
       clear(): void;
 
-      contains(element: T): boolean;
+      contains(element: JKey<T>): boolean;
 
       get(index: int): T;
 
-      indexOf(element: T): int;
+      indexOf(element: JKey<T>): int;
 
       isEmpty(): boolean;
 
       iterator(): Iterator<T>;
 
-      lastIndexOf(element: T): int;
+      lastIndexOf(element: JKey<T>): int;
 
       remove(index: int): T;
 
-      remove(element: T): boolean;
+      remove(element: JKey<T>): boolean;
 
       set(index: int, element: T): T;
 
@@ -57,21 +58,23 @@ declare namespace java {
 
       toArray(): T[];
     }
+    const List: JavaInterface<List<any>>;
 
     /** A collection that contains no duplicate elements. */
-    interface Set<T> extends java.util.Collection<T> {}
+    interface Set<T = any> extends java.util.Collection<T> {}
+    const Set: JavaInterface<Set<any>>;
 
     /** An object that maps keys to values. */
-    interface Map<K, V> {
+    interface Map<K = any, V = any> {
       clear(): void;
 
-      containsKey(key: K): boolean;
+      containsKey(key: JKey<K>): boolean;
 
-      containsValue(value: V): boolean;
+      containsValue(value: JKey<V>): boolean;
 
       entrySet(): Set<Map.Entry<K, V>>;
 
-      get(key: K): V | null;
+      get(key: JKey<K>): V | null;
 
       isEmpty(): boolean;
 
@@ -81,15 +84,16 @@ declare namespace java {
 
       putAll(map: Map<K, V> | Record<string, V>): void;
 
-      remove(key: K): V | null;
+      remove(key: JKey<K>): V | null;
 
       size(): int;
 
       values(): java.util.Collection<V>;
     }
+    const Map: JavaInterface<Map<any, any>>;
 
     namespace Map {
-      interface Entry<K, V> {
+      interface Entry<K = any, V = any> {
         getKey(): K;
 
         getValue(): V;
@@ -99,37 +103,39 @@ declare namespace java {
     }
 
     /** The root interface in the collection hierarchy. */
-    interface Collection<T> extends java.lang.Iterable<T> {
+    interface Collection<T = any> extends java.lang.Iterable<T> {
       add(element: T): boolean;
 
       addAll(collection: java.util.Collection<T> | T[]): boolean;
 
       clear(): void;
 
-      contains(element: T): boolean;
+      contains(element: JKey<T>): boolean;
 
       isEmpty(): boolean;
 
       iterator(): Iterator<T>;
 
-      remove(element: T): boolean;
+      remove(element: JKey<T>): boolean;
 
       size(): int;
 
       toArray(): T[];
     }
+    const Collection: JavaInterface<Collection<any>>;
 
     /** An iterator over a collection. */
-    interface Iterator<T> {
+    interface Iterator<T = any> {
       hasNext(): boolean;
 
       next(): T;
 
       remove(): void;
     }
+    const Iterator: JavaInterface<Iterator<any>>;
 
     /** An iterator for lists that allows bidirectional traversal and modification. */
-    interface ListIterator<T> extends Iterator<T> {
+    interface ListIterator<T = any> extends Iterator<T> {
       /** Returns true if this list iterator has more elements when traversing in the forward direction. */
       hasNext(): boolean;
 
@@ -157,6 +163,7 @@ declare namespace java {
       /** Inserts the specified element into the list. */
       add(e: T): void;
     }
+    const ListIterator: JavaInterface<ListIterator<any>>;
 
     /** Represents a specific geographical, political, or cultural region. */
     class Locale extends java.lang.Object implements java.io.Serializable {
@@ -189,6 +196,9 @@ declare namespace java {
 
       get(field: int): int;
 
+      /** Adds `amount` (negative to subtract) to a field, e.g. `cal.add(Calendar.MINUTE, -5)`. */
+      add(field: int, amount: int): void;
+
       getTime(): Date;
 
       getTimeInMillis(): long;
@@ -220,6 +230,67 @@ declare namespace java {
 
       equals(obj: JObject): boolean;
 
+      toString(): string;
+    }
+
+    /** A resizable list. Its `List` methods come from the merged interface below. */
+    class ArrayList<T = any> extends java.lang.Object {
+      constructor();
+      constructor(initialCapacity: int);
+      constructor(collection: java.util.Collection<T> | T[]);
+    }
+    interface ArrayList<T = any> extends java.util.List<T> {}
+
+    /** A hash map. Its `Map` methods come from the merged interface below. */
+    class HashMap<K = any, V = any> extends java.lang.Object {
+      constructor();
+      constructor(initialCapacity: int);
+      constructor(map: java.util.Map<K, V> | Record<string, V>);
+    }
+    interface HashMap<K = any, V = any> extends java.util.Map<K, V> {}
+
+    /** Base64 encoders and decoders. */
+    class Base64 extends java.lang.Object {
+      static getEncoder(): Base64.Encoder;
+      static getDecoder(): Base64.Decoder;
+      static getUrlEncoder(): Base64.Encoder;
+      static getUrlDecoder(): Base64.Decoder;
+      static getMimeEncoder(): Base64.Encoder;
+      static getMimeDecoder(): Base64.Decoder;
+    }
+    namespace Base64 {
+      class Encoder extends java.lang.Object {
+        encode(src: byte[]): byte[];
+        encodeToString(src: byte[]): java.lang.String;
+        /** Returns an encoder that omits trailing `=` padding. */
+        withoutPadding(): Encoder;
+      }
+      class Decoder extends java.lang.Object {
+        decode(src: byte[]): byte[];
+        decode(src: JString): byte[];
+      }
+    }
+
+    /** Static helpers for Java arrays. */
+    class Arrays extends java.lang.Object {
+      /** Copies the array, truncating or padding to `newLength`. */
+      static copyOf<T>(original: T[], newLength: int): T[];
+      /** Copies `original[from]` up to (not including) `original[to]`. */
+      static copyOfRange<T>(original: T[], from: int, to: int): T[];
+      static asList<T>(...items: T[]): java.util.List<T>;
+      static equals(a: JObject, b: JObject): boolean;
+      static fill(array: JObject, value: JObject): void;
+      static toString(array: JObject): java.lang.String;
+    }
+
+    /** An immutable universally unique identifier. */
+    class UUID extends java.lang.Object implements java.io.Serializable {
+      constructor(mostSigBits: long, leastSigBits: long);
+      /** Returns a random (version 4) UUID. */
+      static randomUUID(): UUID;
+      static fromString(name: JString): UUID;
+      /** Returns a name-based (version 3) UUID for the bytes. */
+      static nameUUIDFromBytes(name: byte[]): UUID;
       toString(): string;
     }
 
@@ -258,6 +329,7 @@ declare namespace java {
      * A tagging interface that all event listener interfaces must extend.
      */
     interface EventListener {}
+    const EventListener: JavaInterface<EventListener>;
 
     /**
      * The root class from which all event state objects shall be derived.
@@ -281,7 +353,7 @@ declare namespace java {
        * Methods are provided to check if the computation is complete, to wait for its completion,
        * and to retrieve the result of the computation.
        */
-      interface Future<V> {
+      interface Future<V = any> {
         /**
          * Attempts to cancel execution of this task.
          * @param mayInterruptIfRunning - true if the thread executing this task should be interrupted; otherwise, in-progress tasks are allowed to complete.
@@ -322,6 +394,7 @@ declare namespace java {
          */
         isDone(): boolean;
       }
+      const Future: JavaInterface<Future<any>>;
 
       /**
        * A TimeUnit represents time durations at a given unit of granularity.
