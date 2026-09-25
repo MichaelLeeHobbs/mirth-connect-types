@@ -55,6 +55,11 @@ All notable changes to `@ubercode/mirth-connect-types` are documented here. The 
   `Integer` key. `ImmutableMessage#getConnectorMessages()` returns a `ConnectorMessageMap` whose
   `get` does accept a number, since Mirth converts it.
 - donkey `Message` and `ConnectorMessage` getters (from the 4.5.2 donkey jar).
+- Generic Java interfaces default their type arguments to `any`, so a bare `{java.util.List}` or
+  `{java.util.Map}` works in strict-mode JSDoc.
+- README: use TypeScript 6 for checking (TypeScript 7 drops ES5 constructor inference and
+  Closure-style function JSDoc), plus troubleshooting for a missing reference and for a single
+  parse error hiding every other error.
 - Java interfaces are runtime values (`JavaInterface<T>`), so `x instanceof java.util.List`
   compiles and narrows, while `new java.util.List()` is still an error.
 - `java.text.SimpleDateFormat` and `Normalizer`, `java.security.KeyStore`, and

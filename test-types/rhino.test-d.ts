@@ -121,6 +121,12 @@ declare const rawMessage: com.mirth.connect.donkey.model.message.Message;
 const sourceConnector = rawMessage.getConnectorMessages().get(java.lang.Integer.valueOf(0));
 const metaData = sourceConnector?.getMetaDataMap().get('mrn');
 
+// Raw Java generics, as in strict-mode JSDoc `@type {java.util.List}`, default to any.
+declare const rawList: java.util.List;
+declare const rawMap: java.util.Map;
+const rawFirst: unknown = rawList.get(0);
+const rawValue: unknown = rawMap.get('k');
+
 // Calendar arithmetic.
 const cal = java.util.Calendar.getInstance();
 cal.add(java.util.Calendar.SECOND, -5);
@@ -130,6 +136,8 @@ void entityUtils;
 void markup;
 void trace;
 void controllers;
+void rawFirst;
+void rawValue;
 void obxId;
 void hasDest;
 void hasName;

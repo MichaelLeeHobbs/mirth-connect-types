@@ -23,7 +23,7 @@ declare namespace java {
     }
 
     /** An ordered collection (sequence). */
-    interface List<T> extends java.util.Collection<T> {
+    interface List<T = any> extends java.util.Collection<T> {
       add(element: T): boolean;
 
       add(index: int, element: T): void;
@@ -61,11 +61,11 @@ declare namespace java {
     const List: JavaInterface<List<any>>;
 
     /** A collection that contains no duplicate elements. */
-    interface Set<T> extends java.util.Collection<T> {}
+    interface Set<T = any> extends java.util.Collection<T> {}
     const Set: JavaInterface<Set<any>>;
 
     /** An object that maps keys to values. */
-    interface Map<K, V> {
+    interface Map<K = any, V = any> {
       clear(): void;
 
       containsKey(key: JKey<K>): boolean;
@@ -93,7 +93,7 @@ declare namespace java {
     const Map: JavaInterface<Map<any, any>>;
 
     namespace Map {
-      interface Entry<K, V> {
+      interface Entry<K = any, V = any> {
         getKey(): K;
 
         getValue(): V;
@@ -103,7 +103,7 @@ declare namespace java {
     }
 
     /** The root interface in the collection hierarchy. */
-    interface Collection<T> extends java.lang.Iterable<T> {
+    interface Collection<T = any> extends java.lang.Iterable<T> {
       add(element: T): boolean;
 
       addAll(collection: java.util.Collection<T> | T[]): boolean;
@@ -125,7 +125,7 @@ declare namespace java {
     const Collection: JavaInterface<Collection<any>>;
 
     /** An iterator over a collection. */
-    interface Iterator<T> {
+    interface Iterator<T = any> {
       hasNext(): boolean;
 
       next(): T;
@@ -135,7 +135,7 @@ declare namespace java {
     const Iterator: JavaInterface<Iterator<any>>;
 
     /** An iterator for lists that allows bidirectional traversal and modification. */
-    interface ListIterator<T> extends Iterator<T> {
+    interface ListIterator<T = any> extends Iterator<T> {
       /** Returns true if this list iterator has more elements when traversing in the forward direction. */
       hasNext(): boolean;
 
@@ -353,7 +353,7 @@ declare namespace java {
        * Methods are provided to check if the computation is complete, to wait for its completion,
        * and to retrieve the result of the computation.
        */
-      interface Future<V> {
+      interface Future<V = any> {
         /**
          * Attempts to cancel execution of this task.
          * @param mayInterruptIfRunning - true if the thread executing this task should be interrupted; otherwise, in-progress tasks are allowed to complete.

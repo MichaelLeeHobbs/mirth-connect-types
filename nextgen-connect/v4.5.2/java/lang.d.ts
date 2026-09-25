@@ -26,7 +26,7 @@ declare namespace java {
     }
     const CharSequence: JavaInterface<CharSequence>;
 
-    interface Comparable<T> {
+    interface Comparable<T = any> {
       /**
        * Compares this object with the specified object for order. Returns a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than the specified object.
        * @param o the object to be compared
@@ -54,7 +54,7 @@ declare namespace java {
     }
     const Runnable: JavaInterface<Runnable>;
 
-    interface Iterable<T> {
+    interface Iterable<T = any> {
       iterator(): java.util.Iterator<T>;
     }
     const Iterable: JavaInterface<Iterable<any>>;

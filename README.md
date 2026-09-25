@@ -55,6 +55,12 @@ TypeScript project required.
 These definitions work in **plain JavaScript** projects — you do not need to adopt TypeScript.
 The package ships ambient declarations; you just point your editor at them.
 
+**Use TypeScript 6.x for checking.** The declarations compile on TypeScript 5.9 through 7, but
+TypeScript 7 stopped inferring ES5 constructor functions (`@constructor` included) and treats
+Closure-style JSDoc such as `{function(string): number}` as a parse error, so it can't check
+typical Mirth code. Pin `typescript@6` in the project and point your editor at the workspace
+version.
+
 **1. Add the package** to the project that holds your Mirth scripts:
 
 ```sh
@@ -165,6 +171,12 @@ plus part of ES2015, and TypeScript can't check the gaps, so they fail only in M
   `typeRoots` points at a folder with subfolders, such as a `types/` folder of your own
   declarations. TypeScript treats each subfolder as a type library, and when that fails it skips
   semantic checking entirely. Set `"types": []` or remove `typeRoots`.
+- **Mirth APIs the package covers still show as missing.** Nothing in the project references the
+  package (the `/// <reference types>` file is missing or not included), or an older hand-written
+  declaration file is still included and shadows it. Run the `--listFilesOnly` check above.
+- **One parse error, then no other errors at all.** TypeScript skips semantic checking when any
+  file fails to parse, so the check looks clean. Common causes are E4X literals (next entry) and,
+  on TypeScript 7, Closure-style `{function(A): R}` JSDoc. TypeScript 7 also rejects `baseUrl`.
 - **One file with E4X literals stops all checking.** XML literal syntax (`var x = <a/>;`) is a
   TypeScript parse error. Exclude those files. The `XML` type covers the E4X API, not the literal
   syntax.
