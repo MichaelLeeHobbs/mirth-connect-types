@@ -7,7 +7,7 @@ declare namespace java {
      */
     interface CharSequence {
       /** Returns the char value at the specified index. */
-      charAt(index: JInteger): java.lang.Character;
+      charAt(index: JInteger): char;
 
       /** Returns a stream of int zero-extending the char values from this sequence. */
       chars?(): java.util.stream.IntStream;
@@ -154,13 +154,13 @@ declare namespace java {
       implements java.io.Serializable, java.lang.CharSequence, Comparable<java.lang.String>
     {
       constructor();
-      constructor(byteArray: JByte[]);
-      constructor(byteArray: JByte[], charset: JString);
-      constructor(ascii: JByte[], hibyte: JInteger);
-      constructor(bytes: JByte[], offset: JInteger, length: JInteger);
-      constructor(ascii: JByte[], hibyte: JInteger, offset: JInteger, count: JInteger);
-      constructor(bytes: JByte[], offset: JInteger, length: JInteger, charsetName: JString);
-      constructor(bytes: JByte[], charsetName: JString);
+      constructor(byteArray: byte[]);
+      constructor(byteArray: byte[], charset: JString);
+      constructor(ascii: byte[], hibyte: JInteger);
+      constructor(bytes: byte[], offset: JInteger, length: JInteger);
+      constructor(ascii: byte[], hibyte: JInteger, offset: JInteger, count: JInteger);
+      constructor(bytes: byte[], offset: JInteger, length: JInteger, charsetName: JString);
+      constructor(bytes: byte[], charsetName: JString);
       constructor(chars: JCharacter[]);
       constructor(chars: JCharacter[], offset: JInteger, count: JInteger);
       constructor(codePoints: JInteger[], offset: JInteger, count: JInteger);
@@ -169,7 +169,7 @@ declare namespace java {
       constructor(builder: java.lang.StringBuilder);
 
       /** Returns the JavaChar value at the specified index. */
-      charAt(index: JInteger): java.lang.Character;
+      charAt(index: JInteger): char;
 
       /** Returns the character (Unicode code point) at the specified index. */
       codePointAt(index: JInteger): java.lang.Integer;
@@ -217,13 +217,11 @@ declare namespace java {
       static format(format: JString, ...args: any[]): java.lang.String;
 
       /** Encodes this String into a sequence of bytes using the platform's default charset, storing the result into a new byte array. */
-      getBytes(): Byte[];
+      getBytes(): byte[];
       /** Encodes this String into a sequence of bytes using the given charset, storing the result into a new byte array. */
-      getBytes(charset: java.nio.charset.Charset): Byte[];
-      /** Deprecated. This method does not properly convert characters into bytes. As of JDK 1.1, the preferred way to do this is via the getBytes() method, which uses the platform's default charset. */
-      getBytes(srcBegin: JInteger, srcEnd: JInteger, dst: JByte[], dstBegin: JInteger): void;
+      getBytes(charset: java.nio.charset.Charset): byte[];
       /** Encodes this String into a sequence of bytes using the named charset, storing the result into a new byte array. */
-      getBytes(charsetName: JString): Byte[];
+      getBytes(charsetName: JString): byte[];
 
       /** Copies characters from this string into the destination character array. */
       getChars(srcBegin: JInteger, srcEnd: JInteger, dst: JCharacter[], dstBegin: JInteger): void;
@@ -315,7 +313,7 @@ declare namespace java {
       substring(beginIndex: JInteger, endIndex: JInteger): String;
 
       /** Converts this string to a new character array. */
-      toCharArray(): java.lang.Character[];
+      toCharArray(): char[];
 
       /** Converts all of the characters in this String to lower case using the rules of the default locale. */
       toLowerCase(): java.lang.String;
@@ -364,7 +362,7 @@ declare namespace java {
       append(c: JCharacter): StringBuffer;
       append(i: JInteger): StringBuffer;
 
-      charAt(index: JInteger): java.lang.Character;
+      charAt(index: JInteger): char;
 
       length(): java.lang.Integer;
 
@@ -384,7 +382,7 @@ declare namespace java {
       append(c: JCharacter): StringBuilder;
       append(i: JInteger): StringBuilder;
 
-      charAt(index: JInteger): java.lang.Character;
+      charAt(index: JInteger): char;
 
       length(): java.lang.Integer;
 

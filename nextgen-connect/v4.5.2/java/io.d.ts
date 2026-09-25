@@ -119,6 +119,31 @@ declare namespace java {
       close(): void;
     }
 
+    /** An input stream that reads from a byte array, e.g. to upload in-memory content. */
+    class ByteArrayInputStream extends InputStream {
+      constructor(buf: byte[]);
+      constructor(buf: byte[], offset: int, length: int);
+    }
+
+    /** An output stream that collects the written bytes in memory. */
+    class ByteArrayOutputStream extends OutputStream {
+      constructor();
+      constructor(size: int);
+
+      /** Returns a copy of the bytes written so far. */
+      toByteArray(): byte[];
+
+      /** Decodes the bytes written so far using the named charset. */
+      toString(charsetName: JString): java.lang.String;
+      toString(): string;
+
+      /** Returns the number of bytes written so far. */
+      size(): int;
+
+      /** Discards the bytes written so far. */
+      reset(): void;
+    }
+
     /**
      * Abstract class for reading character streams.
      */

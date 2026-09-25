@@ -32,8 +32,10 @@ Mirth.** The types live only in your editor/checker, never in what you deploy.
 The definitions are **ambient globals** (no `import` — mirroring how Mirth scripts run). The
 User API utility classes are exposed as unqualified globals — `ChannelUtil`, `AttachmentUtil`,
 `DateUtil`, `FileUtil`, `HTTPUtil`, `SerializerFactory`, `Lists`/`Maps`, … — and the `Status`
-constants (`SENT`, `QUEUED`, `ERROR`, …) too, exactly as Mirth injects them. Methods accept JS
-string literals (Rhino auto-converts them to `java.lang.String`).
+constants (`SENT`, `QUEUED`, `ERROR`, …) too, exactly as Mirth injects them. Java methods accept
+the JS values Rhino converts for them: strings, numbers, booleans, arrays for `List`/`Collection`,
+and objects for `Map`. Return values keep their Java type, so wrap a returned `java.lang.String`
+with `String(...)` before passing it to JS APIs such as `JSON.parse`.
 
 ```js
 // transformer.js — plain JavaScript, exactly what you paste into Mirth
@@ -122,6 +124,27 @@ editor/checker aid, not a build step.
 > with the DOM `lib`) is exercised on every `check` by a pack → install → type-check smoke test
 > (`pnpm run test:consumer`).
 
+### Troubleshooting
+
+- **Mirth globals are missing (`Cannot find name 'ChannelUtil'`).** The `mirth.d.ts` file has to
+  sit inside the project whose `node_modules` holds the package, because `reference types`
+  resolves through that file's `node_modules` chain. To confirm the types load, run
+  `npx tsc -p jsconfig.json --listFilesOnly | grep mirth-connect-types`.
+- **`TS2688: Cannot find type definition file for '<folder>'`, and nothing else is checked.**
+  `typeRoots` points at a folder with subfolders, such as a `types/` folder of your own
+  declarations. TypeScript treats each subfolder as a type library, and when that fails it skips
+  semantic checking entirely. Set `"types": []` or remove `typeRoots`.
+- **One file with E4X literals stops all checking.** XML literal syntax (`var x = <a/>;`) is a
+  TypeScript parse error. Exclude those files. The `XML` type covers the E4X API, not the literal
+  syntax.
+- **Types look like an older version, or hovers show identical duplicate overloads.** Two copies
+  of the package are installed, often after switching package managers. The ambient declarations
+  merge instead of conflicting. With `skipLibCheck: true` (and in some editors) nothing reports
+  the duplicates. Run `npm ls @ubercode/mirth-connect-types` or
+  `pnpm why @ubercode/mirth-connect-types`, and check `node_modules/.pnpm`.
+- **`Cannot find name 'console'`.** That's correct: Mirth's Rhino scope has no `console`. Use
+  `logger`. Don't add the `dom` lib to silence it.
+
 ## Versioning
 
 Definitions are organized **per product + per Mirth version**:
@@ -147,8 +170,9 @@ The three User API packages are generated from the Mirth Javadoc:
 
 The supporting `java.*`, `javax.*`, `org.dcm4che2.*`, and internal
 `com.mirth.connect.{donkey,model}.*` types these reference are declared as
-minimal hand-maintained ambient files (not exhaustive — only the surface the
-User API actually touches).
+minimal hand-maintained ambient files. They aren't exhaustive: they cover the surface the User API
+touches plus JDK classes channel scripts commonly use directly (`javax.crypto`,
+`javax.xml.bind.DatatypeConverter`, `java.io.ByteArray*Stream`, `java.util.Properties`).
 
 The npm `package` version tracks this repo's releases (semver); the **Mirth** version a set of
 types targets is encoded in the path/subpath export. Additional versions and products

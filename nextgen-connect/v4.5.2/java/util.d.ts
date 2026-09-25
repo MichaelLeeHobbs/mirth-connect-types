@@ -223,11 +223,18 @@ declare namespace java {
       toString(): string;
     }
 
+    /** A synchronized hash table. Its `Map` methods come from the merged interface below. */
+    class Hashtable<K, V> extends java.lang.Object {
+      constructor();
+    }
+    interface Hashtable<K, V> extends java.util.Map<K, V> {}
+
     /**
      * The Properties class represents a persistent set of properties.
      * Each key and its corresponding value in the property list is a string.
+     * It is a `Hashtable`, so `put`/`get` accept any key and value (e.g. JSch config).
      */
-    class Properties extends java.lang.Object {
+    class Properties extends Hashtable<JObject, any> {
       constructor();
       constructor(defaults: Properties);
 

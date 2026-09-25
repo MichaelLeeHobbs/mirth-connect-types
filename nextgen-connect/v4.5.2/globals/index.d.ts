@@ -9,16 +9,19 @@
 declare function getAttachmentIds(channelId?: string, messageId?: string): java.lang.String[];
 
 /**
- * The current (inbound) message. For XML-based data types (HL7 v2, XML, EDI/X12, NCPDP, …)
- * this is an E4X `XML` object; for raw/text data types it is a string.
+ * The current (inbound) message. Its shape depends on the channel's inbound data type:
+ * an E4X `XML` object for XML-based types (HL7 v2, XML, EDI/X12, NCPDP, …), a parsed JS
+ * object or array for JSON, and a string for raw/delimited text. The types can't see
+ * channel configuration, so this is `any`; narrow it where it helps, e.g.
+ * `var hl7 = /** @type {XML} *\/ (msg);`.
  */
-declare var msg: XML | string;
+declare var msg: any;
 
 /**
- * The outbound message template. Same shape as {@link msg}: an E4X `XML` object for
- * XML-based data types, otherwise a string.
+ * The outbound message template, shaped by the outbound data type the same way as
+ * {@link msg}.
  */
-declare var tmp: XML | string;
+declare var tmp: any;
 
 /** The full immutable message. Available in the postprocessor and response transformer scopes. */
 declare var message: com.mirth.connect.userutil.ImmutableMessage;
