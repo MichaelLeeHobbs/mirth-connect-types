@@ -119,6 +119,20 @@ declare namespace java {
       close(): void;
     }
 
+    /** Reads bytes from a file. */
+    class FileInputStream extends InputStream {
+      constructor(name: JString);
+      constructor(file: File);
+    }
+
+    /** Writes bytes to a file. */
+    class FileOutputStream extends OutputStream {
+      constructor(name: JString);
+      constructor(name: JString, append: boolean);
+      constructor(file: File);
+      constructor(file: File, append: boolean);
+    }
+
     /** An input stream that reads from a byte array, e.g. to upload in-memory content. */
     class ByteArrayInputStream extends InputStream {
       constructor(buf: byte[]);
@@ -162,6 +176,15 @@ declare namespace java {
 
       /** Closes the stream and releases any system resources associated with it. */
       close(): void;
+    }
+
+    /** Reads text from a character stream, buffering it and exposing it line by line. */
+    class BufferedReader extends Reader {
+      constructor(reader: Reader);
+      constructor(reader: Reader, size: int);
+
+      /** Returns the next line without its terminator, or null at the end of the stream. */
+      readLine(): java.lang.String | null;
     }
 
     /**

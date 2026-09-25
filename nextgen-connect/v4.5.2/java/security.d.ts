@@ -14,6 +14,20 @@ declare namespace java {
       getEncoded(): byte[] | null;
     }
 
+    /** A storage facility for keys and certificates (JKS, PKCS12). */
+    class KeyStore extends java.lang.Object {
+      /** Returns a keystore of the type, e.g. "PKCS12" or "JKS". */
+      static getInstance(type: JString): KeyStore;
+      static getDefaultType(): java.lang.String;
+
+      /** Loads the keystore; pass `null` for both to create an empty one. */
+      load(stream: java.io.InputStream | null, password: JCharacter[] | null): void;
+      getKey(alias: JString, password: JCharacter[]): Key | null;
+      containsAlias(alias: JString): boolean;
+      size(): int;
+      getType(): java.lang.String;
+    }
+
     /** A cryptographically strong random number generator. */
     class SecureRandom extends java.lang.Object {
       constructor();

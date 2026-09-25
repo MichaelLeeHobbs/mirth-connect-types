@@ -82,7 +82,8 @@ Add a `jsconfig.json` at the project root so VS Code treats the folder as a JS p
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["ES2020"], // Rhino ≈ ES5 plus bits of ES6 — keep modest; do not add "dom"
+    // What Mirth 4.5.2's Rhino provides; see "Rhino language support". Do not add "dom".
+    "lib": ["ES2015", "ES2016.Array.Include", "ES2017.String", "ES2019.String"],
     "checkJs": false, // set true to type-check every .js, or use `// @ts-check` per file
   },
   "include": ["**/*.js", "mirth.d.ts"],
@@ -128,6 +129,20 @@ editor/checker aid, not a build step.
 > with the DOM `lib`) is exercised on every `check` by a pack → install → type-check smoke test
 > (`pnpm run test:consumer`).
 
+### Rhino language support
+
+Mirth 4.5.2 runs Rhino 1.7.13 with `rhino.languageversion = es6` (in `mirth.properties`). That's
+ES5 plus part of ES2015, and TypeScript can't check the syntax gaps, so they fail only in Mirth:
+
+- **Template literals don't interpolate.** `` `id ${n}` `` evaluates to the literal text
+  `id ${n}`. Use string concatenation.
+- **Not supported:** spread (`f(...args)`), `class`, and default parameters (`function (a = 1)`).
+- **Supported:** `let`/`const`, arrow functions, destructuring, `Map`/`Set`, and
+  `Array.prototype.includes`, `padStart`/`padEnd`, and `trimStart`.
+- **Missing built-ins:** `Object.values`/`entries`/`fromEntries`, `Array.prototype.flat`/`flatMap`,
+  and `Promise`. The `lib` list above leaves out all of these except `Promise`, which comes with
+  `ES2015`.
+
 ### Troubleshooting
 
 - **Mirth globals are missing (`Cannot find name 'ChannelUtil'`).** The `mirth.d.ts` file has to
@@ -148,6 +163,10 @@ editor/checker aid, not a build step.
   run `npx tsc -p jsconfig.json --noEmit --skipLibCheck false` and look for `TS2300`/`TS2403`
   errors in `mirth-connect-types` files. Then run `npm ls @ubercode/mirth-connect-types` or
   `pnpm why @ubercode/mirth-connect-types`, and check `node_modules/.pnpm`.
+- **Your own code-template globals are `Cannot find name`.** A file that ends with
+  `if (typeof module !== 'undefined') module.exports = X` (the usual way to unit-test code
+  templates with Jest) is a CommonJS module to TypeScript, so `X` is no longer global. Declare it
+  in a `.d.ts`: `declare global { var X: typeof import('./path/to/X'); } export {};`
 - **`Cannot find name 'console'`.** That's correct: Mirth's Rhino scope has no `console`. Use
   `logger`. Don't add the `dom` lib to silence it.
 

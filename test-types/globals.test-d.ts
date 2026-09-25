@@ -6,8 +6,10 @@
  * These assertions are compile-only; a type regression fails `tsc`.
  */
 
-// Map accessors return `unknown` and accept an optional value to put.
+// Map accessors return `any` like the script maps they read, and accept an optional value to put.
 const channelValue: unknown = $c('myKey');
+const stored: unknown = JSON.parse($gc('jsonConfig'));
+$g('dbConnection').close();
 $c('myKey', 'someValue');
 $gc('count', 1);
 
@@ -22,6 +24,7 @@ const cfgValue: unknown = $cfg('environment');
 const id: long = 42;
 const count: int = 7;
 void channelValue;
+void stored;
 void cfgValue;
 void id;
 void count;

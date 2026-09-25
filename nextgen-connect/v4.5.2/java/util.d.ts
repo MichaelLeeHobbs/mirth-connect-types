@@ -189,6 +189,9 @@ declare namespace java {
 
       get(field: int): int;
 
+      /** Adds `amount` (negative to subtract) to a field, e.g. `cal.add(Calendar.MINUTE, -5)`. */
+      add(field: int, amount: int): void;
+
       getTime(): Date;
 
       getTimeInMillis(): long;
@@ -220,6 +223,67 @@ declare namespace java {
 
       equals(obj: JObject): boolean;
 
+      toString(): string;
+    }
+
+    /** A resizable list. Its `List` methods come from the merged interface below. */
+    class ArrayList<T = any> extends java.lang.Object {
+      constructor();
+      constructor(initialCapacity: int);
+      constructor(collection: java.util.Collection<T> | T[]);
+    }
+    interface ArrayList<T = any> extends java.util.List<T> {}
+
+    /** A hash map. Its `Map` methods come from the merged interface below. */
+    class HashMap<K = any, V = any> extends java.lang.Object {
+      constructor();
+      constructor(initialCapacity: int);
+      constructor(map: java.util.Map<K, V> | Record<string, V>);
+    }
+    interface HashMap<K = any, V = any> extends java.util.Map<K, V> {}
+
+    /** Base64 encoders and decoders. */
+    class Base64 extends java.lang.Object {
+      static getEncoder(): Base64.Encoder;
+      static getDecoder(): Base64.Decoder;
+      static getUrlEncoder(): Base64.Encoder;
+      static getUrlDecoder(): Base64.Decoder;
+      static getMimeEncoder(): Base64.Encoder;
+      static getMimeDecoder(): Base64.Decoder;
+    }
+    namespace Base64 {
+      class Encoder extends java.lang.Object {
+        encode(src: byte[]): byte[];
+        encodeToString(src: byte[]): java.lang.String;
+        /** Returns an encoder that omits trailing `=` padding. */
+        withoutPadding(): Encoder;
+      }
+      class Decoder extends java.lang.Object {
+        decode(src: byte[]): byte[];
+        decode(src: JString): byte[];
+      }
+    }
+
+    /** Static helpers for Java arrays. */
+    class Arrays extends java.lang.Object {
+      /** Copies the array, truncating or padding to `newLength`. */
+      static copyOf<T>(original: T[], newLength: int): T[];
+      /** Copies `original[from]` up to (not including) `original[to]`. */
+      static copyOfRange<T>(original: T[], from: int, to: int): T[];
+      static asList<T>(...items: T[]): java.util.List<T>;
+      static equals(a: JObject, b: JObject): boolean;
+      static fill(array: JObject, value: JObject): void;
+      static toString(array: JObject): java.lang.String;
+    }
+
+    /** An immutable universally unique identifier. */
+    class UUID extends java.lang.Object implements java.io.Serializable {
+      constructor(mostSigBits: long, leastSigBits: long);
+      /** Returns a random (version 4) UUID. */
+      static randomUUID(): UUID;
+      static fromString(name: JString): UUID;
+      /** Returns a name-based (version 3) UUID for the bytes. */
+      static nameUUIDFromBytes(name: byte[]): UUID;
       toString(): string;
     }
 

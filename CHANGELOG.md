@@ -19,7 +19,7 @@ All notable changes to `@ubercode/mirth-connect-types` are documented here. The 
   `removeAllExcept('name')`, `globalMap.put('k', 'v')`, `new java.lang.String(s)`,
   `ChannelUtil.startConnector(id, 1)`, and similar calls that run on Mirth but failed to type-check.
 - The script maps (`globalMap`, `channelMap`, `sourceMap`, …) are `java.util.Map<JString, any>`,
-  so reads of live objects need no cast.
+  and the `$c`/`$gc`/`$g`/… accessors return `any`, so reads of live objects need no cast.
 - `msg` and `tmp` are `any`: they are an E4X `XML` object, a parsed JSON value, or a string
   depending on the channel's data type, which the types can't see.
 - Java primitive arrays and chars are returned the way Rhino hands them to scripts: `getBytes()`
@@ -33,6 +33,22 @@ All notable changes to `@ubercode/mirth-connect-types` are documented here. The 
   `java.security` types they use, `javax.xml.bind.DatatypeConverter` (bundled with Mirth), and
   `java.io.ByteArrayInputStream`/`ByteArrayOutputStream`.
 - `java.util.Properties` extends the new `java.util.Hashtable`, so `put`/`get` exist.
+- Rhino top-level: `Packages` (mirrors `java`/`javax`/`com`; other packages are `any`),
+  `JavaAdapter`, `importPackage`, and `importClass` (marked deprecated, as Mirth logs an error).
+- `JSON.parse` accepts a `java.lang.String` (Rhino converts it).
+- `XMLList`: `children()`, `elements()`, `descendants()`, and `child()` return it, and it indexes
+  to `XML`.
+- Scope built-ins: `reader` (batch scripts) and both `getAttachment(...)` forms.
+- `java.time` (`Instant`, `LocalDate`, `LocalDateTime`, `ZonedDateTime`, `ZoneId`, `ZoneOffset`,
+  `zone.ZoneRules`, `format.DateTimeFormatter`, `format.TextStyle`).
+- `java.text.SimpleDateFormat` and `Normalizer`, `java.security.KeyStore`, and
+  `java.io.FileInputStream`/`FileOutputStream`.
+- `java.util.ArrayList`, `HashMap`, `Base64`, `Arrays`, `UUID`, and `Calendar#add`;
+  `java.lang.System`, `java.lang.reflect.Array`, `java.lang.Runnable`, the boxed types' `TYPE`
+  constants, and `java.io.BufferedReader`.
+- README: Rhino language support (template literals don't interpolate; no spread, `class`, or
+  default parameters) with a matching `lib` list, and a troubleshooting entry for code templates
+  that end in `module.exports`.
 - `new XML(value)` constructor.
 - README troubleshooting: where the reference file must live, `typeRoots` disabling checks, E4X
   literal files, and duplicate installs.
