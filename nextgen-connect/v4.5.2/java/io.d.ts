@@ -6,6 +6,7 @@ declare namespace java {
     interface Serializable {
       // Marker interface - no methods required
     }
+    const Serializable: JavaInterface<Serializable>;
 
     /** Output stream for writing objects. */
     class ObjectOutputStream extends java.lang.Object {

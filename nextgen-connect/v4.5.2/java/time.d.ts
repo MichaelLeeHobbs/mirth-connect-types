@@ -183,6 +183,7 @@ declare namespace java {
     namespace temporal {
       /** Read access to a date/time object; what `DateTimeFormatter#format` accepts. */
       interface TemporalAccessor {}
+      const TemporalAccessor: JavaInterface<TemporalAccessor>;
     }
   }
 }

@@ -144,8 +144,9 @@ plus part of ES2015, and TypeScript can't check the gaps, so they fail only in M
 - **Template literals don't interpolate.** `` `id ${n}` `` evaluates to the literal text
   `id ${n}`. Use string concatenation.
 - **Not supported:** spread (`f(...args)`), `class`, and default parameters (`function (a = 1)`).
-- **Supported:** `let`, arrow functions, destructuring, `for…of`, `Array.prototype.includes`,
-  `padStart`/`padEnd`, and `trimStart`. `Map` and `Set` exist only with `es6`.
+- **Supported:** `let`, arrow functions, destructuring, `Array.prototype.includes`,
+  `padStart`/`padEnd`, and `trimStart`. `for…of`, `Map`, and `Set` exist only with `es6`: at
+  `1.8`, `for…of` is a syntax error and `Map`/`Set` are undefined.
 - **Missing built-ins:** `Object.values`/`entries`/`fromEntries`, `Array.prototype.flat`/`flatMap`,
   and `Promise`. The `lib` list above leaves out all of these except `Promise`, which comes with
   `ES2015`.
@@ -174,6 +175,13 @@ plus part of ES2015, and TypeScript can't check the gaps, so they fail only in M
   `if (typeof module !== 'undefined') module.exports = X` (the usual way to unit-test code
   templates with Jest) is a CommonJS module to TypeScript, so `X` is no longer global. Declare it
   in a `.d.ts`: `declare global { var X: typeof import('./path/to/X'); } export {};`
+- **`Cannot use namespace 'org' as a value`.** Rhino also accepts bare
+  third-party roots (`org.apache.http…`), but the types only cover them through `Packages`
+  (`Packages.org.apache.http…`, typed `any`). A global `org` value would clash with scripts that
+  name a variable `org`.
+- **A Mirth internal class fails in a JSDoc type.** Internals such as
+  `com.mirth.connect.server.controllers.ControllerFactory` aren't the User API, so they're typed as
+  `any` values only. In JSDoc, use `{any}`.
 - **`Value of type 'typeof X' is not callable`.** Rhino also constructs a Java object when a
   class is called without `new` (`java.lang.String('x')`), but the types only model `new`. Add
   `new`; it behaves the same.

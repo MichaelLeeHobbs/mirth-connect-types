@@ -24,6 +24,7 @@ declare namespace java {
       /** Returns a string containing the characters in this sequence in the same order as this sequence. */
       toString(): string;
     }
+    const CharSequence: JavaInterface<CharSequence>;
 
     interface Comparable<T> {
       /**
@@ -33,27 +34,30 @@ declare namespace java {
        */
       compareTo(o: T): int;
     }
+    const Comparable: JavaInterface<Comparable<any>>;
 
     interface ConstantDesc {
       /** Resolves this descriptor reflectively. */
       resolveConstantDesc?(lookup: any): java.lang.Object;
     }
+    const ConstantDesc: JavaInterface<ConstantDesc>;
 
     interface Constable {
       describeConstable?<T extends ConstantDesc>(): T | undefined;
     }
+    const Constable: JavaInterface<Constable>;
 
     /** Implementing this interface allows an object to be the target of the "for-each loop" statement. */
     /** A task with a `run` method, e.g. implemented in script with `JavaAdapter`. */
     interface Runnable {
       run(): void;
     }
-    /** The interface itself, as a value to pass to `JavaAdapter`. */
-    const Runnable: any;
+    const Runnable: JavaInterface<Runnable>;
 
     interface Iterable<T> {
       iterator(): java.util.Iterator<T>;
     }
+    const Iterable: JavaInterface<Iterable<any>>;
 
     /**
      * Instances of the class Class represent classes and interfaces in a running Java application.
@@ -93,6 +97,7 @@ declare namespace java {
       /** Returns a string describing this Class. */
       toString(): string;
     }
+    const Class: JavaInterface<Class<any>>;
 
     class Object {
       constructor();

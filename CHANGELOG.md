@@ -45,8 +45,10 @@ All notable changes to `@ubercode/mirth-connect-types` are documented here. The 
   `ignoreWhitespace`, `ignoreComments`, `ignoreProcessingInstructions`, `settings()`,
   `setSettings()`, `defaultSettings()`).
 - `java.lang.Thread`, `java.io.StringWriter`/`PrintWriter`, and `Throwable#printStackTrace(PrintWriter)`.
-- Mirth internals (`com.mirth.connect.model`, `server.controllers`, `server.util`) are `any`
-  instead of errors.
+- Mirth internals (`com.mirth.connect.model`, `server.controllers`, `server.util`, and
+  `donkey.server`'s `Donkey` and subpackages) are `any` values instead of errors.
+- Java interfaces are runtime values (`JavaInterface<T>`), so `x instanceof java.util.List`
+  compiles and narrows, while `new java.util.List()` is still an error.
 - `java.text.SimpleDateFormat` and `Normalizer`, `java.security.KeyStore`, and
   `java.io.FileInputStream`/`FileOutputStream`.
 - `java.util.ArrayList`, `HashMap`, `Base64`, `Arrays`, `UUID`, and `Calendar#add`;

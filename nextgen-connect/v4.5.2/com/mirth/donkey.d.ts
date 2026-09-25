@@ -105,6 +105,14 @@ declare namespace com {
           }
         }
         namespace server {
+          // Donkey engine internals (not the User API): untyped values, like the ones in internal.d.ts.
+          const Donkey: any;
+          const channel: any;
+          const data: any;
+          const event: any;
+          const message: any;
+          const queue: any;
+
           namespace controllers {
             /** Exception thrown when an unsupported data type is encountered. */
             class UnsupportedDataTypeException extends java.lang.Exception {

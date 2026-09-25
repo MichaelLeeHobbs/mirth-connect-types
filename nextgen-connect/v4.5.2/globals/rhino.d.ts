@@ -30,6 +30,15 @@ declare var JavaAdapter: {
   (...javaTypesThenImplementation: any[]): any;
 };
 
+/**
+ * The runtime value of a Java interface. In Rhino an interface is a real object: it works with
+ * `instanceof` (which narrows to `T`) and as a `JavaAdapter` argument, but can't be constructed.
+ */
+interface JavaInterface<T> {
+  (...args: never[]): never;
+  readonly prototype: T;
+}
+
 /** Makes every class in the given Java packages available by simple name in this scope. */
 declare function importPackage(...javaPackages: any[]): void;
 

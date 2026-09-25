@@ -83,8 +83,18 @@ const trace = String(sw.toString());
 // Mirth internals are untyped instead of errors, bare or through Packages.
 const controllers = com.mirth.connect.server.controllers.ControllerFactory.getFactory();
 const xmlSerializer = Packages.com.mirth.connect.model.converters.ObjectXMLSerializer.getInstance();
+const donkey = com.mirth.connect.donkey.server.Donkey.getInstance();
 // ...while the declared types under those packages still resolve.
 declare const typedSerializer: com.mirth.connect.model.converters.IMessageSerializer;
+
+// Java interfaces are runtime values: instanceof narrows, but they can't be constructed.
+declare const maybeList: unknown;
+if (maybeList instanceof java.util.List) {
+  const size: number = maybeList.size();
+  void size;
+}
+// @ts-expect-error a Java interface has no constructor
+new java.util.List();
 
 // Calendar arithmetic.
 const cal = java.util.Calendar.getInstance();
@@ -95,6 +105,7 @@ void entityUtils;
 void markup;
 void trace;
 void controllers;
+void donkey;
 void xmlSerializer;
 void typedSerializer;
 void hapi;

@@ -9,6 +9,7 @@ declare namespace javax {
     interface RowSet extends java.sql.ResultSet {
       // RowSet extends ResultSet with additional properties
     }
+    const RowSet: JavaInterface<RowSet>;
 
     /**
      * An interface that must be implemented by a component that wants to be notified
@@ -22,6 +23,7 @@ declare namespace javax {
       /** Notifies registered listeners that a RowSet object's cursor has moved. */
       cursorMoved(event: RowSetEvent): void;
     }
+    const RowSetListener: JavaInterface<RowSetListener>;
 
     /**
      * An Event object generated when an event occurs to a RowSet object.
@@ -71,6 +73,7 @@ declare namespace javax {
       /** Sets the designated column's type name, if any, to the given String. */
       setColumnTypeName(columnIndex: int, typeName: JString): void;
     }
+    const RowSetMetaData: JavaInterface<RowSetMetaData>;
 
     namespace rowset {
       /**
@@ -78,6 +81,7 @@ declare namespace javax {
        * Alias for java.sql.rowset.CachedRowSet.
        */
       interface CachedRowSet extends java.sql.rowset.CachedRowSet {}
+      const CachedRowSet: JavaInterface<CachedRowSet>;
 
       /**
        * An extension of SQLException that provides information about database warnings
@@ -119,6 +123,7 @@ declare namespace javax {
           /** Returns the vendor name of this SyncProvider instance. */
           getVendor(): java.lang.String;
         }
+        const SyncProvider: JavaInterface<SyncProvider>;
 
         /**
          * The facility that a disconnected RowSet object calls on to populate itself with rows of data.
@@ -127,6 +132,7 @@ declare namespace javax {
           /** Reads the new contents of the calling RowSet object. */
           readData(caller: RowSetInternal): void;
         }
+        const RowSetReader: JavaInterface<RowSetReader>;
 
         /**
          * An object that implements the RowSetWriter interface that can be called on
@@ -136,6 +142,7 @@ declare namespace javax {
           /** Writes the changes in this RowSet object to its data source. */
           writeData(caller: RowSetInternal): boolean;
         }
+        const RowSetWriter: JavaInterface<RowSetWriter>;
 
         /**
          * The interface that a RowSet object implements in order to present itself to a RowSetReader
@@ -153,6 +160,7 @@ declare namespace javax {
           /** Retrieves a ResultSet object containing the original value of the current row only. */
           getOriginalRow(): java.sql.ResultSet;
         }
+        const RowSetInternal: JavaInterface<RowSetInternal>;
       }
     }
   }

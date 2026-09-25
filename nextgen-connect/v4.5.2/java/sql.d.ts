@@ -31,6 +31,7 @@ declare namespace java {
       /** Creates a PreparedStatement object for sending parameterized SQL statements to the database. */
       prepareStatement(sql: JString): PreparedStatement;
     }
+    const Connection: JavaInterface<Connection>;
 
     /**
      * The interface that every driver class must implement.
@@ -42,6 +43,7 @@ declare namespace java {
       /** Retrieves whether the driver thinks that it can open a connection to the given URL. */
       acceptsURL(url: JString): boolean;
     }
+    const Driver: JavaInterface<Driver>;
 
     /**
      * An object used for executing a static SQL statement and returning the results it produces.
@@ -56,6 +58,7 @@ declare namespace java {
       /** Releases this Statement object's database and JDBC resources immediately. */
       close(): void;
     }
+    const Statement: JavaInterface<Statement>;
 
     /**
      * An object that represents a precompiled SQL statement.
@@ -70,6 +73,7 @@ declare namespace java {
       /** Executes the SQL statement in this PreparedStatement object. */
       executeUpdate(): int;
     }
+    const PreparedStatement: JavaInterface<PreparedStatement>;
 
     /**
      * A table of data representing a database result set.
@@ -96,6 +100,7 @@ declare namespace java {
       /** Releases this ResultSet object's database and JDBC resources immediately. */
       close(): void;
     }
+    const ResultSet: JavaInterface<ResultSet>;
 
     /**
      * An exception that provides information on a database access error or other errors.
@@ -154,6 +159,7 @@ declare namespace java {
       /** Retrieves the name of the savepoint. */
       getSavepointName(): java.lang.String;
     }
+    const Savepoint: JavaInterface<Savepoint>;
 
     /**
      * The mapping in the Java programming language of an SQL REF value.
@@ -169,6 +175,7 @@ declare namespace java {
           | Record<string, java.lang.Class<any>>,
       ): java.lang.Object;
     }
+    const Ref: JavaInterface<Ref>;
 
     /**
      * The representation (mapping) in the Java programming language of an SQL BLOB value.
@@ -182,6 +189,7 @@ declare namespace java {
       getBinaryStream(): java.io.InputStream;
       getBinaryStream(pos: long, length: long): java.io.InputStream;
     }
+    const Blob: JavaInterface<Blob>;
 
     /**
      * The mapping in the Java programming language of an SQL CLOB value.
@@ -197,11 +205,13 @@ declare namespace java {
       /** Retrieves the CLOB value as an ascii stream. */
       getAsciiStream(): java.io.InputStream;
     }
+    const Clob: JavaInterface<Clob>;
 
     /**
      * The mapping in the Java programming language of an SQL NCLOB value.
      */
     interface NClob extends Clob {}
+    const NClob: JavaInterface<NClob>;
 
     /**
      * The mapping in the Java programming language for the SQL type ARRAY.
@@ -226,6 +236,7 @@ declare namespace java {
           | Record<string, java.lang.Class<any>>,
       ): ResultSet;
     }
+    const Array: JavaInterface<Array>;
 
     /**
      * The representation (mapping) in the Java programming language of an SQL ROWID value.
@@ -234,6 +245,7 @@ declare namespace java {
       /** Returns an array of bytes representing the value of the SQL ROWID. */
       getBytes(): byte[];
     }
+    const RowId: JavaInterface<RowId>;
 
     /**
      * The mapping in the Java programming language for the SQL XML type.
@@ -250,6 +262,7 @@ declare namespace java {
       /** Frees the XML value that this object represents. */
       free(): void;
     }
+    const SQLXML: JavaInterface<SQLXML>;
 
     /**
      * An object that can be used to get information about the types and properties
@@ -295,6 +308,7 @@ declare namespace java {
       /** Gets the designated column's number of digits to right of the decimal point. */
       getScale(column: int): int;
     }
+    const ResultSetMetaData: JavaInterface<ResultSetMetaData>;
 
     /**
      * An object that contains information about the columns in a RowSet object.
@@ -335,6 +349,7 @@ declare namespace java {
       /** Sets the designated column's type name. */
       setColumnTypeName(columnIndex: int, typeName: JString): void;
     }
+    const RowSetMetaData: JavaInterface<RowSetMetaData>;
   }
 }
 
@@ -364,6 +379,7 @@ declare namespace java {
         /** Retrieves the number of rows in this CachedRowSet object. */
         size(): int;
       }
+      const CachedRowSet: JavaInterface<CachedRowSet>;
     }
   }
 }

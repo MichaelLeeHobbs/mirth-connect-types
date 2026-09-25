@@ -19,6 +19,7 @@ declare namespace java {
         /** Returns a stream consisting of the results of applying the given function to the elements. */
         map(mapper: (value: int) => int): java.util.stream.IntStream;
       }
+      const IntStream: JavaInterface<IntStream>;
     }
 
     /** An ordered collection (sequence). */
@@ -57,9 +58,11 @@ declare namespace java {
 
       toArray(): T[];
     }
+    const List: JavaInterface<List<any>>;
 
     /** A collection that contains no duplicate elements. */
     interface Set<T> extends java.util.Collection<T> {}
+    const Set: JavaInterface<Set<any>>;
 
     /** An object that maps keys to values. */
     interface Map<K, V> {
@@ -87,6 +90,7 @@ declare namespace java {
 
       values(): java.util.Collection<V>;
     }
+    const Map: JavaInterface<Map<any, any>>;
 
     namespace Map {
       interface Entry<K, V> {
@@ -118,6 +122,7 @@ declare namespace java {
 
       toArray(): T[];
     }
+    const Collection: JavaInterface<Collection<any>>;
 
     /** An iterator over a collection. */
     interface Iterator<T> {
@@ -127,6 +132,7 @@ declare namespace java {
 
       remove(): void;
     }
+    const Iterator: JavaInterface<Iterator<any>>;
 
     /** An iterator for lists that allows bidirectional traversal and modification. */
     interface ListIterator<T> extends Iterator<T> {
@@ -157,6 +163,7 @@ declare namespace java {
       /** Inserts the specified element into the list. */
       add(e: T): void;
     }
+    const ListIterator: JavaInterface<ListIterator<any>>;
 
     /** Represents a specific geographical, political, or cultural region. */
     class Locale extends java.lang.Object implements java.io.Serializable {
@@ -322,6 +329,7 @@ declare namespace java {
      * A tagging interface that all event listener interfaces must extend.
      */
     interface EventListener {}
+    const EventListener: JavaInterface<EventListener>;
 
     /**
      * The root class from which all event state objects shall be derived.
@@ -386,6 +394,7 @@ declare namespace java {
          */
         isDone(): boolean;
       }
+      const Future: JavaInterface<Future<any>>;
 
       /**
        * A TimeUnit represents time durations at a given unit of granularity.

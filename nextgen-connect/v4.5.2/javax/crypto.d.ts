@@ -4,6 +4,7 @@ declare namespace javax {
   namespace crypto {
     /** A secret (symmetric) key. */
     interface SecretKey extends java.security.Key {}
+    const SecretKey: JavaInterface<SecretKey>;
 
     /**
      * A cipher for encryption and decryption.
