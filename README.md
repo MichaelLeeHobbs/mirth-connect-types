@@ -43,6 +43,10 @@ $c('patientId', msg['PID']['PID.3']['PID.3.1'].toString());
 const name = ChannelUtil.getChannelName(channelId); // ← autocomplete, hover docs, checking
 ```
 
+`msg` and `tmp` are typed `any`, because their shape depends on the channel's data type (E4X XML,
+parsed JSON, or text). For E4X completions in an HL7 or XML script, cast once:
+`var hl7 = /** @type {XML} */ (msg);`.
+
 ➡️ **[Editor setup](#editor-setup)** wires these into VS Code or WebStorm in about a minute — no
 TypeScript project required.
 
@@ -139,8 +143,10 @@ editor/checker aid, not a build step.
   syntax.
 - **Types look like an older version, or hovers show identical duplicate overloads.** Two copies
   of the package are installed, often after switching package managers. The ambient declarations
-  merge instead of conflicting. With `skipLibCheck: true` (and in some editors) nothing reports
-  the duplicates. Run `npm ls @ubercode/mirth-connect-types` or
+  merge instead of conflicting. A `jsconfig.json` project has `skipLibCheck` on by default, and
+  that hides the duplicate-declaration errors, so JavaScript projects get no warning. To check,
+  run `npx tsc -p jsconfig.json --noEmit --skipLibCheck false` and look for `TS2300`/`TS2403`
+  errors in `mirth-connect-types` files. Then run `npm ls @ubercode/mirth-connect-types` or
   `pnpm why @ubercode/mirth-connect-types`, and check `node_modules/.pnpm`.
 - **`Cannot find name 'console'`.** That's correct: Mirth's Rhino scope has no `console`. Use
   `logger`. Don't add the `dom` lib to silence it.
