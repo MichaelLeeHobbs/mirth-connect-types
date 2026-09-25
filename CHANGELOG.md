@@ -47,6 +47,14 @@ All notable changes to `@ubercode/mirth-connect-types` are documented here. The 
 - `java.lang.Thread`, `java.io.StringWriter`/`PrintWriter`, and `Throwable#printStackTrace(PrintWriter)`.
 - Mirth internals (`com.mirth.connect.model`, `server.controllers`, `server.util`, and
   `donkey.server`'s `Donkey` and subpackages) are `any` values instead of errors.
+- E4X child access on any `XML` value (`seg['OBX.1']['OBX.1.1'] = 'x'`): `XML` has a string
+  index signature.
+- Collection lookups (`Map#get`/`containsKey`/`containsValue`/`remove`, `List`/`Collection`
+  `contains`/`indexOf`/`remove`) take `JKey<K>`, the key type or a JS string, but not a JS number.
+  Rhino passes a JS number to Java's `Object` parameter as a `Double`, which never matches an
+  `Integer` key. `ImmutableMessage#getConnectorMessages()` returns a `ConnectorMessageMap` whose
+  `get` does accept a number, since Mirth converts it.
+- donkey `Message` and `ConnectorMessage` getters (from the 4.5.2 donkey jar).
 - Java interfaces are runtime values (`JavaInterface<T>`), so `x instanceof java.util.List`
   compiles and narrows, while `new java.util.List()` is still an error.
 - `java.text.SimpleDateFormat` and `Normalizer`, `java.security.KeyStore`, and

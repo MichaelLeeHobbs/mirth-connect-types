@@ -34,21 +34,21 @@ declare namespace java {
 
       clear(): void;
 
-      contains(element: T): boolean;
+      contains(element: JKey<T>): boolean;
 
       get(index: int): T;
 
-      indexOf(element: T): int;
+      indexOf(element: JKey<T>): int;
 
       isEmpty(): boolean;
 
       iterator(): Iterator<T>;
 
-      lastIndexOf(element: T): int;
+      lastIndexOf(element: JKey<T>): int;
 
       remove(index: int): T;
 
-      remove(element: T): boolean;
+      remove(element: JKey<T>): boolean;
 
       set(index: int, element: T): T;
 
@@ -68,13 +68,13 @@ declare namespace java {
     interface Map<K, V> {
       clear(): void;
 
-      containsKey(key: K): boolean;
+      containsKey(key: JKey<K>): boolean;
 
-      containsValue(value: V): boolean;
+      containsValue(value: JKey<V>): boolean;
 
       entrySet(): Set<Map.Entry<K, V>>;
 
-      get(key: K): V | null;
+      get(key: JKey<K>): V | null;
 
       isEmpty(): boolean;
 
@@ -84,7 +84,7 @@ declare namespace java {
 
       putAll(map: Map<K, V> | Record<string, V>): void;
 
-      remove(key: K): V | null;
+      remove(key: JKey<K>): V | null;
 
       size(): int;
 
@@ -110,13 +110,13 @@ declare namespace java {
 
       clear(): void;
 
-      contains(element: T): boolean;
+      contains(element: JKey<T>): boolean;
 
       isEmpty(): boolean;
 
       iterator(): Iterator<T>;
 
-      remove(element: T): boolean;
+      remove(element: JKey<T>): boolean;
 
       size(): int;
 

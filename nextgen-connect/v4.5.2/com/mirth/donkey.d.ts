@@ -71,12 +71,66 @@ declare namespace com {
 
             /** Represents a connector message in the Donkey message model. */
             class ConnectorMessage extends java.lang.Object {
-              // Internal Donkey message model - typically accessed through ImmutableConnectorMessage
+              // Internal Donkey message model; scripts usually see ImmutableConnectorMessage.
+              // Getters only, from the 4.5.2 donkey jar. Donkey types not declared here are `any`.
+              getChannelId(): java.lang.String;
+              getChannelName(): java.lang.String;
+              getConnectorName(): java.lang.String;
+              getMessageId(): long;
+              getMetaDataId(): int;
+              getServerId(): java.lang.String;
+              getStatus(): any;
+              getReceivedDate(): java.util.Calendar;
+              getSendDate(): java.util.Calendar;
+              getResponseDate(): java.util.Calendar;
+              getSendAttempts(): int;
+              getErrorCode(): int;
+              getChainId(): int;
+              getOrderId(): int;
+              getDispatcherId(): long;
+              getQueueBucket(): java.lang.Integer;
+              isAttemptedFirst(): boolean;
+              getMetaDataMap(): java.util.Map<JString, any>;
+              getSourceMap(): java.util.Map<JString, any>;
+              getChannelMap(): java.util.Map<JString, any>;
+              getConnectorMap(): java.util.Map<JString, any>;
+              getResponseMap(): java.util.Map<JString, any>;
+              getRaw(): MessageContent;
+              getProcessedRaw(): MessageContent;
+              getTransformed(): MessageContent;
+              getEncoded(): MessageContent;
+              getSent(): MessageContent;
+              getResponse(): MessageContent;
+              getResponseTransformed(): MessageContent;
+              getProcessedResponse(): MessageContent;
+              /** @param contentType - A donkey `ContentType` value, e.g. `ContentType.RAW`. */
+              getMessageContent(contentType: JObject): MessageContent;
+              containsError(contentType: JObject): boolean;
+              getProcessingError(): java.lang.String;
+              getPostProcessorError(): java.lang.String;
+              getResponseError(): java.lang.String;
             }
 
             /** Represents a message in the Donkey message model. */
             class Message extends java.lang.Object {
-              // Internal Donkey message model - typically accessed through ImmutableMessage
+              // Internal Donkey message model; scripts usually see ImmutableMessage.
+              // Getters only, from the 4.5.2 donkey jar.
+              getMessageId(): java.lang.Long;
+              getChannelId(): java.lang.String;
+              getChannelName(): java.lang.String;
+              getServerId(): java.lang.String;
+              getReceivedDate(): java.util.Calendar;
+              isProcessed(): boolean;
+              getOriginalId(): java.lang.Long;
+              getImportId(): java.lang.Long;
+              getImportChannelId(): java.lang.String;
+              /**
+               * Connector messages by metadata id (0 is the source). A plain Java map: look up with
+               * `java.lang.Integer.valueOf(n)`, because a JS number key misses.
+               */
+              getConnectorMessages(): java.util.Map<java.lang.Integer, ConnectorMessage>;
+              getMergedConnectorMessage(): ConnectorMessage;
+              getAttachments(): java.util.List<com.mirth.connect.donkey.model.message.attachment.Attachment>;
             }
 
             /** Represents message content in the Donkey message model. */

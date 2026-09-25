@@ -290,6 +290,12 @@ declare var logger: {
  * @global
  */
 declare class XML {
+  /**
+   * E4X child access: `seg['OBX.1']['OBX.1.1']` reads or assigns a child element list. Any name
+   * is a valid child, so this is untyped (and a misspelled method name isn't an error).
+   */
+  [childName: string]: any;
+
   /** Whether `toXMLString()` indents output. Global E4X setting; default `true`. */
   static prettyPrinting: boolean;
   /** Spaces per indent level when pretty printing. Default `2`. */

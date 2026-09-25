@@ -141,6 +141,10 @@ plus part of ES2015, and TypeScript can't check the gaps, so they fail only in M
   every time. Assigning to a `const` is silently ignored too. Inside loop bodies use `let`,
   which is re-created each iteration.
 - **`for (let i …)` shares one `i`.** Closures created in the loop all see the final value.
+- **A JS number passed where Java expects `Object` becomes a `Double`.** So `map.get(1)` and
+  `list.contains(1)` silently miss `Integer` keys and elements. Use `java.lang.Integer.valueOf(1)`.
+  The types enforce this: a lookup on an `Integer`-keyed map rejects a JS number.
+  `message.getConnectorMessages().get(1)` is the exception, because Mirth converts the key there.
 - **Template literals don't interpolate.** `` `id ${n}` `` evaluates to the literal text
   `id ${n}`. Use string concatenation.
 - **Not supported:** spread (`f(...args)`), `class`, and default parameters (`function (a = 1)`).

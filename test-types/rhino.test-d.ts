@@ -96,6 +96,31 @@ if (maybeList instanceof java.util.List) {
 // @ts-expect-error a Java interface has no constructor
 new java.util.List();
 
+// E4X child access on any XML value, not just the untyped msg.
+const obx = createSegment('OBX', new XML('<HL7Message/>'), 1);
+obx['OBX.1']['OBX.1.1'] = '1';
+const obxId = String(obx['OBX.1']['OBX.1.1']);
+
+// Lookups: String keys take JS strings; Integer keys need an Integer, because Rhino passes a JS
+// number to Java's Object parameter as a Double and the lookup silently misses.
+const destinations = connectorMessage.getDestinationIdMap();
+const hasDest: boolean = destinations.containsKey('Dest A');
+const names = new java.util.ArrayList<java.lang.String>();
+const hasName: boolean = names.contains('Dest A');
+const byId = new java.util.HashMap<java.lang.Integer, string>();
+// @ts-expect-error a JS number never matches an Integer key
+byId.get(1);
+const found = byId.get(java.lang.Integer.valueOf(1));
+// ImmutableMessage's connector map is the exception: its get() converts a JS number.
+const firstDestination = message.getConnectorMessages().get(1);
+// @ts-expect-error containsKey on that map still needs an Integer
+message.getConnectorMessages().containsKey(1);
+
+// Donkey's internal message model.
+declare const rawMessage: com.mirth.connect.donkey.model.message.Message;
+const sourceConnector = rawMessage.getConnectorMessages().get(java.lang.Integer.valueOf(0));
+const metaData = sourceConnector?.getMetaDataMap().get('mrn');
+
 // Calendar arithmetic.
 const cal = java.util.Calendar.getInstance();
 cal.add(java.util.Calendar.SECOND, -5);
@@ -105,6 +130,12 @@ void entityUtils;
 void markup;
 void trace;
 void controllers;
+void obxId;
+void hasDest;
+void hasName;
+void found;
+void firstDestination;
+void metaData;
 void donkey;
 void xmlSerializer;
 void typedSerializer;

@@ -658,11 +658,13 @@ declare namespace com {
            * IDs (as Integer objects), and the values are the connector messages themselves.
            *
            * @returns A map of connector messages associated with this message.
+           * @example
+           * ```js
+           * // Metadata id 0 is the source connector; destinations start at 1.
+           * var firstDestination = message.getConnectorMessages().get(1);
+           * ```
            */
-          getConnectorMessages(): java.util.Map<
-            java.lang.Integer,
-            com.mirth.connect.userutil.ImmutableConnectorMessage
-          >;
+          getConnectorMessages(): com.mirth.connect.userutil.ImmutableMessage.ConnectorMessageMap;
 
           /**
            * Returns a "merged" connector message containing data from all connector messages combined.
