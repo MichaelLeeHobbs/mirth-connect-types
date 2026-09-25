@@ -6,6 +6,15 @@
 declare namespace com {
   namespace mirth {
     namespace connect {
+      // Mirth internals that scripts reach into (ControllerFactory, ObjectXMLSerializer,
+      // EventFilter, ...). They aren't the User API and change between versions, so their
+      // values are untyped rather than errors. The declared types under them still resolve.
+      const model: any;
+      namespace server {
+        const controllers: any;
+        const util: any;
+      }
+
       namespace model {
         namespace converters {
           /**

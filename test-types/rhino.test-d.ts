@@ -68,12 +68,35 @@ const certStream = new java.io.FileInputStream('/opt/certs/client.p12');
 keyStore.load(certStream, new java.lang.String('secret').toCharArray());
 certStream.close();
 
+// E4X settings and full markup.
+const savedSettings = XML.settings();
+XML.prettyPrinting = false;
+const markup: string = new XML('<a><b/></a>').toXMLString();
+XML.setSettings(savedSettings);
+
+// Retry back-off and the stack-trace-to-string idiom.
+java.lang.Thread.sleep(250);
+const sw = new java.io.StringWriter();
+new java.lang.Exception('boom').printStackTrace(new java.io.PrintWriter(sw));
+const trace = String(sw.toString());
+
+// Mirth internals are untyped instead of errors, bare or through Packages.
+const controllers = com.mirth.connect.server.controllers.ControllerFactory.getFactory();
+const xmlSerializer = Packages.com.mirth.connect.model.converters.ObjectXMLSerializer.getInstance();
+// ...while the declared types under those packages still resolve.
+declare const typedSerializer: com.mirth.connect.model.converters.IMessageSerializer;
+
 // Calendar arithmetic.
 const cal = java.util.Calendar.getInstance();
 cal.add(java.util.Calendar.SECOND, -5);
 
 void isList;
 void entityUtils;
+void markup;
+void trace;
+void controllers;
+void xmlSerializer;
+void typedSerializer;
 void hapi;
 void typedList;
 void utc;

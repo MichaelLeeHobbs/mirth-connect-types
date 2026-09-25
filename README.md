@@ -131,14 +131,21 @@ editor/checker aid, not a build step.
 
 ### Rhino language support
 
-Mirth 4.5.2 runs Rhino 1.7.13 with `rhino.languageversion = es6` (in `mirth.properties`). That's
-ES5 plus part of ES2015, and TypeScript can't check the syntax gaps, so they fail only in Mirth:
+Mirth 4.5.2 runs Rhino 1.7.13. What scripts can use depends on `rhino.languageversion` in
+`mirth.properties`: a fresh 4.5.2 install sets `es6`, but a server upgraded from an older Mirth
+may still be on `1.8` or lower. Check before relying on ES6 features. Under `es6` you get ES5
+plus part of ES2015, and TypeScript can't check the gaps, so they fail only in Mirth:
 
+- **`const` inside a loop keeps its first value.** Rhino scopes it to the function and ignores
+  later initializations, so `for (…) { const c = i * 10; out.push(c); }` pushes the same value
+  every time. Assigning to a `const` is silently ignored too. Inside loop bodies use `let`,
+  which is re-created each iteration.
+- **`for (let i …)` shares one `i`.** Closures created in the loop all see the final value.
 - **Template literals don't interpolate.** `` `id ${n}` `` evaluates to the literal text
   `id ${n}`. Use string concatenation.
 - **Not supported:** spread (`f(...args)`), `class`, and default parameters (`function (a = 1)`).
-- **Supported:** `let`/`const`, arrow functions, destructuring, `Map`/`Set`, and
-  `Array.prototype.includes`, `padStart`/`padEnd`, and `trimStart`.
+- **Supported:** `let`, arrow functions, destructuring, `for…of`, `Array.prototype.includes`,
+  `padStart`/`padEnd`, and `trimStart`. `Map` and `Set` exist only with `es6`.
 - **Missing built-ins:** `Object.values`/`entries`/`fromEntries`, `Array.prototype.flat`/`flatMap`,
   and `Promise`. The `lib` list above leaves out all of these except `Promise`, which comes with
   `ES2015`.
@@ -167,6 +174,9 @@ ES5 plus part of ES2015, and TypeScript can't check the syntax gaps, so they fai
   `if (typeof module !== 'undefined') module.exports = X` (the usual way to unit-test code
   templates with Jest) is a CommonJS module to TypeScript, so `X` is no longer global. Declare it
   in a `.d.ts`: `declare global { var X: typeof import('./path/to/X'); } export {};`
+- **`Value of type 'typeof X' is not callable`.** Rhino also constructs a Java object when a
+  class is called without `new` (`java.lang.String('x')`), but the types only model `new`. Add
+  `new`; it behaves the same.
 - **`Cannot find name 'console'`.** That's correct: Mirth's Rhino scope has no `console`. Use
   `logger`. Don't add the `dom` lib to silence it.
 

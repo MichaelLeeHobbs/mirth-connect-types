@@ -212,5 +212,26 @@ declare namespace java {
       /** Closes the stream, flushing it first. */
       close(): void;
     }
+
+    /** A character stream that collects its output in a string buffer. */
+    class StringWriter extends Writer {
+      constructor();
+      constructor(initialSize: int);
+
+      getBuffer(): java.lang.StringBuffer;
+      toString(): string;
+    }
+
+    /** Prints formatted text to a character or byte stream. */
+    class PrintWriter extends Writer {
+      constructor(out: Writer);
+      constructor(out: Writer, autoFlush: boolean);
+      constructor(out: OutputStream);
+      constructor(fileName: JString);
+
+      print(x: JObject): void;
+      println(): void;
+      println(x: JObject): void;
+    }
   }
 }

@@ -290,6 +290,23 @@ declare var logger: {
  * @global
  */
 declare class XML {
+  /** Whether `toXMLString()` indents output. Global E4X setting; default `true`. */
+  static prettyPrinting: boolean;
+  /** Spaces per indent level when pretty printing. Default `2`. */
+  static prettyIndent: number;
+  /** Whether parsing drops whitespace-only text nodes. Default `true`. */
+  static ignoreWhitespace: boolean;
+  /** Whether parsing drops comments. Default `true`. */
+  static ignoreComments: boolean;
+  /** Whether parsing drops processing instructions. Default `true`. */
+  static ignoreProcessingInstructions: boolean;
+  /** Returns the current E4X settings as an object. */
+  static settings(): object;
+  /** Applies E4X settings from `settings()`; with no argument, restores the defaults. */
+  static setSettings(settings?: object): void;
+  /** Returns the default E4X settings. */
+  static defaultSettings(): object;
+
   /** Parses `value` (an XML string, Java string, or another XML object) into an E4X XML object. */
   constructor(value?: JString | XML);
 
@@ -396,6 +413,9 @@ declare class XML {
   text(): string;
 
   /** For elements without element children, returns the values of the text node children. For elements with element children, returns same as toXMLString. For other kinds of objects, the value of the object. */
+  /** Returns the XML markup, including the element's own tags (unlike `toString()` for simple content). */
+  toXMLString(): string;
+
   toString(): string;
 
   /** Returns this XML object. */

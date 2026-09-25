@@ -41,12 +41,19 @@ All notable changes to `@ubercode/mirth-connect-types` are documented here. The 
 - Scope built-ins: `reader` (batch scripts) and both `getAttachment(...)` forms.
 - `java.time` (`Instant`, `LocalDate`, `LocalDateTime`, `ZonedDateTime`, `ZoneId`, `ZoneOffset`,
   `zone.ZoneRules`, `format.DateTimeFormatter`, `format.TextStyle`).
+- `XML#toXMLString()` and the E4X settings (`XML.prettyPrinting`, `prettyIndent`,
+  `ignoreWhitespace`, `ignoreComments`, `ignoreProcessingInstructions`, `settings()`,
+  `setSettings()`, `defaultSettings()`).
+- `java.lang.Thread`, `java.io.StringWriter`/`PrintWriter`, and `Throwable#printStackTrace(PrintWriter)`.
+- Mirth internals (`com.mirth.connect.model`, `server.controllers`, `server.util`) are `any`
+  instead of errors.
 - `java.text.SimpleDateFormat` and `Normalizer`, `java.security.KeyStore`, and
   `java.io.FileInputStream`/`FileOutputStream`.
 - `java.util.ArrayList`, `HashMap`, `Base64`, `Arrays`, `UUID`, and `Calendar#add`;
   `java.lang.System`, `java.lang.reflect.Array`, `java.lang.Runnable`, the boxed types' `TYPE`
   constants, and `java.io.BufferedReader`.
-- README: Rhino language support (template literals don't interpolate; no spread, `class`, or
+- README: Rhino language support (`const` in a loop keeps its first value; template literals don't
+  interpolate; no spread, `class`, or
   default parameters) with a matching `lib` list, and a troubleshooting entry for code templates
   that end in `module.exports`.
 - `new XML(value)` constructor.

@@ -147,6 +147,8 @@ declare namespace java {
       getStackTrace(): java.lang.Object[];
       /** Prints this throwable and its backtrace to the standard error stream. */
       printStackTrace(): void;
+      /** Writes the stack trace to `s`, e.g. a `PrintWriter` over a `StringWriter`. */
+      printStackTrace(s: java.io.PrintWriter): void;
     }
 
     class Exception extends java.lang.Throwable implements java.io.Serializable {
@@ -721,6 +723,19 @@ declare namespace java {
 
       /** Returns the system class loader for delegation. */
       static getSystemClassLoader(): ClassLoader;
+    }
+
+    /** A thread of execution. Scripts mostly use `Thread.sleep` for retry back-off. */
+    class Thread extends java.lang.Object implements Runnable {
+      /** Pauses the current thread for `millis` milliseconds. */
+      static sleep(millis: long): void;
+      static currentThread(): Thread;
+
+      run(): void;
+      getName(): java.lang.String;
+      getId(): long;
+      interrupt(): void;
+      isInterrupted(): boolean;
     }
 
     /** Access to system properties, environment variables, time, and array copying. */
